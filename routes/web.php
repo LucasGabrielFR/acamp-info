@@ -8,3 +8,4 @@ Route::get('/', function () {
 });
 
 Route::get('admin/people', [PersonController::class, 'index']);
+Route::get('admin/person/create', [PersonController::class, 'create'])->name('person.create');

@@ -21,4 +21,9 @@ class PersonController extends Controller
             'people' => $people
         ]);
     }
+
+    public function create()
+    {
+        return view('admin.pages.people.create');
+    }
 }

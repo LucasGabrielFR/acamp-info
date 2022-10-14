@@ -4,6 +4,7 @@
 
 @section('content_header')
     <h1>Cadastro de Pessoas</h1>
+    <a href="{{ route('person.create')}}" class="btn btn-success">Novo Cadastro</a>
 @stop
 
 @section('content')
