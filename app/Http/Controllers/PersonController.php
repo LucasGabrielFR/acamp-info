@@ -40,7 +40,7 @@ class PersonController extends Controller
             return redirect()->back();
 
         return view('admin.pages.people.view', [
-            'person' => $person
+            'person' => $person,
         ]);
     }
 }
