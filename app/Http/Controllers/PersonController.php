@@ -26,4 +26,21 @@ class PersonController extends Controller
     {
         return view('admin.pages.people.create');
     }
+
+    public function store(Request $request)
+    {
+        $this->repository->storePerson($request);
+        return redirect()->route('people.index');
+    }
+
+    public function view($id)
+    {
+        $person = $this->repository->getPerson($id);
+        if(!$person)
+            return redirect()->back();
+
+        return view('admin.pages.people.view', [
+            'person' => $person
+        ]);
+    }
 }

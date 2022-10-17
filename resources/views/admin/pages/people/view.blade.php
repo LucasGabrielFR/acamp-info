@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Cadastrar Nova Pessoa')
+@section('title', 'Informações')
 
 @section('content_header')
-    <h1>Cadastro de Pessoa</h1>
+    <h1>Informações da Pessoa</h1>
 @stop
 
 @section('content')
@@ -304,16 +304,4 @@
             </form>
         </div>
     </div>
-    <script>
-        function formatar(mascara, documento) {
-            var i = documento.value.length;
-            var saida = mascara.substring(0, 1);
-            var texto = mascara.substring(i);
-
-            if (texto.substring(0, 1) != saida) {
-                documento.value += texto.substring(0, 1);
-            }
-
-        }
-    </script>
 @stop
