@@ -43,4 +43,15 @@ class PersonController extends Controller
             'person' => $person,
         ]);
     }
+
+    public function delete($id)
+    {
+        $person = $this->repository->getPerson($id);
+        if(!$person)
+            return redirect()->back();
+
+        $this->repository->deletePerson($person);
+
+        return redirect()->route('people.index');
+    }
 }

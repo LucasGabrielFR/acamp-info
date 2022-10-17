@@ -31,4 +31,9 @@ class PersonRepository
         return $person;
     }
 
+    public function deletePerson($person)
+    {
+        $person->delete();
+    }
+
 }

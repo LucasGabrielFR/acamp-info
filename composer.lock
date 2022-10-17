@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0729653fab9144e3443a0b6a7805c302",
+    "content-hash": "fbe1a7d99d38ac5dd6df5f4547abae74",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -235,6 +235,50 @@
                 "source": "https://github.com/dflydev/dflydev-dot-access-data/tree/v3.0.1"
             },
             "time": "2021-08-13T13:06:58+00:00"
+        },
+        {
+            "name": "dgvai/laravel-adminlte-components",
+            "version": "2.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dgvai/laravel-adminlte-components.git",
+                "reference": "d0c91d51251f25278fba95dde378bc4fa82e33e2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dgvai/laravel-adminlte-components/zipball/d0c91d51251f25278fba95dde378bc4fa82e33e2",
+                "reference": "d0c91d51251f25278fba95dde378bc4fa82e33e2",
+                "shasum": ""
+            },
+            "type": "laravel-package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "DGvai\\BladeAdminLTE\\BladeAdminLTEServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DGvai\\BladeAdminLTE\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jalal Uddin",
+                    "email": "dgvai@users.noreply.github.com"
+                }
+            ],
+            "description": "Laravel Blade Components For AdminLTE Bootstrap Admin Template",
+            "support": {
+                "issues": "https://github.com/dgvai/laravel-adminlte-components/issues",
+                "source": "https://github.com/dgvai/laravel-adminlte-components/tree/2.1.2"
+            },
+            "time": "2020-07-25T05:58:44+00:00"
         },
         {
             "name": "doctrine/inflector",

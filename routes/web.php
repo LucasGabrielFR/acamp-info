@@ -10,4 +10,5 @@ Route::get('/', function () {
 Route::get('admin/people', [PersonController::class, 'index'])->name('people.index');
 Route::get('admin/person/create', [PersonController::class, 'create'])->name('person.create');
 Route::post('admin/person/create',[PersonController::class, 'store'])->name('person.store');
-Route::get('admin/person/view/{id}',[PersonController::class, 'view'])->name('person.view');
+Route::get('admin/person/{id}',[PersonController::class, 'view'])->name('person.view');
+Route::delete('admin/person/{id}',[PersonController::class, 'delete'])->name('person.delete');

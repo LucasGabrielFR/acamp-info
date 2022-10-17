@@ -38,7 +38,7 @@
                             <td>
                                 <a class="btn btn-dark" href="{{ route('person.view', $person->id) }}">Detalhes</a>
                                 <a class="btn btn-warning">Editar</a>
-                                <a class="btn btn-danger">Excluir</a>
+                                <x-modal url="{{ route('person.delete', $person->id) }}" id="{{$person->id}}"  name="{{$person->name}}"/>
                             </td>
                         </tr>
                     @endforeach
