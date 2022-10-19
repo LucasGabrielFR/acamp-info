@@ -292,8 +292,9 @@ return [
     'menu' => [
         // // Navbar items:
         [
-            'text'         => 'Pessoas',
-            'url'         => 'admin/people',
+            'text' => 'Pessoas',
+            'url'  => 'admin/people',
+            'icon' => 'fas fa-list-alt'
         ],
         // [
         //     'type'         => 'fullscreen-widget',
@@ -420,7 +421,7 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

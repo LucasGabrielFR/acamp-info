@@ -12,3 +12,5 @@ Route::get('admin/person/create', [PersonController::class, 'create'])->name('pe
 Route::post('admin/person/create',[PersonController::class, 'store'])->name('person.store');
 Route::get('admin/person/{id}',[PersonController::class, 'view'])->name('person.view');
 Route::delete('admin/person/{id}',[PersonController::class, 'delete'])->name('person.delete');
+Route::get('admin/person/edit/{id}',[PersonController::class, 'edit'])->name('person.edit');
+Route::put('admin/person/edit/{id}',[PersonController::class, 'update'])->name('person.update');

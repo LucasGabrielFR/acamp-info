@@ -54,4 +54,26 @@ class PersonController extends Controller
 
         return redirect()->route('people.index');
     }
+
+    public function edit($id)
+    {
+        $person = $this->repository->getPerson($id);
+        if(!$person)
+            return redirect()->back();
+
+        return view('admin.pages.people.edit', [
+            'person' => $person,
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $person = $this->repository->getPerson($id);
+        if(!$person)
+            return redirect()->back();
+
+        $this->repository->updatePerson($person, $request->all());
+
+        return redirect()->route('people.index');
+    }
 }

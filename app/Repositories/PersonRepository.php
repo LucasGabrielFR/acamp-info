@@ -36,4 +36,9 @@ class PersonRepository
         $person->delete();
     }
 
+    public function updatePerson($person, $data)
+    {
+        $person->update($data);
+    }
+
 }

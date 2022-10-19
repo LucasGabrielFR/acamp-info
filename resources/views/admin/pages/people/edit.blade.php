@@ -1,16 +1,17 @@
 @extends('adminlte::page')
 
-@section('title', 'Cadastrar Nova Pessoa')
+@section('title', 'Edição de cadastro')
 
 @section('content_header')
-    <h1>Cadastro de Pessoa</h1>
+    <h1>Edição de cadastro</h1>
 @stop
 
 @section('content')
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('person.store') }}" class="form" method="POST">
+            <form action="{{ route('person.update', $person->id) }}" class="form" method="POST">
                 @csrf
+                @method('PUT')
                 @include('admin.pages.people._partials.form');
             </form>
         </div>
