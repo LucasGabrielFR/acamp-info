@@ -1,18 +1,18 @@
 @extends('adminlte::page')
 
-@section('title', 'Edição de cadastro')
+@section('title', 'Editar Modalidade')
 
 @section('content_header')
-    <h1>Edição de cadastro</h1>
+    <h1>Editar Modalidade</h1>
 @stop
 
 @section('content')
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('person.update', $person->id) }}" class="form" method="POST">
+            <form action="{{ route('acamp-type.update', $type->id) }}" class="form" method="POST">
                 @csrf
                 @method('PUT')
-                @include('admin.pages.people._partials.form')
+                @include('admin.pages.camp.types._partials.form')
             </form>
         </div>
     </div>

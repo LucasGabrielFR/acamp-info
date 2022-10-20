@@ -296,6 +296,17 @@ return [
             'url'  => 'admin/people',
             'icon' => 'fas fa-list-alt'
         ],
+        [
+            'text' => 'Acampamentos',
+            'icon' => 'fas fa-campground',
+            'submenu' => [
+                [
+                    'text' => 'Tipos de acampamento',
+                    'url'  => 'admin/camp/types',
+                    'icon' => 'fas fa-signs-post'
+                ]
+            ]
+        ],
         // [
         //     'type'         => 'fullscreen-widget',
         //     'topnav_right' => true,
