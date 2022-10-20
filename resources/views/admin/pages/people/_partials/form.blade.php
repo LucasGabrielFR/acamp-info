@@ -82,14 +82,14 @@
                 <div class="form-group">
                     <label>Nome*</label>
                     <input type="text" name="name" class="form-control" placeholder="Nome"
-                        value="{{ $person->name ?? '' }}">
+                        value="{{ $person->name ?? '' }}" required>
                 </div>
             </div>
             <div class="col-4">
                 <div class="form-group">
                     <label>Data de nascimento*</label>
                     <input type="date" name="date_birthday" class="form-control"
-                        value="{{ $person->date_birthday ?? '' }}">
+                        value="{{ $person->date_birthday ?? '' }}" required>
                 </div>
             </div>
         </div>
@@ -109,7 +109,7 @@
                         <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
                         <input id="contact" name="contact" class="form-control" placeholder="XX XXXXX-XXXX"
                             type="text" maxlength="13" pattern="\[0-9]{2}\ [0-9]{4,6}-[0-9]{3,4}$"
-                            OnKeyPress="formatar('## #####-####', this)" value="{{ $person->contact ?? '' }}">
+                            OnKeyPress="formatar('## #####-####', this)" value="{{ $person->contact ?? '' }}" required>
                     </div>
 
                 </div>
@@ -303,6 +303,66 @@
             const selected = document.querySelector('#state');
             const value = "@php echo $person->state @endphp";
             selected.value = value;
+
+            const is_baptized = @php echo $person->is_baptized @endphp;
+            if(is_baptized == 1){
+                const is_baptized_yes = document.querySelector('#is_baptized_yes');
+                is_baptized_yes.checked = true;
+            }else{
+                const is_baptized_no = document.querySelector('#is_baptized_no');
+                is_baptized_no.checked = true;
+            }
+
+            const is_confirmed = @php echo $person->is_confirmed @endphp;
+            if(is_confirmed == 1){
+                const is_confirmed_yes = document.querySelector('#is_confirmed_yes');
+                is_confirmed_yes.checked = true;
+            }else{
+                const is_confirmed_no = document.querySelector('#is_confirmed_no');
+                is_confirmed_no.checked = true;
+            }
+
+            const is_eucharist = @php echo $person->is_eucharist @endphp;
+            if(is_eucharist == 1){
+                const is_eucharist_yes = document.querySelector('#is_eucharist_yes');
+                is_eucharist_yes.checked = true;
+            }else{
+                const is_eucharist_no = document.querySelector('#is_eucharist_no');
+                is_eucharist_no.checked = true;
+            }
+
+            const is_pastoral = @php echo $person->is_pastoral @endphp;
+            if(is_pastoral == 1){
+                const is_pastoral_yes = document.querySelector('#is_pastoral_yes');
+                const pastoral = document.querySelector('#pastoral');
+                is_pastoral_yes.checked = true;
+                pastoral.disabled = false;
+            }else{
+                const is_pastoral_no = document.querySelector('#is_pastoral_no');
+                is_pastoral_no.checked = true;
+            }
+
+            const is_married = @php echo $person->is_married @endphp;
+            if(is_married == 1){
+                const is_married_yes = document.querySelector('#is_married_yes');
+                is_married_yes.checked = true;
+
+                const is_spouse_camper = @php echo $person->is_spouse_camper @endphp;
+                const is_spouse_camper_yes = document.querySelector('#is_spouse_camper_yes');
+                const is_spouse_camper_no = document.querySelector('#is_spouse_camper_no');
+                is_spouse_camper_yes.disabled = false;
+                is_spouse_camper_no.disabled = false;
+
+                if(is_spouse_camper == 1){
+                    is_spouse_camper_yes.checked = true;
+                }else{
+                    is_spouse_camper_no.checked = true;
+                }
+
+            }else{
+                const is_married_no = document.querySelector('#is_married_no');
+                is_married_no.checked = true;
+            }
         }
     @php } @endphp
 
