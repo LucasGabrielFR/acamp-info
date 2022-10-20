@@ -19,7 +19,8 @@
             <div class="form-group">
                 <label>Batizado?</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="is_baptized" id="is_baptized_yes" value="1">
+                    <input class="form-check-input" type="radio" name="is_baptized" id="is_baptized_yes"
+                        value="1">
                     <label class="form-check-label" for="is_baptized_yes">
                         Sim
                     </label>
@@ -37,14 +38,15 @@
             <div class="form-group">
                 <label>Crismado?</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="is_confirmed" id="is_confirmed_yes" value="1">
+                    <input class="form-check-input" type="radio" name="is_confirmed" id="is_confirmed_yes"
+                        value="1">
                     <label class="form-check-label" for="is_confirmed_yes">
                         Sim
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="is_confirmed" id="is_confirmed_no" value="0"
-                        checked>
+                    <input class="form-check-input" type="radio" name="is_confirmed" id="is_confirmed_no"
+                        value="0" checked>
                     <label class="form-check-label" for="is_confirmed_no">
                         Não
                     </label>
@@ -55,14 +57,15 @@
             <div class="form-group">
                 <label>Fez primeira Eucaristia?</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="is_eucharist" id="is_eucharist_yes" value="1">
+                    <input class="form-check-input" type="radio" name="is_eucharist" id="is_eucharist_yes"
+                        value="1">
                     <label class="form-check-label" for="is_eucharist_yes">
                         Sim
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="is_eucharist" id="is_eucharist_no" value="0"
-                        checked>
+                    <input class="form-check-input" type="radio" name="is_eucharist" id="is_eucharist_no"
+                        value="0" checked>
                     <label class="form-check-label" for="is_eucharist_no">
                         Não
                     </label>
@@ -156,7 +159,7 @@
                     <label>Estado</label>
 
                     <select class="custom-select" id="state" name="state">
-                        <option selected value="">Selecione</option>
+                        <option>Selecione</option>
                         <option value="AC">Acre</option>
                         <option value="AL">Alagoas</option>
                         <option value="AP">Amapá</option>
@@ -211,15 +214,15 @@
                 <div class="form-group">
                     <label>Participa de alguma pastoral?</label>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" id="is_pastoral_yes" name="is_pastoral" id="is_pastoral"
-                            value="1" onchange="handleChange(this)">
+                        <input class="form-check-input" type="radio" id="is_pastoral_yes" name="is_pastoral"
+                            id="is_pastoral" value="1" onchange="handleChange(this)">
                         <label class="form-check-label" for="is_pastoral_yes">
                             Sim
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" id="is_pastoral_no" name="is_pastoral" id="is_pastoral"
-                            value="0" onchange="handleChange(this)" checked>
+                        <input class="form-check-input" type="radio" id="is_pastoral_no" name="is_pastoral"
+                            id="is_pastoral" value="0" onchange="handleChange(this)" checked>
                         <label class="form-check-label" for="is_pastoral_no">
                             Não
                         </label>
@@ -229,8 +232,8 @@
             <div class="col-6">
                 <div class="form-group">
                     <label>Pastoral</label>
-                    <input type="text" name="pastoral" id="pastoral" class="form-control" placeholder="Pastoral"
-                        value="{{ $person->pastoral ?? '' }}" disabled>
+                    <input type="text" name="pastoral" id="pastoral" class="form-control"
+                        placeholder="Pastoral" value="{{ $person->pastoral ?? '' }}" disabled>
                 </div>
             </div>
         </div>
@@ -239,15 +242,15 @@
                 <div class="form-group">
                     <label>É casado(a)?</label>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="is_married" id="is_married_yes" onchange="handleChange(this)"
-                            value="1">
+                        <input class="form-check-input" type="radio" name="is_married" id="is_married_yes"
+                            onchange="handleChange(this)" value="1">
                         <label class="form-check-label" for="is_married_yes">
                             Sim
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="is_married" id="is_married_no" onchange="handleChange(this)"
-                            value="0" checked>
+                        <input class="form-check-input" type="radio" name="is_married" id="is_married_no"
+                            onchange="handleChange(this)" value="0" checked>
                         <label class="form-check-label" for="is_married_no">
                             Não
                         </label>
@@ -258,15 +261,15 @@
                 <div class="form-group">
                     <label>Cônjuge é campista?</label>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="is_spouse_camper" id="is_spouse_camper_yes"
-                            value="1" disabled>
+                        <input class="form-check-input" type="radio" name="is_spouse_camper"
+                            id="is_spouse_camper_yes" value="1" disabled>
                         <label class="form-check-label" for="is_spouse_camper_yes">
                             Sim
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="is_spouse_camper" id="is_spouse_camper_no"
-                            value="0" disabled>
+                        <input class="form-check-input" type="radio" name="is_spouse_camper"
+                            id="is_spouse_camper_no" value="0" disabled>
                         <label class="form-check-label" for="is_spouse_camper_no">
                             Não
                         </label>
@@ -276,8 +279,8 @@
             <div class="col-6">
                 <div class="form-group">
                     <label>Nome do Cônjuge</label>
-                    <input type="text" name="spouse_name" id="spouse_name" class="form-control" placeholder="Nome do cônjuge"
-                        value="{{ $person->spouse_name ?? '' }}" disabled>
+                    <input type="text" name="spouse_name" id="spouse_name" class="form-control"
+                        placeholder="Nome do cônjuge" value="{{ $person->spouse_name ?? '' }}" disabled>
                 </div>
             </div>
         </div>
@@ -294,6 +297,15 @@
     </div>
 </div>
 <script>
+    @php
+    if(isset($person)){ @endphp
+        window.onload = function exampleFunction() {
+            const selected = document.querySelector('#state');
+            const value = "@php echo $person->state @endphp";
+            selected.value = value;
+        }
+    @php } @endphp
+
     function formatar(mascara, documento) {
         var i = documento.value.length;
         var saida = mascara.substring(0, 1);
@@ -306,25 +318,27 @@
     }
 
     function handleChange(src) {
-        if(src.name == 'is_pastoral'){
+        if (src.name == 'is_pastoral') {
             var pastoral = document.querySelector("#pastoral");
-            if(src.value == 0){
+            if (src.value == 0) {
                 pastoral.disabled = true;
                 pastoral.value = '';
-            }else{
+            } else {
                 pastoral.disabled = false;
             }
         }
-        if(src.name == 'is_married'){
+        if (src.name == 'is_married') {
             var spouse_name = document.querySelector("#spouse_name");
             var is_spouse_camper_yes = document.querySelector("#is_spouse_camper_yes");
             var is_spouse_camper_no = document.querySelector("#is_spouse_camper_no");
-            if(src.value == 0){
+            if (src.value == 0) {
                 spouse_name.disabled = true;
                 spouse_name.value = '';
                 is_spouse_camper_yes.disabled = true;
                 is_spouse_camper_no.disabled = true;
-            }else{
+                is_spouse_camper_yes.checked = false;
+                is_spouse_camper_no.checked = false;
+            } else {
                 spouse_name.disabled = false;
                 is_spouse_camper_yes.disabled = false;
                 is_spouse_camper_no.disabled = false;
