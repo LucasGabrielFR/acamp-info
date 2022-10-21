@@ -303,7 +303,16 @@ return [
                 [
                     'text' => 'Tipos de acampamento',
                     'url'  => 'admin/camp/types',
-                    'icon' => 'fas fa-signs-post'
+                ]
+            ]
+        ],
+        [
+            'text' => 'Organização',
+            'icon' => 'fas fa-church',
+            'submenu' => [
+                [
+                    'text' => 'Foranias',
+                    'url'  => 'admin/forays',
                 ]
             ]
         ],

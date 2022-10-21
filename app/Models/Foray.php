@@ -6,7 +6,7 @@ use App\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AcampType extends Model
+class Foray extends Model
 {
     use HasFactory, UuidTrait;
 
@@ -16,7 +16,8 @@ class AcampType extends Model
 
     protected $fillable = [
         'name',
-        'min_age',
-        'max_age',
+        'city',
+        'state',
+        'diocese',
     ];
 }

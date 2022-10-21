@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AcampTypeController;
+use App\Http\Controllers\ForayController;
 use App\Http\Controllers\PersonController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +22,12 @@ Route::get('admin/camp/types/view/{id}', [AcampTypeController::class, 'view'])->
 Route::get('admin/camp/types/edit/{id}', [AcampTypeController::class, 'edit'])->name('acamp-type.edit');
 Route::put('admin/camp/types/edit/{id}',[AcampTypeController::class, 'update'])->name('acamp-type.update');
 Route::delete('admin/camp/types/{id}', [AcampTypeController::class, 'delete'])->name('acamp-type.delete');
+
+//Forays Routes
+Route::get('admin/forays', [ForayController::class, 'index'])->name('forays.index');
+Route::get('admin/forays/create', [ForayController::class, 'create'])->name('foray.create');
+Route::post('admin/forays/create', [ForayController::class, 'store'])->name('foray.store');
+Route::get('admin/forays/view/{id}', [ForayController::class, 'view'])->name('foray.view');
+Route::get('admin/forays/edit/{id}', [ForayController::class, 'edit'])->name('foray.edit');
+Route::put('admin/forays/edit/{id}', [ForayController::class, 'update'])->name('foray.update');
+Route::delete('admin/forays/{id}', [ForayController::class, 'delete'])->name('foray.delete');
