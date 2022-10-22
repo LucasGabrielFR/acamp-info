@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AcampTypeController;
+use App\Http\Controllers\CampController;
 use App\Http\Controllers\ForayController;
 use App\Http\Controllers\PersonController;
 use Illuminate\Support\Facades\Route;
@@ -13,6 +14,15 @@ Route::get('admin/person/{id}',[PersonController::class, 'view'])->name('person.
 Route::delete('admin/person/{id}',[PersonController::class, 'delete'])->name('person.delete');
 Route::get('admin/person/edit/{id}',[PersonController::class, 'edit'])->name('person.edit');
 Route::put('admin/person/edit/{id}',[PersonController::class, 'update'])->name('person.update');
+
+//Camp Routes
+Route::get('admin/camp', [CampController::class, 'index'])->name('camp.index');
+Route::get('admin/camp/create', [CampController::class, 'create'])->name('camp.create');
+Route::post('admin/camp/create', [CampController::class, 'store'])->name('camp.store');
+Route::get('admin/camp/view/{id}', [CampController::class, 'view'])->name('camp.view');
+Route::get('admin/camp/edit/{id}', [CampController::class, 'edit'])->name('camp.edit');
+Route::put('admin/camp/edit/{id}',[CampController::class, 'update'])->name('camp.update');
+Route::delete('admin/camp/{id}', [CampController::class, 'delete'])->name('camp.delete');
 
 //AcampType Routes
 Route::get('admin/camp/types', [AcampTypeController::class, 'index'])->name('acamp-type.index');

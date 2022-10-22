@@ -301,6 +301,10 @@ return [
             'icon' => 'fas fa-campground',
             'submenu' => [
                 [
+                    'text' => 'Acampamentos',
+                    'url'  => 'admin/camp',
+                ],
+                [
                     'text' => 'Tipos de acampamento',
                     'url'  => 'admin/camp/types',
                 ]

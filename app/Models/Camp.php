@@ -6,7 +6,7 @@ use App\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AcampType extends Model
+class Camp extends Model
 {
     use HasFactory, UuidTrait;
 
@@ -16,12 +16,13 @@ class AcampType extends Model
 
     protected $fillable = [
         'name',
-        'min_age',
-        'max_age',
+        'informations',
+        'date_start',
+        'date_end',
     ];
 
-    public function camp()
+    public function type()
     {
-        return $this->hasOne(Camp::class);
+        return $this->belongsTo(AcampType::class);
     }
 }
