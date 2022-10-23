@@ -24,56 +24,66 @@ class CampController extends Controller
 
     public function create()
     {
-        return view('admin.pages.camp.types.create');
+        $types = $this->repository->getAllTypes();
+
+        return view(
+            'admin.pages.camp.create',
+            [
+                "types" => $types,
+            ]
+        );
     }
 
-    // public function store(Request $request)
-    // {
-    //     $this->repository->storeCamp($request);
-    //     return redirect()->route('acamp-type.index');
-    // }
+    public function store(Request $request)
+    {
+        $this->repository->storeCamp($request);
+        return redirect()->route('camp.index');
+    }
 
-    // public function view($id)
-    // {
-    //     $type = $this->repository->getCamp($id);
-    //     if(!$type)
-    //         return redirect()->back();
+    public function view($id)
+    {
+        $camp = $this->repository->getCamp($id);
+        if(!$camp)
+            return redirect()->back();
 
-    //     return view('admin.pages.camp.types.view', [
-    //         'type' => $type,
-    //     ]);
-    // }
+        return view('admin.pages.camp.view', [
+            'camp' => $camp,
+        ]);
+    }
 
-    // public function edit($id)
-    // {
-    //     $type = $this->repository->getCamp($id);
-    //     if(!$type)
-    //         return redirect()->back();
+    public function edit($id)
+    {
+        $camp = $this->repository->getCamp($id);
+        $types = $this->repository->getAllTypes();
 
-    //     return view('admin.pages.camp.types.edit', [
-    //         'type' => $type,
-    //     ]);
-    // }
+        if(!$camp)
+            return redirect()->back();
 
-    // public function update(Request $request, $id)
-    // {
-    //     $type = $this->repository->getCamp($id);
-    //     if(!$type)
-    //         return redirect()->back();
+        return view('admin.pages.camp.edit', [
+            'camp' => $camp,
+            'types' => $types
+        ]);
+    }
 
-    //     $this->repository->updateCamp($type, $request->all());
+    public function update(Request $request, $id)
+    {
+        $camp = $this->repository->getCamp($id);
+        if(!$camp)
+            return redirect()->back();
 
-    //     return redirect()->route('acamp-type.index');
-    // }
+        $this->repository->updateCamp($camp, $request->all());
 
-    // public function delete($id)
-    // {
-    //     $type = $this->repository->getCamp($id);
-    //     if(!$type)
-    //         return redirect()->back();
+        return redirect()->route('camp.index');
+    }
 
-    //     $this->repository->deleteCamp($type);
+    public function delete($id)
+    {
+        $type = $this->repository->getCamp($id);
+        if(!$type)
+            return redirect()->back();
 
-    //     return redirect()->route('acamp-type.index');
-    // }
+        $this->repository->deleteCamp($type);
+
+        return redirect()->route('camp .index');
+    }
 }

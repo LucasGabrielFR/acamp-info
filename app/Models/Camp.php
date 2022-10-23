@@ -19,6 +19,7 @@ class Camp extends Model
         'informations',
         'date_start',
         'date_end',
+        'type_id',
     ];
 
     public function type()

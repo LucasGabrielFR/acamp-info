@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->integer('min_age');
-            $table->integer('max_age')->nullable(false);
+            $table->integer('max_age')->nullable(true);
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\AcampType;
 use App\Models\Camp;
 use Illuminate\Http\Request;
 
@@ -39,6 +40,11 @@ class CampRepository
     public function deleteCamp($camp)
     {
         $camp->delete();
+    }
+
+    public function getAllTypes()
+    {
+        return AcampType::all();
     }
 
 }
