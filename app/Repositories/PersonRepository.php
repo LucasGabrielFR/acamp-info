@@ -16,7 +16,7 @@ class PersonRepository
 
     public function getAllPeople()
     {
-        return $this->entity->orderBy('name')->paginate();
+        return $this->entity->orderBy('name')->get();
     }
 
     public function storePerson(Request $request)
@@ -39,6 +39,19 @@ class PersonRepository
     public function updatePerson($person, $data)
     {
         $person->update($data);
+    }
+
+    public function getPersonCamps($id)
+    {
+        return $this->entity->select(
+            't.name as type_name',
+            'c.name as camp_name'
+        )
+        ->join('campers as ca', 'ca.person_id', '=', 'people.id')
+        ->join('camps as c', 'c.id', '=', 'ca.camp_id')
+        ->join('acamp_types as t', 't.id', '=', 'c.type_id')
+        ->where('people.id', $id)
+        ->get();
     }
 
 }

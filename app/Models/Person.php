@@ -39,4 +39,14 @@ class Person extends Model
         'is_spouse_camper',
         'image',
     ];
+
+    public function camper()
+    {
+        return $this->hasMany(Camper::class);
+    }
+
+    public function servant()
+    {
+        return $this->hasMany(Servant::class);
+    }
 }

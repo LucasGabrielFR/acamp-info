@@ -23,6 +23,10 @@ Route::get('admin/camp/view/{id}', [CampController::class, 'view'])->name('camp.
 Route::get('admin/camp/edit/{id}', [CampController::class, 'edit'])->name('camp.edit');
 Route::put('admin/camp/edit/{id}',[CampController::class, 'update'])->name('camp.update');
 Route::delete('admin/camp/{id}', [CampController::class, 'delete'])->name('camp.delete');
+Route::delete('admin/camper/{id}', [CampController::class, 'deleteCamper'])->name('camp.delete-camper');
+Route::get('admin/camp/{id}/noCampers', [CampController::class, 'noCampers'])->name('camp.no-campers');
+Route::post('admin/camp/{id}/noCampers', [CampController::class, 'noCampersSearch'])->name('camp.no-campers-search');
+Route::post('admin/camp/{id}/addCampers', [CampController::class, 'addCampers'])->name('camp.add-campers');
 
 //AcampType Routes
 Route::get('admin/camp/types', [AcampTypeController::class, 'index'])->name('acamp-type.index');

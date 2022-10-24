@@ -43,11 +43,13 @@ class CampController extends Controller
     public function view($id)
     {
         $camp = $this->repository->getCamp($id);
+        $campers = $this->repository->getCampers($id);
         if(!$camp)
             return redirect()->back();
 
         return view('admin.pages.camp.view', [
             'camp' => $camp,
+            'campers' => $campers
         ]);
     }
 
@@ -84,6 +86,33 @@ class CampController extends Controller
 
         $this->repository->deleteCamp($type);
 
-        return redirect()->route('camp .index');
+        return redirect()->route('camp.index');
+    }
+
+    public function noCampers($id)
+    {
+        $noCampers = $this->repository->getNoCampers($id);
+
+        return response()->json($noCampers);
+    }
+
+    public function noCampersSearch(Request $request, $id)
+    {
+        $noCampers = $this->repository->getNoCampersSearch($request,$id);
+
+        return response()->json($noCampers);
+    }
+
+    public function addCampers(Request $request, $id)
+    {
+        $this->repository->addCampers($request, $id);
+    }
+
+    public function deleteCamper($id)
+    {
+        $camper = $this->repository->getCamper($id);
+
+        $this->repository->deleteCamper($camper);
+        return redirect()->back();
     }
 }
