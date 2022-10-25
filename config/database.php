@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Str;
 
-$DATABASE_URL=parse_url('mysql://bf78dcb8171c86:87b570e8@us-cdbr-east-06.cleardb.net/');
+$DATABASE_URL=parse_url('CLEARDB_DATABASE_URL');
 
 return [
 
