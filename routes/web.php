@@ -26,6 +26,7 @@ Route::delete('admin/camp/{id}', [CampController::class, 'delete'])->name('camp.
 Route::delete('admin/camper/{id}', [CampController::class, 'deleteCamper'])->name('camp.delete-camper');
 Route::post('admin/camper/group', [CampController::class, 'changeGroup'])->name('camper.change-group');
 Route::get('admin/camp/{id}/noCampers', [CampController::class, 'noCampers'])->name('camp.no-campers');
+Route::get('admin/camp/{id}/noServants', [CampController::class, 'noServants'])->name('camp.no-servants');
 Route::post('admin/camp/{id}/noCampers', [CampController::class, 'noCampersSearch'])->name('camp.no-campers-search');
 Route::post('admin/camp/{id}/addCampers', [CampController::class, 'addCampers'])->name('camp.add-campers');
 

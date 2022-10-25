@@ -65,11 +65,45 @@ class CampRepository
         return $campers;
     }
 
+    public function getServants($id)
+    {
+        $servants = DB::table('servants as s')->select(
+            's.person_id',
+            's.id',
+            's.group',
+            's.sector',
+            'p.name',
+            'p.date_birthday',
+            'p.contact',
+            'p.parish',
+        )
+        ->join('people as p', 'p.id', '=', 's.person_id')
+        ->where('camp_id', $id)->get();
+        return $servants;
+    }
+
     public function getNoCampers($id)
     {
         $campers = DB::table('people as p')
         ->whereNotIn('p.id', DB::table('campers')->select('person_id')->where('camp_id', '=' , $id))->get();
         return $campers;
+    }
+
+    public function getNoServantsForFac($id)
+    {
+        $servants = DB::table('people as p')
+        ->select(
+            'p.name',
+            'p.date_birthday',
+            'p.contact',
+            'p.parish',
+            'p.id'
+        )
+        ->join('campers as ca', 'p.id', '=', 'ca.person_id')
+        ->join('camps as c', 'c.id', '=', 'ca.camp_id')
+        ->whereNotIn('p.id', DB::table('campers')->select('person_id')->where('camp_id', '=' , $id))
+        ->whereNotIn('p.id', DB::table('servants')->select('person_id')->where('camp_id', '=' , $id))->get();
+        return $servants;
     }
 
     public function getNoCampersSearch(Request $request, $id)

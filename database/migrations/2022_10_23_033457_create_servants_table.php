@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('camp_id')->nullable(false);
             $table->uuid('person_id')->nullable(false);
-            $table->boolean('present')->nullable(true);
+            $table->text('group')->nullable(true);
             $table->text('shirt_size')->nullable(true);
             $table->text('sector')->nullable(true);
             $table->timestamps();

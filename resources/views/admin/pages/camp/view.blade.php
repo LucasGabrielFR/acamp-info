@@ -79,7 +79,7 @@
                                             <select id="group{{ $camper->id }}" class="custom-select"
                                                 onchange="alteraTribo(this)"
                                                 @php
-                                                switch ($camper->group) {
+switch ($camper->group) {
                                                     case 'red':
                                                         echo 'style="background: red; color: white"';
                                                         break;
@@ -104,10 +104,7 @@
                                                     case 'green':
                                                         echo 'style="background: green; color: white"';
                                                         break;
-                                                }
-
-                                                @endphp
-                                                >
+                                                } @endphp>
                                                 <option value="">Selecione</option>
                                                 <option value="red" @selected($camper->group == 'red')>Vermelho</option>
                                                 <option value="blue" @selected($camper->group == 'blue')>Azul</option>
@@ -130,7 +127,87 @@
                     </div>
 
                 </div>
-                <div class="tab-pane fade" id="nav-servants" role="tabpanel" aria-labelledby="nav-profile-tab">Profile</div>
+                <div class="tab-pane fade" id="nav-servants" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    @php
+                        $heads = ['Nome', 'Contato', 'Idade', 'Paróquia', 'Tribo', 'Ações'];
+
+                        $config = [
+                            'data' => $servants,
+                            'order' => [[1, 'asc']],
+                            'columns' => [null, null, null, null, null, ['orderable' => false]],
+                        ];
+                    @endphp
+                    <div class="card">
+                        <div class="card-header">
+                            <b>Servos</b>
+                            <x-adminlte-button onclick="loadNoServants()" label="Adicionar Servos" data-toggle="modal"
+                                data-target="#servantsModal" class="bg-teal" />
+                        </div>
+                        <div class="card-body">
+                            <x-adminlte-datatable id="table2" :heads="$heads" class="">
+                                @foreach ($config['data'] as $servant)
+                                    @php
+                                        $dataNascimento2 = $servant->date_birthday;
+                                        $data2 = new DateTime($dataNascimento);
+                                        $resultado2 = $data->diff(new DateTime(date('Y-m-d')));
+                                    @endphp
+                                    <tr>
+                                        <td>{{ $servant->name }}</td>
+                                        <td>{{ $servant->contact }}</td>
+                                        <td>{{ $resultado2->format('%Y anos') }}</td>
+                                        <td>{{ $servant->parish }}</td>
+                                        <td>
+                                            <select id="group{{ $servant->id }}" class="custom-select"
+                                                onchange="alteraTribo(this)"
+                                                @php
+                                                    switch ($servant->group) {
+                                                    case 'red':
+                                                        echo 'style="background: red; color: white"';
+                                                        break;
+                                                    case 'blue':
+                                                        echo 'style="background: blue; color: white"';
+                                                        break;
+                                                    case 'brown':
+                                                        echo 'style="background: brown; color: white"';
+                                                        break;
+                                                    case 'orange':
+                                                        echo 'style="background: orange; color: black"';
+                                                        break;
+                                                    case 'yellow':
+                                                        echo 'style="background: yellow; color: black"';
+                                                        break;
+                                                    case 'black':
+                                                        echo 'style="background: black; color: white"';
+                                                        break;
+                                                    case 'purple':
+                                                        echo 'style="background: purple; color: white"';
+                                                        break;
+                                                    case 'green':
+                                                        echo 'style="background: green; color: white"';
+                                                        break;
+                                                } @endphp>
+                                                <option value="">Selecione</option>
+                                                <option value="red" @selected($servant->group == 'red')>Vermelho</option>
+                                                <option value="blue" @selected($servant->group == 'blue')>Azul</option>
+                                                <option value="brown" @selected($servant->group == 'brown')>Marrom</option>
+                                                <option value="orange" @selected($servant->group == 'orange')>Laranja</option>
+                                                <option value="yellow" @selected($servant->group == 'yellow')>Amarelo</option>
+                                                <option value="black" @selected($servant->group == 'black')>Preto</option>
+                                                <option value="purple" @selected($servant->group == 'purple')>Roxo</option>
+                                                <option value="green" @selected($servant->group == 'green')>Verde</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            {{-- <x-modal url="{{ route('camp.delete-servant', $servant->id) }}"
+                                                id="{{ $servant->id }}" name="{{ $servant->name }}" /> --}}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </x-adminlte-datatable>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
@@ -139,8 +216,8 @@
         @csrf
         <div class="row">
             <div class="col-4">
-                <input class="form-control" type="search" name="searchNoCampers" id="searchNoCampers" placeholder="Buscar"
-                    onkeyup="loadNoCampers(this)">
+                <input class="form-control" type="search" name="searchNoCampers" id="searchNoCampers"
+                    placeholder="Buscar" onkeyup="loadNoCampers(this)">
             </div>
         </div>
         <hr>
@@ -152,14 +229,37 @@
             <x-adminlte-button theme="danger" label="Cancelar" data-dismiss="modal" />
         </x-slot>
     </x-adminlte-modal>
+
+    <x-adminlte-modal id="servantsModal" title="Adicionar Servos" size="lg" theme="teal" icon="fas fa-users"
+        v-centered static-backdrop scrollable>
+        @csrf
+        <div class="row">
+            <div class="col-4">
+                <input class="form-control" type="search" name="searchNoServants" id="searchNoServants"
+                    placeholder="Buscar" onkeyup="loadNoServants(this)">
+            </div>
+        </div>
+        <hr>
+        <div id="servantsContent">
+            <b>Carregando...</b>
+        </div>
+        <x-slot name="footerSlot">
+            <x-adminlte-button onclick="signCampers()" class="mr-auto" theme="success" label="Adicionar" />
+            <x-adminlte-button theme="danger" label="Cancelar" data-dismiss="modal" />
+        </x-slot>
+    </x-adminlte-modal>
+
     <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
         integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
+
     <script>
         var addCampers = [];
+        var addServants = [];
         var campersContent = document.querySelector('#campersContent');
+        var servantsContent = document.querySelector('#servantsContent');
         var csrf = document.getElementsByName('_token')[0].value;
 
-        function adicionar(id) {
+        function adicionarCampista(id) {
             let el = document.getElementById('camper' + id);
             if (el.classList.contains('fa-plus')) {
                 el.classList.remove('fa-plus');
@@ -169,6 +269,19 @@
                 el.classList.remove('fa-check');
                 el.classList.add('fa-plus');
                 addCampers.splice(addCampers.indexOf(id), 1);
+            }
+        }
+
+        function adicionarServo(id) {
+            let el = document.getElementById('servant' + id);
+            if (el.classList.contains('fa-plus')) {
+                el.classList.remove('fa-plus');
+                el.classList.add('fa-check');
+                addServants.push(id);
+            } else {
+                el.classList.remove('fa-check');
+                el.classList.add('fa-plus');
+                addServants.splice(addServants.indexOf(id), 1);
             }
         }
 
@@ -191,10 +304,8 @@
                         newHtml += calculaIdade(new Date(person.date_birthday), new Date())
                         newHtml += '</div>'
                         newHtml += '<div class="col-2 text-right">'
-                        newHtml += '<a onclick="adicionar(' + "'" + person.id + "'" +
-                            ')" style="cursor: pointer;">'
-                        newHtml += '<i class="fas fa-lg fa-fw fa-plus text-success" id="camper' + person
-                            .id + '"></i>'
+                        newHtml += '<a onclick="adicionarCampista(' + "'" + person.id + "'" +')" style="cursor: pointer;">'
+                        newHtml += '<i class="fas fa-lg fa-fw fa-plus text-success" id="camper' + person.id + '"></i>'
                         newHtml += '</a>'
                         newHtml += '</div>'
                         newHtml += '</div>'
@@ -221,10 +332,68 @@
                         newHtml += calculaIdade(new Date(person.date_birthday), new Date())
                         newHtml += '</div>'
                         newHtml += '<div class="col-2 text-right">'
-                        newHtml += '<a onclick="adicionar(' + "'" + person.id + "'" +
-                            ')" style="cursor: pointer;">'
-                        newHtml += '<i class="fas fa-lg fa-fw fa-plus text-success" id="camper' + person
-                            .id + '"></i>'
+                        newHtml += '<a onclick="adicionarCampista(' + "'" + person.id + "'" +')" style="cursor: pointer;">'
+                        newHtml += '<i class="fas fa-lg fa-fw fa-plus text-success" id="camper' + person.id + '"></i>'
+                        newHtml += '</a>'
+                        newHtml += '</div>'
+                        newHtml += '</div>'
+                        newHtml += '<hr>'
+                    });
+
+                    campersContent.innerHTML = newHtml;
+                })
+            }
+        }
+
+        function loadNoServants(search = 0) {
+            addServants = [];
+            let waitingHtml = '<b>Carregando...</b>'
+            servantsContent.innerHTML = waitingHtml;
+            if (search == 0) {
+                $.get("@php echo route('camp.no-servants', $camp->id) @endphp", function(resultado) {
+                    let newHtml = '';
+                    if (resultado.length < 1) {
+                        newHtml = 'Nenhum Resultado encontrado';
+                    }
+                    resultado.forEach(person => {
+                        newHtml += '<div class="row mt-1">'
+                        newHtml += '<div class="col-6">'
+                        newHtml += person.name
+                        newHtml += '</div>'
+                        newHtml += '<div class="col-4">'
+                        newHtml += calculaIdade(new Date(person.date_birthday), new Date())
+                        newHtml += '</div>'
+                        newHtml += '<div class="col-2 text-right">'
+                        newHtml += '<a onclick="adicionarServo(' + "'" + person.id + "'" +')" style="cursor: pointer;">'
+                        newHtml += '<i class="fas fa-lg fa-fw fa-plus text-success" id="servant' + person.id + '"></i>'
+                        newHtml += '</a>'
+                        newHtml += '</div>'
+                        newHtml += '</div>'
+                        newHtml += '<hr>'
+                    });
+
+                    servantsContent.innerHTML = newHtml;
+                })
+            } else {
+                $.post("@php echo route('camp.no-campers-search', $camp->id) @endphp", {
+                    _token: csrf,
+                    search: search.value,
+                }, function(resultado) {
+                    let newHtml = '';
+                    if (resultado.length < 1) {
+                        newHtml = 'Nenhum Resultado encontrado';
+                    }
+                    resultado.forEach(person => {
+                        newHtml += '<div class="row mt-1">'
+                        newHtml += '<div class="col-6">'
+                        newHtml += person.name
+                        newHtml += '</div>'
+                        newHtml += '<div class="col-4">'
+                        newHtml += calculaIdade(new Date(person.date_birthday), new Date())
+                        newHtml += '</div>'
+                        newHtml += '<div class="col-2 text-right">'
+                        newHtml += '<a onclick="adicionarCampista(' + "'" + person.id + "'" +')" style="cursor: pointer;">'
+                        newHtml += '<i class="fas fa-lg fa-fw fa-plus text-success" id="camper' + person.id + '"></i>'
                         newHtml += '</a>'
                         newHtml += '</div>'
                         newHtml += '</div>'

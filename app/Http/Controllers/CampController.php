@@ -44,12 +44,14 @@ class CampController extends Controller
     {
         $camp = $this->repository->getCamp($id);
         $campers = $this->repository->getCampers($id);
+        $servants = $this->repository->getServants($id);
         if(!$camp)
             return redirect()->back();
 
         return view('admin.pages.camp.view', [
             'camp' => $camp,
-            'campers' => $campers
+            'campers' => $campers,
+            'servants' => $servants
         ]);
     }
 
@@ -121,5 +123,12 @@ class CampController extends Controller
         $camper = $this->repository->getCamper($request->camper_id);
 
         $this->repository->changeGroup($camper, $request->group);
+    }
+
+    public function noServants($id)
+    {
+        $noServants = $this->repository->getNoServantsForFac($id);
+
+        return response()->json($noServants);
     }
 }
