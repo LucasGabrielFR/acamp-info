@@ -39,6 +39,7 @@ class PersonController extends Controller
     public function view($id)
     {
         $person = $this->repository->getPerson($id);
+        $person->markers = $this->repository->getPersonCamps($person->id);
         if(!$person)
             return redirect()->back();
 

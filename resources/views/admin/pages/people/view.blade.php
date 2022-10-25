@@ -194,4 +194,32 @@
             </div>
         </div>
     </div>
+    <div class="card">
+        <div class="card-header">
+            Acampamentos
+        </div>
+        <div class="card-body">
+            <div class="row">
+                @foreach ($person->markers as $marker)
+                    <div class="col-auto">
+                        <x-adminlte-card title="{{ $marker->camp_name }}" theme="info" icon="fas fa-lg fa-campground"
+                            collapsible>
+                            @php
+                                $startDate = strtotime($marker->date_start);
+                                $startDate = date('d/m/Y', $startDate);
+
+                                $endDate = strtotime($marker->date_end);
+                                $endDate = date('d/m/Y', $endDate);
+                            @endphp
+                            <b>{{ $marker->camp_name }}</b>
+                            <br>
+                            Início em: <b>{{ $startDate }}</b>
+                            <br>
+                            Término em: <b>{{ $endDate }}</b>
+                        </x-adminlte-card>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
 @stop
