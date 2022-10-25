@@ -4,6 +4,47 @@
 
 @section('content_header')
     <h1>Informações da Pessoa</h1>
+    <style>
+        .card-brown>.card-header {
+            background: #8B4513;
+            color: white;
+        }
+
+        .badge-brown {
+            background: #8B4513;
+            color: white
+        }
+
+        .badge-yellow {
+            background: #ffc107;
+        }
+
+        .badge-orange {
+            background: #fd7e14;
+        }
+
+        .badge-blue {
+            background: #007bff;
+            color: white
+        }
+
+        .badge-green {
+            background: #28a745;
+            color: white
+        }
+
+        .badge-purple {
+            background: #6f42c1;
+            color: white
+        }
+
+        .badge-red {
+            background: #dc3545;
+            color: white
+        }
+
+
+    </style>
 @stop
 
 @section('content')
@@ -201,9 +242,15 @@
         <div class="card-body">
             <div class="row">
                 @foreach ($person->markers as $marker)
+                    @php
+                        $cardColor = $marker->group;
+                        if ($cardColor == 'black') {
+                            $cardColor = 'dark';
+                        }
+                    @endphp
                     <div class="col-auto">
-                        <x-adminlte-card title="{{ $marker->camp_name }}" theme="info" icon="fas fa-lg fa-campground"
-                            collapsible>
+                        <x-adminlte-card title="{{ $marker->camp_name }}" icon="fas fa-lg fa-campground"
+                            theme="{{ $cardColor }}" collapsible>
                             @php
                                 $startDate = strtotime($marker->date_start);
                                 $startDate = date('d/m/Y', $startDate);
@@ -216,6 +263,37 @@
                             Início em: <b>{{ $startDate }}</b>
                             <br>
                             Término em: <b>{{ $endDate }}</b>
+                            <br>
+                            Tribo: <span class="badge badge-{{ $cardColor }}">
+                                @php
+                                    switch ($marker->group) {
+                                        case 'red':
+                                            echo 'Vermelha';
+                                            break;
+                                        case 'blue':
+                                            echo 'Azul';
+                                            break;
+                                        case 'brown':
+                                            echo 'Marrom';
+                                            break;
+                                        case 'orange':
+                                            echo 'Laranja';
+                                            break;
+                                        case 'yellow':
+                                            echo 'Amarela';
+                                            break;
+                                        case 'black':
+                                            echo 'Preta';
+                                            break;
+                                        case 'purple':
+                                            echo 'Roxa';
+                                            break;
+                                        case 'green':
+                                            echo 'Verde';
+                                            break;
+                                    }
+                                @endphp
+                            </span>
                         </x-adminlte-card>
                     </div>
                 @endforeach

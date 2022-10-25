@@ -115,4 +115,11 @@ class CampController extends Controller
         $this->repository->deleteCamper($camper);
         return redirect()->back();
     }
+
+    public function changeGroup(Request $request)
+    {
+        $camper = $this->repository->getCamper($request->camper_id);
+
+        $this->repository->changeGroup($camper, $request->group);
+    }
 }

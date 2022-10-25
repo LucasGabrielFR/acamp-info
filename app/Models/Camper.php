@@ -18,7 +18,7 @@ class Camper extends Model
         'camp_id',
         'person_id',
         'shirt_size',
-        'present',
+        'group',
     ];
 
     public function people()

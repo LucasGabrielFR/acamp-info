@@ -48,12 +48,12 @@
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-campers" role="tabpanel" aria-labelledby="nav-home-tab">
                     @php
-                        $heads = ['Nome', 'Contato', 'Idade', 'Paróquia', 'Ações'];
+                        $heads = ['Nome', 'Contato', 'Idade', 'Paróquia', 'Tribo', 'Ações'];
 
                         $config = [
                             'data' => $campers,
                             'order' => [[1, 'asc']],
-                            'columns' => [null, null, null, null, ['orderable' => false]],
+                            'columns' => [null, null, null, null, null, ['orderable' => false]],
                         ];
                     @endphp
                     <div class="card">
@@ -76,8 +76,52 @@
                                         <td>{{ $resultado->format('%Y anos') }}</td>
                                         <td>{{ $camper->parish }}</td>
                                         <td>
-                                            <x-modal url="{{ route('camp.delete-camper', $camper->id) }}" id="{{ $camper->id }}"
-                                        name="{{ $camper->name }}" />
+                                            <select id="group{{ $camper->id }}" class="custom-select"
+                                                onchange="alteraTribo(this)"
+                                                @php
+                                                switch ($camper->group) {
+                                                    case 'red':
+                                                        echo 'style="background: red; color: white"';
+                                                        break;
+                                                    case 'blue':
+                                                        echo 'style="background: blue; color: white"';
+                                                        break;
+                                                    case 'brown':
+                                                        echo 'style="background: brown; color: white"';
+                                                        break;
+                                                    case 'orange':
+                                                        echo 'style="background: orange; color: black"';
+                                                        break;
+                                                    case 'yellow':
+                                                        echo 'style="background: yellow; color: black"';
+                                                        break;
+                                                    case 'black':
+                                                        echo 'style="background: black; color: white"';
+                                                        break;
+                                                    case 'purple':
+                                                        echo 'style="background: purple; color: white"';
+                                                        break;
+                                                    case 'green':
+                                                        echo 'style="background: green; color: white"';
+                                                        break;
+                                                }
+
+                                                @endphp
+                                                >
+                                                <option value="">Selecione</option>
+                                                <option value="red" @selected($camper->group == 'red')>Vermelho</option>
+                                                <option value="blue" @selected($camper->group == 'blue')>Azul</option>
+                                                <option value="brown" @selected($camper->group == 'brown')>Marrom</option>
+                                                <option value="orange" @selected($camper->group == 'orange')>Laranja</option>
+                                                <option value="yellow" @selected($camper->group == 'yellow')>Amarelo</option>
+                                                <option value="black" @selected($camper->group == 'black')>Preto</option>
+                                                <option value="purple" @selected($camper->group == 'purple')>Roxo</option>
+                                                <option value="green" @selected($camper->group == 'green')>Verde</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <x-modal url="{{ route('camp.delete-camper', $camper->id) }}"
+                                                id="{{ $camper->id }}" name="{{ $camper->name }}" />
                                         </td>
                                     </tr>
                                 @endforeach
@@ -113,6 +157,7 @@
     <script>
         var addCampers = [];
         var campersContent = document.querySelector('#campersContent');
+        var csrf = document.getElementsByName('_token')[0].value;
 
         function adicionar(id) {
             let el = document.getElementById('camper' + id);
@@ -134,7 +179,7 @@
             if (search == 0) {
                 $.get("@php echo route('camp.no-campers', $camp->id) @endphp", function(resultado) {
                     let newHtml = '';
-                    if(resultado.length < 1){
+                    if (resultado.length < 1) {
                         newHtml = 'Nenhum Resultado encontrado';
                     }
                     resultado.forEach(person => {
@@ -158,14 +203,13 @@
 
                     campersContent.innerHTML = newHtml;
                 })
-            }else{
-                let csrf = document.getElementsByName('_token')[0].value;
+            } else {
                 $.post("@php echo route('camp.no-campers-search', $camp->id) @endphp", {
                     _token: csrf,
                     search: search.value,
                 }, function(resultado) {
                     let newHtml = '';
-                    if(resultado.length < 1){
+                    if (resultado.length < 1) {
                         newHtml = 'Nenhum Resultado encontrado';
                     }
                     resultado.forEach(person => {
@@ -198,7 +242,6 @@
 
         function signCampers() {
             if (addCampers.length > 0) {
-                let csrf = document.getElementsByName('_token')[0].value;
                 $.post("@php echo route('camp.add-campers', $camp->id) @endphp", {
                     _token: csrf,
                     campers: addCampers,
@@ -207,6 +250,34 @@
                     window.location.reload(true);
                 })
             }
+        }
+
+        function paintSelectedGroup(src) {
+            if (src.value == 'blue' || src.value == 'brown' || src.value == 'blue' || src.value == 'red' || src.value ==
+                'black' || src.value == 'purple' || src.value == 'green') {
+                $('#' + src.id).css({
+                    'background': src.value,
+                    'color': 'white'
+                });
+            } else {
+                $('#' + src.id).css({
+                    'background': src.value,
+                    'color': 'black'
+                });
+            }
+        }
+
+        function alteraTribo(src) {
+            paintSelectedGroup(src);
+
+            let camper_id = src.id.split('group');
+
+            $.post("@php echo route('camper.change-group') @endphp", {
+                _token: csrf,
+                group: src.value,
+                camper_id: camper_id[1]
+            });
+
         }
     </script>
 @stop

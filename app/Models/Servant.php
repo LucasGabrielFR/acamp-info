@@ -19,6 +19,7 @@ class Servant extends Model
         'person_id',
         'shirt_size',
         'sector',
+        'group',
         'present',
     ];
 

@@ -54,6 +54,7 @@ class CampRepository
         $campers = DB::table('campers as c')->select(
             'c.person_id',
             'c.id',
+            'c.group',
             'p.name',
             'p.date_birthday',
             'p.contact',
@@ -99,6 +100,12 @@ class CampRepository
     public function deleteCamper($camper)
     {
         $camper->delete();
+    }
+
+    public function changeGroup($camper, $group)
+    {
+        $camper->group = $group;
+        $camper->update();
     }
 
 }

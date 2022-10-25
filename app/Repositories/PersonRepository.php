@@ -47,7 +47,8 @@ class PersonRepository
             't.name as type_name',
             'c.name as camp_name',
             'c.date_start',
-            'c.date_end'
+            'c.date_end',
+            'ca.group'
         )
         ->join('campers as ca', 'ca.person_id', '=', 'people.id')
         ->join('camps as c', 'c.id', '=', 'ca.camp_id')
