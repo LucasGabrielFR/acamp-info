@@ -45,3 +45,7 @@ Route::get('admin/forays/view/{id}', [ForayController::class, 'view'])->name('fo
 Route::get('admin/forays/edit/{id}', [ForayController::class, 'edit'])->name('foray.edit');
 Route::put('admin/forays/edit/{id}', [ForayController::class, 'update'])->name('foray.update');
 Route::delete('admin/forays/{id}', [ForayController::class, 'delete'])->name('foray.delete');
+
+Route::get('/', function () {
+    return view('welcome');
+});
