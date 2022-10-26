@@ -28,7 +28,9 @@ Route::post('admin/camper/group', [CampController::class, 'changeGroup'])->name(
 Route::get('admin/camp/{id}/noCampers', [CampController::class, 'noCampers'])->name('camp.no-campers');
 Route::get('admin/camp/{id}/noServants', [CampController::class, 'noServants'])->name('camp.no-servants');
 Route::post('admin/camp/{id}/noCampers', [CampController::class, 'noCampersSearch'])->name('camp.no-campers-search');
+Route::post('admin/camp/{id}/noServants', [CampController::class, 'noServantsSearch'])->name('camp.no-servants-search');
 Route::post('admin/camp/{id}/addCampers', [CampController::class, 'addCampers'])->name('camp.add-campers');
+Route::post('admin/camp/{id}/addServants', [CampController::class, 'addServants'])->name('camp.add-servants');
 
 //AcampType Routes
 Route::get('admin/camp/types', [AcampTypeController::class, 'index'])->name('acamp-type.index');

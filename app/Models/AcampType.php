@@ -18,6 +18,7 @@ class AcampType extends Model
         'name',
         'min_age',
         'max_age',
+        'order'
     ];
 
     public function camp()

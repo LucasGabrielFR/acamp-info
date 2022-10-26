@@ -244,7 +244,7 @@ switch ($camper->group) {
             <b>Carregando...</b>
         </div>
         <x-slot name="footerSlot">
-            <x-adminlte-button onclick="signCampers()" class="mr-auto" theme="success" label="Adicionar" />
+            <x-adminlte-button onclick="signServants()" class="mr-auto" theme="success" label="Adicionar" />
             <x-adminlte-button theme="danger" label="Cancelar" data-dismiss="modal" />
         </x-slot>
     </x-adminlte-modal>
@@ -375,7 +375,7 @@ switch ($camper->group) {
                     servantsContent.innerHTML = newHtml;
                 })
             } else {
-                $.post("@php echo route('camp.no-campers-search', $camp->id) @endphp", {
+                $.post("@php echo route('camp.no-servants-search', $camp->id) @endphp", {
                     _token: csrf,
                     search: search.value,
                 }, function(resultado) {
@@ -392,15 +392,15 @@ switch ($camper->group) {
                         newHtml += calculaIdade(new Date(person.date_birthday), new Date())
                         newHtml += '</div>'
                         newHtml += '<div class="col-2 text-right">'
-                        newHtml += '<a onclick="adicionarCampista(' + "'" + person.id + "'" +')" style="cursor: pointer;">'
-                        newHtml += '<i class="fas fa-lg fa-fw fa-plus text-success" id="camper' + person.id + '"></i>'
+                        newHtml += '<a onclick="adicionarServo(' + "'" + person.id + "'" +')" style="cursor: pointer;">'
+                        newHtml += '<i class="fas fa-lg fa-fw fa-plus text-success" id="servant' + person.id + '"></i>'
                         newHtml += '</a>'
                         newHtml += '</div>'
                         newHtml += '</div>'
                         newHtml += '<hr>'
                     });
 
-                    campersContent.innerHTML = newHtml;
+                    servantsContent.innerHTML = newHtml;
                 })
             }
         }
@@ -414,6 +414,18 @@ switch ($camper->group) {
                 $.post("@php echo route('camp.add-campers', $camp->id) @endphp", {
                     _token: csrf,
                     campers: addCampers,
+                    camp_id: "@php echo $camp->id @endphp"
+                }, function(msg) {
+                    window.location.reload(true);
+                })
+            }
+        }
+
+        function signServants() {
+            if (addServants.length > 0) {
+                $.post("@php echo route('camp.add-servants', $camp->id) @endphp", {
+                    _token: csrf,
+                    servants: addServants,
                     camp_id: "@php echo $camp->id @endphp"
                 }, function(msg) {
                     window.location.reload(true);

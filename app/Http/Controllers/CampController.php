@@ -127,8 +127,32 @@ class CampController extends Controller
 
     public function noServants($id)
     {
-        $noServants = $this->repository->getNoServantsForFac($id);
+        $camp = $this->repository->getCamp($id);
+        if($camp->type->order == 3){
+            $noServants = $this->repository->getNoServantsForSenior($id);
+        }else{
+            $noServants = $this->repository->getNoServantsForFac($id);
+        }
 
         return response()->json($noServants);
+    }
+
+    public function noServantsSearch(Request $request, $id)
+    {
+        $camp = $this->repository->getCamp($id);
+        if($camp->type->order == 3){
+            $noServants = $this->repository->getNoServantsForSeniorSearch($request, $id);
+        }else{
+            $noServants = $this->repository->getNoServantsForFacSearch($request, $id);
+        }
+
+
+
+        return response()->json($noServants);
+    }
+
+    public function addServants(Request $request, $id)
+    {
+        $this->repository->addServants($request, $id);
     }
 }
