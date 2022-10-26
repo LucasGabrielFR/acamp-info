@@ -27,4 +27,5 @@
             </div>
         </div>
     </div>
+    <x-footer />
 @stop

@@ -16,4 +16,5 @@
             </form>
         </div>
     </div>
+    <x-footer />
 @stop

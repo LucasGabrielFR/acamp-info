@@ -43,4 +43,5 @@
             {!! $people->links() !!}
         </div> --}}
     </div>
+    <x-footer />
 @stop

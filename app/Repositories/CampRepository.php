@@ -190,6 +190,13 @@ class CampRepository
         return $camper;
     }
 
+    public function getServant($id)
+    {
+        $servant = Servant::where('id', $id)->first();
+
+        return $servant;
+    }
+
     public function deleteCamper($camper)
     {
         $camper->delete();
@@ -209,6 +216,11 @@ class CampRepository
             $servant->camp_id = $id;
             $servant->save();
         }
+    }
+
+    public function deleteServant($servant)
+    {
+        $servant->delete();
     }
 
 }

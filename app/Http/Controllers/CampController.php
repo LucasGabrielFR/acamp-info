@@ -155,4 +155,12 @@ class CampController extends Controller
     {
         $this->repository->addServants($request, $id);
     }
+
+    public function deleteServant($id)
+    {
+        $servant = $this->repository->getServant($id);
+
+        $this->repository->deleteServant($servant);
+        return redirect()->back();
+    }
 }

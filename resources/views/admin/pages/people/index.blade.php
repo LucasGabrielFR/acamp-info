@@ -116,8 +116,6 @@
                 @endforeach
             </x-adminlte-datatable>
         </div>
-        {{-- <div class="card-footer">
-            {!! $people->links() !!}
-        </div> --}}
     </div>
+    <x-footer />
 @stop
