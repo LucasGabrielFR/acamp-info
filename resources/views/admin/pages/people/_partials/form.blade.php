@@ -2,9 +2,18 @@
     <div class="col-4">
         <div class="row">
             <div class="card">
-                <img src="https://images.pexels.com/photos/2246476/pexels-photo-2246476.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                    alt="" class="card-img-top">
                 <div class="card-body">
+                    <div class="p-3">
+                        @if(isset($person->image))
+                            <img src="{{asset("/storage/{$person->image}")}}"
+                            alt="" class="card-img-top">
+                        @endif
+                        @if(!isset($person->image))
+                            <img src="{{URL('img/blank-profile.png')}}"
+                            alt="" class="card-img-top">
+                        @endif
+
+                    </div>
                     <div class="mb-3">
                         <label for="formFile" class="form-label">Foto</label>
                         <input class="form-control" id="formFile" type="file" name="image">
@@ -347,7 +356,10 @@
                 const is_married_yes = document.querySelector('#is_married_yes');
                 is_married_yes.checked = true;
 
-                const is_spouse_camper = @php echo $person->is_spouse_camper @endphp;
+                const is_spouse_camper = @php
+                if($person->is_spouse_camper) echo $person->is_spouse_camper;
+                else echo "null";
+                @endphp;
                 const is_spouse_camper_yes = document.querySelector('#is_spouse_camper_yes');
                 const is_spouse_camper_no = document.querySelector('#is_spouse_camper_no');
                 is_spouse_camper_yes.disabled = false;

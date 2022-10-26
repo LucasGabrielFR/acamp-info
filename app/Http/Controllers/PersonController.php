@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\PersonRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PersonController extends Controller
 {
@@ -17,7 +18,7 @@ class PersonController extends Controller
     public function index()
     {
         $people = $this->repository->getAllPeople();
-        foreach($people as $person){
+        foreach ($people as $person) {
             $person->markers = $this->repository->getPersonCamps($person->id);
         }
         return view('admin.pages.people.index', [
@@ -32,7 +33,13 @@ class PersonController extends Controller
 
     public function store(Request $request)
     {
-        $this->repository->storePerson($request);
+        $data = $request->all();
+        if ($request->hasFile('image')) {
+            $imagePath = $request->image->store('people');
+
+            $data['image'] = $imagePath;
+        }
+        $this->repository->storePerson($data);
         return redirect()->route('people.index');
     }
 
@@ -40,7 +47,7 @@ class PersonController extends Controller
     {
         $person = $this->repository->getPerson($id);
         $person->markers = $this->repository->getPersonCamps($person->id);
-        if(!$person)
+        if (!$person)
             return redirect()->back();
 
         return view('admin.pages.people.view', [
@@ -51,7 +58,7 @@ class PersonController extends Controller
     public function delete($id)
     {
         $person = $this->repository->getPerson($id);
-        if(!$person)
+        if (!$person)
             return redirect()->back();
 
         $this->repository->deletePerson($person);
@@ -62,7 +69,7 @@ class PersonController extends Controller
     public function edit($id)
     {
         $person = $this->repository->getPerson($id);
-        if(!$person)
+        if (!$person)
             return redirect()->back();
 
         return view('admin.pages.people.edit', [
@@ -72,11 +79,22 @@ class PersonController extends Controller
 
     public function update(Request $request, $id)
     {
+        $data = $request->all();
         $person = $this->repository->getPerson($id);
-        if(!$person)
+        if (!$person)
             return redirect()->back();
 
-        $this->repository->updatePerson($person, $request->all());
+        if ($request->hasFile('image')) {
+
+            if($person->image && Storage::exists($person->image)){
+                Storage::delete($person->image);
+            }
+
+            $imagePath = $request->file('image')->store('people');
+            $data['image'] = $imagePath;
+        }
+
+        $this->repository->updatePerson($person, $data);
 
         return redirect()->route('people.index');
     }

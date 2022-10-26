@@ -9,7 +9,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('person.store') }}" class="form" method="POST">
+            <form action="{{ route('person.store') }}" class="form" method="POST" enctype="multipart/form-data">
                 @csrf
                 @include('admin.pages.people._partials.form')
             </form>

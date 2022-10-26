@@ -19,9 +19,9 @@ class PersonRepository
         return $this->entity->orderBy('name')->get();
     }
 
-    public function storePerson(Request $request)
+    public function storePerson($data)
     {
-        $this->entity->create($request->all());
+        $this->entity->create($data);
     }
 
     public function getPerson($id)
