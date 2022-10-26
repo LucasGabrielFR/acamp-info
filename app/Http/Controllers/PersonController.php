@@ -90,7 +90,7 @@ class PersonController extends Controller
                 Storage::delete($person->image);
             }
 
-            $imagePath = $request->file('image')->store('people');
+            $imagePath = $request->file('image')->store('people', ['disk' => 'custom_uploads']);
             $data['image'] = $imagePath;
         }
 
