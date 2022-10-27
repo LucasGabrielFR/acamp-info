@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Acamp Admin',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -64,11 +64,11 @@ return [
     */
 
     'logo' => '<b>Acamp</b> Admin',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img' => 'img/padrepio.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
+    'logo_img_alt' => 'Logo Acampamento São Padre Pio',
 
     /*
     |--------------------------------------------------------------------------
@@ -253,7 +253,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'admin',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -292,6 +292,11 @@ return [
     'menu' => [
         // // Navbar items:
         [
+            'text' => 'Home',
+            'url'  => '/admin',
+            'icon' => 'fas fa-church'
+        ],
+        [
             'text' => 'Pessoas',
             'url'  => 'admin/people',
             'icon' => 'fas fa-list-alt'
@@ -310,16 +315,16 @@ return [
                 ]
             ]
         ],
-        [
-            'text' => 'Organização',
-            'icon' => 'fas fa-church',
-            'submenu' => [
-                [
-                    'text' => 'Foranias',
-                    'url'  => 'admin/forays',
-                ]
-            ]
-        ],
+        // [
+        //     'text' => 'Organização',
+        //     'icon' => 'fas fa-church',
+        //     'submenu' => [
+        //         [
+        //             'text' => 'Foranias',
+        //             'url'  => 'admin/forays',
+        //         ]
+        //     ]
+        // ],
         // [
         //     'type'         => 'fullscreen-widget',
         //     'topnav_right' => true,

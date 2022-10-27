@@ -1,10 +1,14 @@
 <?php
 
 use App\Http\Controllers\AcampTypeController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CampController;
 use App\Http\Controllers\ForayController;
 use App\Http\Controllers\PersonController;
 use Illuminate\Support\Facades\Route;
+
+//Dashboard Route
+Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
 
 //People Routes
 Route::get('admin/people', [PersonController::class, 'index'])->name('people.index');
