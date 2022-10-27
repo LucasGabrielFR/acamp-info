@@ -20,7 +20,9 @@ class PersonController extends Controller
         $people = $this->repository->getAllPeople();
         foreach ($people as $person) {
             $person->markers = $this->repository->getPersonCamps($person->id);
+            $person->servers = $this->repository->getPersonServers($person->id);
         }
+
         return view('admin.pages.people.index', [
             'people' => $people
         ]);

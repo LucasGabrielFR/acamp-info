@@ -146,8 +146,6 @@ class CampController extends Controller
             $noServants = $this->repository->getNoServantsForFacSearch($request, $id);
         }
 
-
-
         return response()->json($noServants);
     }
 
@@ -162,5 +160,12 @@ class CampController extends Controller
 
         $this->repository->deleteServant($servant);
         return redirect()->back();
+    }
+
+    public function changeSector(Request $request)
+    {
+        $servant = $this->repository->getServant($request->servant_id);
+
+        $this->repository->changeSector($servant, $request->sector);
     }
 }

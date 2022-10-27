@@ -57,4 +57,20 @@ class PersonRepository
         ->get();
     }
 
+    public function getPersonServers($id)
+    {
+        return $this->entity->select(
+            't.name as type_name',
+            'c.name as camp_name',
+            'c.date_start',
+            'c.date_end',
+            's.sector'
+        )
+        ->join('servants as s', 's.person_id', '=', 'people.id')
+        ->join('camps as c', 'c.id', '=', 's.camp_id')
+        ->join('acamp_types as t', 't.id', '=', 'c.type_id')
+        ->where('people.id', $id)
+        ->get();
+    }
+
 }
