@@ -5,11 +5,11 @@
                 <div class="card-body">
                     <div class="p-3">
                         @if(isset($person->image))
-                            <img src="{{URL("person/{$person->image}")}}"
+                            <img src="{{url("{$person->image}")}}"
                             alt="" class="card-img-top">
                         @endif
                         @if(!isset($person->image))
-                            <img src="{{URL('img/blank-profile.png')}}"
+                            <img src="{{url('img/blank-profile.png')}}"
                             alt="" class="card-img-top">
                         @endif
 
