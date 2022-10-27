@@ -5,7 +5,7 @@
                 <div class="card-body">
                     <div class="p-3">
                         @if(isset($person->image))
-                            <img src="{{asset("/storage/{$person->image}")}}"
+                            <img src="{{URL("person/{$person->image}")}}"
                             alt="" class="card-img-top">
                         @endif
                         @if(!isset($person->image))
