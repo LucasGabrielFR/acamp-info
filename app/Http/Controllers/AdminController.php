@@ -18,11 +18,14 @@ class AdminController extends Controller
         ->count('person_id');
         $countCamps = Camp::count();
         $camps = Camp::get();
+        $nextCamp = Camp::whereRaw('date_start > NOW()')->orderBy('date_start')->first();
+
         return view('admin.pages.dashboard',[
             'countPeople' => $countPeople,
             'countCampers' => $countCampers,
             'countCamps' => $countCamps,
             'camps' => $camps,
+            'nextCamp' => $nextCamp
         ]);
     }
 }
