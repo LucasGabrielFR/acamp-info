@@ -86,7 +86,7 @@ class PersonController extends Controller
 
         if ($request->hasFile('image')) {
 
-            if($person->image && Storage::exists($person->image)){
+            if($person->image && Storage::disk('custom_uploads')->exists($person->image)){
                 Storage::delete($person->image);
             }
 
