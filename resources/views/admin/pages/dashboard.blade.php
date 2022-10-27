@@ -26,17 +26,17 @@
     </div>
     <div class="card">
         <div class="card-header">Calendário de acampamentos</div>
-        @php
-            $dataInicio = new DateTime($nextCamp->date_start);
-            $dataFim = new DateTime($nextCamp->date_end);
-            $today = new DateTime(date('Y-m-d'));
-            $dias = $today->diff($dataInicio);
-        @endphp
         <div class="card-body">
             <div class="row">
                 <div class="col-5">
-                    @if (isset($nextCamp->date_start))
+                    @if (isset($nextCamp))
                         {
+                        @php
+                            $dataInicio = new DateTime($nextCamp->date_start);
+                            $dataFim = new DateTime($nextCamp->date_end);
+                            $today = new DateTime(date('Y-m-d'));
+                            $dias = $today->diff($dataInicio);
+                        @endphp
                         <x-adminlte-card title="Próximo Acampamento - {{ $dias->days }} dias" theme="lightblue"
                             theme-mode="outline" icon="fas fa-lg fa-calendar-check"
                             header-class="text-uppercase rounded-bottom border-info" collapsible>
