@@ -35,7 +35,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-5">
-                    @if (isset($nextCamp))
+                    @if (isset($nextCamp->date_start))
                         {
                         <x-adminlte-card title="Próximo Acampamento - {{ $dias->days }} dias" theme="lightblue"
                             theme-mode="outline" icon="fas fa-lg fa-calendar-check"
