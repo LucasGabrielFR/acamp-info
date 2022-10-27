@@ -12,7 +12,7 @@
 @section('content')
     <div class="row">
         <div class="col-4">
-            <x-adminlte-small-box title="Fichas" text="{{ $countPeople }}" icon="fas fa-address-card text-white"
+            <x-adminlte-small-box title="Fichas" text="{{ $countPeople }}" icon="fas fa-address-card text-white" url="{{ route('people.index') }}"
                 theme="teal" />
         </div>
         <div class="col-4">
@@ -20,7 +20,7 @@
                 theme="info" />
         </div>
         <div class="col-4">
-            <x-adminlte-small-box title="Acampamentos" text="{{ $countCamps }}" icon="fas fa-campground text-white"
+            <x-adminlte-small-box title="Acampamentos" text="{{ $countCamps }}" icon="fas fa-campground text-white" url="{{ route('camp.index') }}"
                 theme="dark" />
         </div>
     </div>
@@ -53,6 +53,7 @@
                             title: '{{$camp->name}}',
                             start: '{{$camp->date_start}}',
                             end: '{{$camp->date_end}}',
+                            url: '{{ route("camp.view", $camp->id) }}'
                         },
                     @endforeach
                 ]
