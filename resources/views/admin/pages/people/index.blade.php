@@ -39,6 +39,12 @@
             background: #dc3545;
             color: white
         }
+
+        .badge-servant {
+            background: #fa7f72;
+            border-radius: 10px;
+            color: black;
+        }
     </style>
 @stop
 
@@ -102,6 +108,31 @@
                                             echo '<span class="badge badge-light ml-1">' . $marker->camp_name . '</span>';
                                             break;
                                     }
+                                }
+                                foreach ($person->servers as $serve) {
+                                    $sector = "";
+                                    switch ($serve->sector) {
+                                        case 'cozinha':
+                                            $sector = "Cozinha";
+                                            break;
+                                        case 'anjo':
+                                            $sector = "Anjo";
+                                            break;
+                                        case 'anjo-da-mata':
+                                            $sector = "Anjo da mata";
+                                            break;
+                                        case 'evangelizacao':
+                                            $sector = "Evangelização";
+                                            break;
+                                        case 'secretaria':
+                                            $sector = "Secretaria";
+                                            break;
+                                        case 'coordenacao':
+                                            $sector = "Coordenação";
+                                            break;
+                                    }
+
+                                    echo '<span class="badge badge-servant ml-1">' . "{$serve->camp_name} - {$sector} </span>";
                                 }
                             @endphp
                         </td>

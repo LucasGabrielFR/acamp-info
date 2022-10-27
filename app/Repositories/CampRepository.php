@@ -208,6 +208,12 @@ class CampRepository
         $camper->update();
     }
 
+    public function changeSector($servant, $sector)
+    {
+        $servant->sector = $sector;
+        $servant->update();
+    }
+
     public function addServants(Request $request, $id)
     {
         foreach($request->servants as $new){

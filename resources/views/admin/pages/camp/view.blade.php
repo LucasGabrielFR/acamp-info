@@ -129,7 +129,7 @@
                 </div>
                 <div class="tab-pane fade" id="nav-servants" role="tabpanel" aria-labelledby="nav-profile-tab">
                     @php
-                        $heads = ['Nome', 'Contato', 'Idade', 'Paróquia', 'Tribo', 'Ações'];
+                        $heads = ['Nome', 'Contato', 'Idade', 'Paróquia', 'Setor', 'Ações'];
 
                         $config = [
                             'data' => $servants,
@@ -157,44 +157,15 @@
                                         <td>{{ $resultado2->format('%Y anos') }}</td>
                                         <td>{{ $servant->parish }}</td>
                                         <td>
-                                            <select id="group{{ $servant->id }}" class="custom-select"
-                                                onchange="alteraTribo(this)"
-                                                @php
-                                                    switch ($servant->group) {
-                                                    case 'red':
-                                                        echo 'style="background: red; color: white"';
-                                                        break;
-                                                    case 'blue':
-                                                        echo 'style="background: blue; color: white"';
-                                                        break;
-                                                    case 'brown':
-                                                        echo 'style="background: brown; color: white"';
-                                                        break;
-                                                    case 'orange':
-                                                        echo 'style="background: orange; color: black"';
-                                                        break;
-                                                    case 'yellow':
-                                                        echo 'style="background: yellow; color: black"';
-                                                        break;
-                                                    case 'black':
-                                                        echo 'style="background: black; color: white"';
-                                                        break;
-                                                    case 'purple':
-                                                        echo 'style="background: purple; color: white"';
-                                                        break;
-                                                    case 'green':
-                                                        echo 'style="background: green; color: white"';
-                                                        break;
-                                                } @endphp>
+                                            <select id="sector{{ $servant->id }}" class="custom-select"
+                                                onchange="alteraSetor(this)">
                                                 <option value="">Selecione</option>
-                                                <option value="red" @selected($servant->group == 'red')>Vermelho</option>
-                                                <option value="blue" @selected($servant->group == 'blue')>Azul</option>
-                                                <option value="brown" @selected($servant->group == 'brown')>Marrom</option>
-                                                <option value="orange" @selected($servant->group == 'orange')>Laranja</option>
-                                                <option value="yellow" @selected($servant->group == 'yellow')>Amarelo</option>
-                                                <option value="black" @selected($servant->group == 'black')>Preto</option>
-                                                <option value="purple" @selected($servant->group == 'purple')>Roxo</option>
-                                                <option value="green" @selected($servant->group == 'green')>Verde</option>
+                                                <option value="cozinha" @selected($servant->sector == 'cozinha')>Cozinha</option>
+                                                <option value="anjo" @selected($servant->sector == 'anjo')>Anjo</option>
+                                                <option value="anjo-da-mata" @selected($servant->sector == 'anjo-da-mata')>Anjo da Mata</option>
+                                                <option value="evangelizacao" @selected($servant->sector == 'evangelizacao')>Evangelização</option>
+                                                <option value="secretaria" @selected($servant->sector == 'secretaria')>Secretaria</option>
+                                                <option value="coordenacao" @selected($servant->sector == 'coordenacao')>Coordenação</option>
                                             </select>
                                         </td>
                                         <td>
@@ -457,6 +428,18 @@
                 _token: csrf,
                 group: src.value,
                 camper_id: camper_id[1]
+            });
+
+        }
+
+        function alteraSetor(src) {
+
+            let servant_id = src.id.split('sector');
+
+            $.post("@php echo route('servant.change-sector') @endphp", {
+                _token: csrf,
+                sector: src.value,
+                servant_id: servant_id[1]
             });
 
         }
