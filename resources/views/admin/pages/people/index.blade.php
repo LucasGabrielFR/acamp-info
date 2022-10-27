@@ -62,7 +62,7 @@
                     <tr>
                         <td class="align-middle">
                             @if (isset($person->image))
-                                <img src="{{ asset("/storage/{$person->image}") }}" class="img-fluid img-thumbnail"
+                                <img src="{{url("{$person->image}")}}" class="img-fluid img-thumbnail"
                                     alt="">
                             @endif
                         </td>
