@@ -13,7 +13,9 @@ class AdminController extends Controller
     public function index()
     {
         $countPeople = Person::count();
-        $countCampers = Camper::distinct('person_id')->count('person_id');
+        $countCampers = Camper::distinct('person_id')
+        ->join('people as p', 'person_id', '=', 'p.id')
+        ->count('person_id');
         $countCamps = Camp::count();
         $camps = Camp::get();
         return view('admin.pages.dashboard',[
