@@ -310,7 +310,7 @@ return [
                     'url'  => 'admin/camp',
                 ],
                 [
-                    'text' => 'Tipos de acampamento',
+                    'text' => 'Modalidade de acampamento',
                     'url'  => 'admin/camp/types',
                 ]
             ]
