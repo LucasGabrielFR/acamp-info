@@ -30,7 +30,6 @@
             <div class="row">
                 <div class="col-5">
                     @if (isset($nextCamp))
-                        {
                         @php
                             $dataInicio = new DateTime($nextCamp->date_start);
                             $dataFim = new DateTime($nextCamp->date_end);
@@ -47,7 +46,6 @@
                                 <label>Data de Término: {{ $dataFim->format('d/m/Y') }}</label>
                             </div>
                         </x-adminlte-card>
-                        }
                     @endif
                 </div>
                 <div class="col-7">
