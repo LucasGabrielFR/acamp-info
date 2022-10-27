@@ -35,7 +35,7 @@ class PersonController extends Controller
     {
         $data = $request->all();
         if ($request->hasFile('image')) {
-            $imagePath = $request->image->store('people');
+            $imagePath = $request->file('image')->store('people', ['disk' => 'custom_uploads']);
 
             $data['image'] = $imagePath;
         }
