@@ -29,20 +29,26 @@
         @php
             $dataInicio = new DateTime($nextCamp->date_start);
             $dataFim = new DateTime($nextCamp->date_end);
-            $today = new DateTime(date("Y-m-d"));
+            $today = new DateTime(date('Y-m-d'));
             $dias = $today->diff($dataInicio);
         @endphp
         <div class="card-body">
             <div class="row">
                 <div class="col-5">
-                    <x-adminlte-card title="Próximo Acampamento - {{$dias->days}} dias" theme="lightblue" theme-mode="outline"
-                        icon="fas fa-lg fa-calendar-check" header-class="text-uppercase rounded-bottom border-info" collapsible>
-                        <div class="row">
-                            <label class="text-center"><a href="{{ route('camp.view', $nextCamp->id) }}">{{ $nextCamp->name }}</a></label>
-                            <label>Data de início: {{ $dataInicio->format('d/m/Y') }}</label>
-                            <label>Data de Término: {{ $dataFim->format('d/m/Y') }}</label>
-                        </div>
-                    </x-adminlte-card>
+                    @if (isset($nextCamp))
+                        {
+                        <x-adminlte-card title="Próximo Acampamento - {{ $dias->days }} dias" theme="lightblue"
+                            theme-mode="outline" icon="fas fa-lg fa-calendar-check"
+                            header-class="text-uppercase rounded-bottom border-info" collapsible>
+                            <div class="row">
+                                <label class="text-center"><a
+                                        href="{{ route('camp.view', $nextCamp->id) }}">{{ $nextCamp->name }}</a></label>
+                                <label>Data de início: {{ $dataInicio->format('d/m/Y') }}</label>
+                                <label>Data de Término: {{ $dataFim->format('d/m/Y') }}</label>
+                            </div>
+                        </x-adminlte-card>
+                        }
+                    @endif
                 </div>
                 <div class="col-7">
                     <x-adminlte-card title="Calendário" theme="lightblue" theme-mode="outline" icon="fas fa-lg fa-calendar"
