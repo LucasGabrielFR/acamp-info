@@ -10,6 +10,11 @@
             color: white;
         }
 
+        .card-servant>.card-header {
+            background: #fa7f72;
+            color: black;
+        }
+
         .badge-brown {
             background: #8B4513;
             color: white
@@ -43,6 +48,12 @@
             color: white
         }
 
+        .badge-servant {
+            background: #fa7f72;
+            border-radius: 10px;
+            color: black;
+        }
+
 
     </style>
 @stop
@@ -54,8 +65,18 @@
                 <div class="col-4">
                     <div class="row">
                         <div class="card">
-                            <img src="https://images.pexels.com/photos/2246476/pexels-photo-2246476.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                                alt="" class="card-img-top">
+                            <div class="card-body">
+                                <div class="p-3">
+                                    @if(isset($person->image))
+                                        <img src="{{url("{$person->image}")}}"
+                                        alt="" class="card-img-top">
+                                    @endif
+                                    @if(!isset($person->image))
+                                        <img src="{{url('img/blank-profile.png')}}"
+                                        alt="" class="card-img-top">
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <hr>
@@ -290,6 +311,50 @@
                                             break;
                                         case 'green':
                                             echo 'Verde';
+                                            break;
+                                    }
+                                @endphp
+                            </span>
+                        </x-adminlte-card>
+                    </div>
+                @endforeach
+                @foreach ($person->servers as $serve)
+                    <div class="col-auto">
+                        <x-adminlte-card title="{{ $serve->camp_name }}" icon="fas fa-lg fa-user-tie"
+                            theme="servant" collapsible>
+                            @php
+                                $startDate = strtotime($serve->date_start);
+                                $startDate = date('d/m/Y', $startDate);
+
+                                $endDate = strtotime($serve->date_end);
+                                $endDate = date('d/m/Y', $endDate);
+                            @endphp
+                            <b>{{ $serve->camp_name }}</b>
+                            <br>
+                            Início em: <b>{{ $startDate }}</b>
+                            <br>
+                            Término em: <b>{{ $endDate }}</b>
+                            <br>
+                            Setor: <span class="badge badge-servant">
+                                @php
+                                    switch ($serve->sector) {
+                                        case 'cozinha':
+                                            echo 'Cozinha';
+                                            break;
+                                        case 'anjo':
+                                            echo 'Anjo';
+                                            break;
+                                        case 'anjo-da-mata':
+                                            echo 'Anjo da mata';
+                                            break;
+                                        case 'secretaria':
+                                            echo 'Secretaria';
+                                            break;
+                                        case 'evangelizacao':
+                                            echo 'Evangelização';
+                                            break;
+                                        case 'coordenacao':
+                                            echo 'Coordenação';
                                             break;
                                     }
                                 @endphp

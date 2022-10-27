@@ -49,6 +49,8 @@ class PersonController extends Controller
     {
         $person = $this->repository->getPerson($id);
         $person->markers = $this->repository->getPersonCamps($person->id);
+        $person->servers = $this->repository->getPersonServers($person->id);
+
         if (!$person)
             return redirect()->back();
 
