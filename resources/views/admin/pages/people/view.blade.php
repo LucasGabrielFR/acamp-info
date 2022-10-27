@@ -320,7 +320,7 @@
                 @endforeach
                 @foreach ($person->servers as $serve)
                     <div class="col-auto">
-                        <x-adminlte-card title="{{ $serve->camp_name }}" icon="fas fa-lg fa-user-tie"
+                        <x-adminlte-card title="{{ $serve->camp_name }} - Servo" icon="fas fa-lg fa-user-tie"
                             theme="servant" collapsible>
                             @php
                                 $startDate = strtotime($serve->date_start);
