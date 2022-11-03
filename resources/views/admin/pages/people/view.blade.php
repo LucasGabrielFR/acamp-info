@@ -260,112 +260,125 @@
             </div>
         </div>
     </div>
-    <div class="card">
-        <div class="card-header">
-            Acampamentos
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    Acampamentos
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        @foreach ($person->markers as $marker)
+                            @php
+                                $cardColor = $marker->group;
+                                if ($cardColor == 'black') {
+                                    $cardColor = 'dark';
+                                }
+                            @endphp
+                            <div class="col-auto">
+                                <x-adminlte-card title="{{ $marker->camp_name }}" icon="fas fa-lg fa-campground"
+                                    theme="{{ $cardColor }}" collapsible>
+                                    @php
+                                        $startDate = strtotime($marker->date_start);
+                                        $startDate = date('d/m/Y', $startDate);
+
+                                        $endDate = strtotime($marker->date_end);
+                                        $endDate = date('d/m/Y', $endDate);
+                                    @endphp
+                                    <b>{{ $marker->camp_name }}</b>
+                                    <br>
+                                    Início em: <b>{{ $startDate }}</b>
+                                    <br>
+                                    Término em: <b>{{ $endDate }}</b>
+                                    <br>
+                                    Tribo: <span class="badge badge-{{ $cardColor }}">
+                                        @php
+                                            switch ($marker->group) {
+                                                case 'red':
+                                                    echo 'Vermelha';
+                                                    break;
+                                                case 'blue':
+                                                    echo 'Azul';
+                                                    break;
+                                                case 'brown':
+                                                    echo 'Marrom';
+                                                    break;
+                                                case 'orange':
+                                                    echo 'Laranja';
+                                                    break;
+                                                case 'yellow':
+                                                    echo 'Amarela';
+                                                    break;
+                                                case 'black':
+                                                    echo 'Preta';
+                                                    break;
+                                                case 'purple':
+                                                    echo 'Roxa';
+                                                    break;
+                                                case 'green':
+                                                    echo 'Verde';
+                                                    break;
+                                            }
+                                        @endphp
+                                    </span>
+                                </x-adminlte-card>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-            <div class="row">
-                @foreach ($person->markers as $marker)
-                    @php
-                        $cardColor = $marker->group;
-                        if ($cardColor == 'black') {
-                            $cardColor = 'dark';
-                        }
-                    @endphp
-                    <div class="col-auto">
-                        <x-adminlte-card title="{{ $marker->camp_name }}" icon="fas fa-lg fa-campground"
-                            theme="{{ $cardColor }}" collapsible>
-                            @php
-                                $startDate = strtotime($marker->date_start);
-                                $startDate = date('d/m/Y', $startDate);
-
-                                $endDate = strtotime($marker->date_end);
-                                $endDate = date('d/m/Y', $endDate);
-                            @endphp
-                            <b>{{ $marker->camp_name }}</b>
-                            <br>
-                            Início em: <b>{{ $startDate }}</b>
-                            <br>
-                            Término em: <b>{{ $endDate }}</b>
-                            <br>
-                            Tribo: <span class="badge badge-{{ $cardColor }}">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    Serviços
+                </div>
+                <div class="card-body">
+                    @foreach ($person->servers as $serve)
+                        <div class="col-auto">
+                            <x-adminlte-card title="{{ $serve->camp_name }} - Servo" icon="fas fa-lg fa-user-tie"
+                                theme="servant" collapsible>
                                 @php
-                                    switch ($marker->group) {
-                                        case 'red':
-                                            echo 'Vermelha';
-                                            break;
-                                        case 'blue':
-                                            echo 'Azul';
-                                            break;
-                                        case 'brown':
-                                            echo 'Marrom';
-                                            break;
-                                        case 'orange':
-                                            echo 'Laranja';
-                                            break;
-                                        case 'yellow':
-                                            echo 'Amarela';
-                                            break;
-                                        case 'black':
-                                            echo 'Preta';
-                                            break;
-                                        case 'purple':
-                                            echo 'Roxa';
-                                            break;
-                                        case 'green':
-                                            echo 'Verde';
-                                            break;
-                                    }
-                                @endphp
-                            </span>
-                        </x-adminlte-card>
-                    </div>
-                @endforeach
-                @foreach ($person->servers as $serve)
-                    <div class="col-auto">
-                        <x-adminlte-card title="{{ $serve->camp_name }} - Servo" icon="fas fa-lg fa-user-tie"
-                            theme="servant" collapsible>
-                            @php
-                                $startDate = strtotime($serve->date_start);
-                                $startDate = date('d/m/Y', $startDate);
+                                    $startDate = strtotime($serve->date_start);
+                                    $startDate = date('d/m/Y', $startDate);
 
-                                $endDate = strtotime($serve->date_end);
-                                $endDate = date('d/m/Y', $endDate);
-                            @endphp
-                            <b>{{ $serve->camp_name }}</b>
-                            <br>
-                            Início em: <b>{{ $startDate }}</b>
-                            <br>
-                            Término em: <b>{{ $endDate }}</b>
-                            <br>
-                            Setor: <span class="badge badge-servant">
-                                @php
-                                    switch ($serve->sector) {
-                                        case 'cozinha':
-                                            echo 'Cozinha';
-                                            break;
-                                        case 'anjo':
-                                            echo 'Anjo';
-                                            break;
-                                        case 'anjo-da-mata':
-                                            echo 'Anjo da mata';
-                                            break;
-                                        case 'secretaria':
-                                            echo 'Secretaria';
-                                            break;
-                                        case 'evangelizacao':
-                                            echo 'Evangelização';
-                                            break;
-                                        case 'coordenacao':
-                                            echo 'Coordenação';
-                                            break;
-                                    }
+                                    $endDate = strtotime($serve->date_end);
+                                    $endDate = date('d/m/Y', $endDate);
                                 @endphp
-                            </span>
-                        </x-adminlte-card>
-                    </div>
-                @endforeach
+                                <b>{{ $serve->camp_name }}</b>
+                                <br>
+                                Início em: <b>{{ $startDate }}</b>
+                                <br>
+                                Término em: <b>{{ $endDate }}</b>
+                                <br>
+                                Setor: <span class="badge badge-servant">
+                                    @php
+                                        switch ($serve->sector) {
+                                            case 'cozinha':
+                                                echo 'Cozinha';
+                                                break;
+                                            case 'anjo':
+                                                echo 'Anjo';
+                                                break;
+                                            case 'anjo-da-mata':
+                                                echo 'Anjo da mata';
+                                                break;
+                                            case 'secretaria':
+                                                echo 'Secretaria';
+                                                break;
+                                            case 'evangelizacao':
+                                                echo 'Evangelização';
+                                                break;
+                                            case 'coordenacao':
+                                                echo 'Coordenação';
+                                                break;
+                                        }
+                                    @endphp
+                                </span>
+                            </x-adminlte-card>
+                        </div>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>
