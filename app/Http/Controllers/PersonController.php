@@ -96,8 +96,10 @@ class PersonController extends Controller
 
         if ($request->hasFile('image')) {
 
-            if (Storage::disk('custom_uploads')->exists($person->image)) {
-                Storage::disk('custom_uploads')->delete($person->image);
+            if($person->image){
+                if (Storage::disk('custom_uploads')->exists($person->image)) {
+                    Storage::disk('custom_uploads')->delete($person->image);
+                }
             }
 
             $imagePath = $request->file('image')->store('people', ['disk' => 'custom_uploads']);
