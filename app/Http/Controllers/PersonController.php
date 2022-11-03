@@ -65,6 +65,10 @@ class PersonController extends Controller
         if (!$person)
             return redirect()->back();
 
+        if (Storage::disk('custom_uploads')->exists($person->image)) {
+            Storage::disk('custom_uploads')->delete($person->image);
+        }
+
         $this->repository->deletePerson($person);
 
         return redirect()->route('people.index');
