@@ -2,8 +2,7 @@
 
 @section('title', 'Informações')
 
-@section('content_header')
-    <h1>Informações da Pessoa</h1>
+@section('css')
     <style>
         .card-brown>.card-header {
             background: #8B4513;
@@ -53,9 +52,16 @@
             border-radius: 10px;
             color: black;
         }
-
-
     </style>
+@stop
+
+@section('content_header')
+    <div class="row">
+        <h1>Informações da Pessoa</h1>
+        <a class="btn btn-primary mx-1 shadow" href="{{ route('person.edit', $person->id) }}">
+            Editar
+        </a>
+    </div>
 @stop
 
 @section('content')
@@ -67,13 +73,11 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="p-3">
-                                    @if(isset($person->image))
-                                        <img src="{{url("{$person->image}")}}"
-                                        alt="" class="card-img-top">
+                                    @if (isset($person->image))
+                                        <img src="{{ url("{$person->image}") }}" alt="" class="card-img-top">
                                     @endif
-                                    @if(!isset($person->image))
-                                        <img src="{{url('img/blank-profile.png')}}"
-                                        alt="" class="card-img-top">
+                                    @if (!isset($person->image))
+                                        <img src="{{ url('img/blank-profile.png') }}" alt="" class="card-img-top">
                                     @endif
                                 </div>
                             </div>
