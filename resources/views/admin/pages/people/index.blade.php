@@ -3,7 +3,13 @@
 @section('title', 'Pessoas')
 
 @section('content_header')
-    <h1>Fichas disponíveis</h1>
+    @if ($type == 'noCampers')
+        <h1>Fichas disponíveis</h1>
+    @endif
+    @if ($type == 'campers')
+        <h1>Campistas</h1>
+    @endif
+
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.1/css/buttons.dataTables.min.css">
     <a href="{{ route('person.create') }}" class="btn btn-success">Novo Cadastro</a>
     <style>

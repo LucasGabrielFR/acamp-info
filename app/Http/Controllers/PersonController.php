@@ -20,7 +20,8 @@ class PersonController extends Controller
         $people = $this->repository->getNoCampers();
 
         return view('admin.pages.people.index', [
-            'people' => $people
+            'people' => $people,
+            'type' => 'noCampers'
         ]);
     }
 
@@ -33,7 +34,8 @@ class PersonController extends Controller
         }
 
         return view('admin.pages.people.index', [
-            'people' => $people
+            'people' => $people,
+            'type' => 'campers'
         ]);
     }
 
