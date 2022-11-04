@@ -7,12 +7,13 @@ use App\Models\Camper;
 use App\Models\Person;
 use App\Repositories\PersonRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
     public function index()
     {
-        $countPeople = Person::count();
+        $countPeople = Person::count()->whereNotIn('id', DB::table('campers')->select('person_id'));
         $countCampers = Camper::distinct('person_id')
         ->join('people as p', 'person_id', '=', 'p.id')
         ->count('person_id');

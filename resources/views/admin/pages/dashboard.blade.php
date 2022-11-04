@@ -17,7 +17,7 @@
         </div>
         <div class="col-4">
             <x-adminlte-small-box title="Campistas" text="{{ $countCampers }}" icon="fas fa-users  text-white"
-                theme="info" />
+                url="{{ route('campers.index') }}" theme="info" />
         </div>
         <div class="col-4">
             <x-adminlte-small-box title="Acampamentos" text="{{ $countCamps }}" icon="fas fa-campground text-white"
