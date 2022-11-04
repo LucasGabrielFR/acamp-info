@@ -5,13 +5,14 @@
 @section('content_header')
     @if ($type == 'noCampers')
         <h1>Fichas disponíveis</h1>
+        <a href="{{ route('person.create') }}" class="btn btn-success">Novo Cadastro</a>
     @endif
     @if ($type == 'campers')
         <h1>Campistas</h1>
     @endif
 
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.1/css/buttons.dataTables.min.css">
-    <a href="{{ route('person.create') }}" class="btn btn-success">Novo Cadastro</a>
+
     <style>
         .badge-brown {
             background: #8B4513;
