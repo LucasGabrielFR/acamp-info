@@ -13,7 +13,8 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $countPeople = Person::count()->whereNotIn('id', DB::table('campers')->select('person_id'));
+        $noCampers = Person::whereNotIn('id', DB::table('campers')->select('person_id'));
+        $countPeople = $noCampers->count();
         $countCampers = Camper::distinct('person_id')
         ->join('people as p', 'person_id', '=', 'p.id')
         ->count('person_id');
