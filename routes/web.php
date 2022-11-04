@@ -44,6 +44,9 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::post('admin/camp/{id}/addCampers', [CampController::class, 'addCampers'])->name('camp.add-campers');
     Route::post('admin/camp/{id}/addServants', [CampController::class, 'addServants'])->name('camp.add-servants');
 
+    //Camper Routes
+    Route::get('admin/campers', [PersonController::class, 'campers'])->name('campers.index');
+
     //AcampType Routes
     Route::get('admin/camp/types', [AcampTypeController::class, 'index'])->name('acamp-type.index');
     Route::get('admin/camp/types/create', [AcampTypeController::class, 'create'])->name('acamp-type.create');

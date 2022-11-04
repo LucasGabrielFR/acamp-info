@@ -148,8 +148,8 @@
                                 @foreach ($config['data'] as $servant)
                                     @php
                                         $dataNascimento2 = $servant->date_birthday;
-                                        $data2 = new DateTime($dataNascimento);
-                                        $resultado2 = $data->diff(new DateTime(date('Y-m-d')));
+                                        $data2 = new DateTime($dataNascimento2);
+                                        $resultado2 = $data2->diff(new DateTime(date('Y-m-d')));
                                     @endphp
                                     <tr>
                                         <td>{{ $servant->name }}</td>

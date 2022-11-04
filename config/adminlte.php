@@ -298,8 +298,17 @@ return [
         ],
         [
             'text' => 'Pessoas',
-            'url'  => 'admin/people',
-            'icon' => 'fas fa-list-alt'
+            'icon' => 'fas fa-list-alt',
+            'submenu' => [
+                [
+                    'text' => 'Fichas',
+                    'url'  => 'admin/people',
+                ],
+                [
+                    'text' => 'Campistas',
+                    'url'  => 'admin/campers',
+                ]
+            ]
         ],
         [
             'text' => 'Acampamentos',

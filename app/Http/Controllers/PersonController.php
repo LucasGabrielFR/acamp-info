@@ -17,7 +17,16 @@ class PersonController extends Controller
 
     public function index()
     {
-        $people = $this->repository->getAllPeople();
+        $people = $this->repository->getNoCampers();
+
+        return view('admin.pages.people.index', [
+            'people' => $people
+        ]);
+    }
+
+    public function campers()
+    {
+        $people = $this->repository->getAllCampers();
         foreach ($people as $person) {
             $person->markers = $this->repository->getPersonCamps($person->id);
             $person->servers = $this->repository->getPersonServers($person->id);

@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Person;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PersonRepository
 {
@@ -17,6 +18,22 @@ class PersonRepository
     public function getAllPeople()
     {
         return $this->entity->orderBy('name')->get();
+    }
+
+    public function getNoCampers()
+    {
+        $people = $this->entity
+            ->whereNotIn('id', DB::table('campers')->select('person_id'))
+            ->get();
+        return $people;
+    }
+
+    public function getAllCampers()
+    {
+        $campers = $this->entity
+            ->whereIn('id', DB::table('campers')->select('person_id'))
+            ->get();
+        return $campers;
     }
 
     public function storePerson($data)
@@ -50,11 +67,11 @@ class PersonRepository
             'c.date_end',
             'ca.group'
         )
-        ->join('campers as ca', 'ca.person_id', '=', 'people.id')
-        ->join('camps as c', 'c.id', '=', 'ca.camp_id')
-        ->join('acamp_types as t', 't.id', '=', 'c.type_id')
-        ->where('people.id', $id)
-        ->get();
+            ->join('campers as ca', 'ca.person_id', '=', 'people.id')
+            ->join('camps as c', 'c.id', '=', 'ca.camp_id')
+            ->join('acamp_types as t', 't.id', '=', 'c.type_id')
+            ->where('people.id', $id)
+            ->get();
     }
 
     public function getPersonServers($id)
@@ -66,11 +83,10 @@ class PersonRepository
             'c.date_end',
             's.sector'
         )
-        ->join('servants as s', 's.person_id', '=', 'people.id')
-        ->join('camps as c', 'c.id', '=', 's.camp_id')
-        ->join('acamp_types as t', 't.id', '=', 'c.type_id')
-        ->where('people.id', $id)
-        ->get();
+            ->join('servants as s', 's.person_id', '=', 'people.id')
+            ->join('camps as c', 'c.id', '=', 's.camp_id')
+            ->join('acamp_types as t', 't.id', '=', 'c.type_id')
+            ->where('people.id', $id)
+            ->get();
     }
-
 }

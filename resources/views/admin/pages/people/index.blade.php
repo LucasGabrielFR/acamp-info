@@ -3,7 +3,7 @@
 @section('title', 'Pessoas')
 
 @section('content_header')
-    <h1>Cadastro de Pessoas</h1>
+    <h1>Fichas disponíveis</h1>
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.1/css/buttons.dataTables.min.css">
     <a href="{{ route('person.create') }}" class="btn btn-success">Novo Cadastro</a>
     <style>
@@ -68,8 +68,7 @@
                     <tr>
                         <td class="align-middle">
                             @if (isset($person->image))
-                                <img src="{{url("{$person->image}")}}" class="img-fluid img-thumbnail"
-                                    alt="">
+                                <img src="{{ url("{$person->image}") }}" class="img-fluid img-thumbnail" alt="">
                             @endif
                         </td>
                         <td class="align-middle">{{ $person->name }}</td>
@@ -78,62 +77,67 @@
                         <td class="align-middle">{{ $person->parish }}</td>
                         <td class="align-middle">
                             @php
-                                foreach ($person->markers as $marker) {
-                                    switch ($marker->group) {
-                                        case 'red':
-                                            echo '<span class="badge badge-red ml-1">' . $marker->camp_name . '</span>';
-                                            break;
-                                        case 'blue':
-                                            echo '<span class="badge badge-blue ml-1">' . $marker->camp_name . '</span>';
-                                            break;
-                                        case 'brown':
-                                            echo '<span class="badge badge-brown ml-1">' . $marker->camp_name . '</span>';
-                                            break;
-                                        case 'orange':
-                                            echo '<span class="badge badge-orange ml-1">' . $marker->camp_name . '</span>';
-                                            break;
-                                        case 'yellow':
-                                            echo '<span class="badge badge-yellow ml-1">' . $marker->camp_name . '</span>';
-                                            break;
-                                        case 'black':
-                                            echo '<span class="badge badge-dark ml-1">' . $marker->camp_name . '</span>';
-                                            break;
-                                        case 'purple':
-                                            echo '<span class="badge badge-purple ml-1">' . $marker->camp_name . '</span>';
-                                            break;
-                                        case 'green':
-                                            echo '<span class="badge badge-green ml-1">' . $marker->camp_name . '</span>';
-                                            break;
-                                        default:
-                                            echo '<span class="badge badge-light ml-1">' . $marker->camp_name . '</span>';
-                                            break;
+                                if (isset($person->markers)) {
+                                    foreach ($person->markers as $marker) {
+                                        switch ($marker->group) {
+                                            case 'red':
+                                                echo '<span class="badge badge-red ml-1">' . $marker->camp_name . '</span>';
+                                                break;
+                                            case 'blue':
+                                                echo '<span class="badge badge-blue ml-1">' . $marker->camp_name . '</span>';
+                                                break;
+                                            case 'brown':
+                                                echo '<span class="badge badge-brown ml-1">' . $marker->camp_name . '</span>';
+                                                break;
+                                            case 'orange':
+                                                echo '<span class="badge badge-orange ml-1">' . $marker->camp_name . '</span>';
+                                                break;
+                                            case 'yellow':
+                                                echo '<span class="badge badge-yellow ml-1">' . $marker->camp_name . '</span>';
+                                                break;
+                                            case 'black':
+                                                echo '<span class="badge badge-dark ml-1">' . $marker->camp_name . '</span>';
+                                                break;
+                                            case 'purple':
+                                                echo '<span class="badge badge-purple ml-1">' . $marker->camp_name . '</span>';
+                                                break;
+                                            case 'green':
+                                                echo '<span class="badge badge-green ml-1">' . $marker->camp_name . '</span>';
+                                                break;
+                                            default:
+                                                echo '<span class="badge badge-light ml-1">' . $marker->camp_name . '</span>';
+                                                break;
+                                        }
                                     }
                                 }
-                                foreach ($person->servers as $serve) {
-                                    $sector = "";
-                                    switch ($serve->sector) {
-                                        case 'cozinha':
-                                            $sector = "Cozinha";
-                                            break;
-                                        case 'anjo':
-                                            $sector = "Anjo";
-                                            break;
-                                        case 'anjo-da-mata':
-                                            $sector = "Anjo da mata";
-                                            break;
-                                        case 'evangelizacao':
-                                            $sector = "Evangelização";
-                                            break;
-                                        case 'secretaria':
-                                            $sector = "Secretaria";
-                                            break;
-                                        case 'coordenacao':
-                                            $sector = "Coordenação";
-                                            break;
-                                    }
+                                if (isset($person->servers)) {
+                                    foreach ($person->servers as $serve) {
+                                        $sector = '';
+                                        switch ($serve->sector) {
+                                            case 'cozinha':
+                                                $sector = 'Cozinha';
+                                                break;
+                                            case 'anjo':
+                                                $sector = 'Anjo';
+                                                break;
+                                            case 'anjo-da-mata':
+                                                $sector = 'Anjo da mata';
+                                                break;
+                                            case 'evangelizacao':
+                                                $sector = 'Evangelização';
+                                                break;
+                                            case 'secretaria':
+                                                $sector = 'Secretaria';
+                                                break;
+                                            case 'coordenacao':
+                                                $sector = 'Coordenação';
+                                                break;
+                                        }
 
-                                    echo '<span class="badge badge-servant ml-1">' . "{$serve->camp_name} - {$sector} </span>";
+                                        echo '<span class="badge badge-servant ml-1">' . "{$serve->camp_name} - {$sector} </span>";
+                                    }
                                 }
+
                             @endphp
                         </td>
                         <td class="align-middle">
