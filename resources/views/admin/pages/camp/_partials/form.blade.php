@@ -38,23 +38,29 @@
         <button type="submit" class="btn btn-dark">Salvar</button>
     </div>
 </div>
-<script>
-     @php
-    if(isset($camp)){ @endphp
-        window.onload = function exampleFunction() {
-            const selected = document.querySelector('#type_id');
-            const value = "@php echo $camp->type_id @endphp";
-            selected.value = value;
-        }
-    @php } @endphp
+@section('js')
+    <script>
+        @php
+        if(isset($camp)){ @endphp
+            window.onload = function exampleFunction() {
+                const selected = document.querySelector('#type_id');
+                const value = "@php echo $camp->type_id @endphp";
+                selected.value = value;
+            }
+        @php } @endphp
 
-    function verifyDate(event) {
-        var date_start = document.querySelector("#date_start");
-        var date_end = document.querySelector("#date_end");
-        if (date_end.value < date_start.value) {
-            event.preventDefault();
-            date_end.focus();
-            alert("A data de término deve ser maior que a data de início")
+        function verifyDate(event) {
+            var date_start = document.querySelector("#date_start");
+            var date_end = document.querySelector("#date_end");
+            if (date_end.value < date_start.value) {
+                event.preventDefault();
+                date_end.focus();
+                alert("A data de término deve ser maior que a data de início")
+            }
         }
-    }
-</script>
+
+        $('input').keyup(function () {
+            this.value = this.value.toUpperCase();
+        })
+    </script>
+@stop

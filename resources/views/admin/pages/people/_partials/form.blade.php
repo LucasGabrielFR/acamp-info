@@ -91,7 +91,7 @@
             <div class="col-8">
                 <div class="form-group">
                     <label>Nome*</label>
-                    <input type="text" name="name" class="form-control" placeholder="Nome"
+                    <input type="text" name="name" id="name" class="form-control" placeholder="Nome"
                         value="{{ $person->name ?? '' }}" required>
                 </div>
             </div>
@@ -430,6 +430,10 @@
                 }
             }
         }
+
+        $('input').keyup(function () {
+            this.value = this.value.toUpperCase();
+        })
     </script>
 
 @endsection
