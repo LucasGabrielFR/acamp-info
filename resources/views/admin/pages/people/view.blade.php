@@ -244,25 +244,25 @@
                                     @php
                                      switch ($person->marital_status) {
                                         case 0:
-                                            echo 'Solteiro'
+                                            echo 'Solteiro';
                                             break;
                                         case 1:
-                                            echo 'Casado'
+                                            echo 'Casado';
                                             break;
                                         case 2:
-                                            echo 'Separado'
+                                            echo 'Separado';
                                             break;
                                         case 3:
-                                            echo 'Divorciado'
+                                            echo 'Divorciado';
                                             break;
                                         case 4:
-                                            echo 'Viúvo'
+                                            echo 'Viúvo';
                                             break;
                                         case 5:
-                                            echo 'Amasiado'
+                                            echo 'Amasiado';
                                             break;
                                         case 6:
-                                            echo 'Padre'
+                                            echo 'Padre';
                                             break;
                                      }
                                     @endphp
