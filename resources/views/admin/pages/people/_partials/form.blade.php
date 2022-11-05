@@ -16,7 +16,7 @@
                     </div>
                     <div class="mb-3 text-center">
                         <label for="formFile" class="form-label">Foto</label>
-                        <input class="form-control" id="img-input" type="file" name="image" accept="image/*" required>
+                        <input class="form-control" id="img-input" type="file" name="image" accept="image/*" @if(!isset($person->image)) required @endif>
                         <small>Inserir foto sem maquiagem, óculos de sol ou qualquer enfeite...</small>
                     </div>
                 </div>
