@@ -87,6 +87,8 @@ class CampRepository
     {
         $campers = DB::table('people as p')
         ->whereNotIn('p.id', DB::table('campers')
+        ->select('person_id')->where('camp_id', '=' , $id))
+        ->whereNotIn('p.id', DB::table('servants')
         ->select('person_id')->where('camp_id', '=' , $id))->get();
         return $campers;
     }
@@ -169,7 +171,9 @@ class CampRepository
     {
         $campers = DB::table('people as p')
         ->where('p.name', 'LIKE', '%'.$request->search.'%')
-        ->whereNotIn('p.id', DB::table('campers')->select('person_id')->where('camp_id', '=' , $id))->get();
+        ->whereNotIn('p.id', DB::table('campers')->select('person_id')->where('camp_id', '=' , $id))
+        ->whereNotIn('p.id', DB::table('servants')
+        ->select('person_id')->where('camp_id', '=' , $id))->get();
         return $campers;
     }
 
