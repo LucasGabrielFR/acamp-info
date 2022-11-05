@@ -264,6 +264,9 @@
                                         case 6:
                                             echo 'Padre';
                                             break;
+                                        case 7:
+                                            echo 'Freira';
+                                            break;
                                      }
                                     @endphp
                                 </div>

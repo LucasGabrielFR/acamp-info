@@ -273,6 +273,7 @@
                         <option value="4">Viúvo</option>
                         <option value="5">Amasiado</option>
                         <option value="6">Padre</option>
+                        <option value="7">Freira</option>
                     </select>
                 </div>
             </div>
