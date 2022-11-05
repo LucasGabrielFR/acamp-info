@@ -152,6 +152,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>CPF</label>
+                                <br>
+                                <div class="text-danger">{{ $person->cpf }}</div>
+                            </div>
+                        </div>
+                    </div>
                     <hr>
                     <h2>
                         Endereço
@@ -229,9 +238,35 @@
                     <div class="row">
                         <div class="col-3">
                             <div class="form-group">
-                                <label>É casado(a)?</label>
+                                <label>Estado Civil</label>
                                 <br>
-                                <div class="text-danger">{{ $person->is_married == 1 ? 'Sim' : 'Não' }}</div>
+                                <div class="text-danger">
+                                    @php
+                                     switch ($person->marital_status) {
+                                        case 0:
+                                            echo 'Solteiro'
+                                            break;
+                                        case 1:
+                                            echo 'Casado'
+                                            break;
+                                        case 2:
+                                            echo 'Separado'
+                                            break;
+                                        case 3:
+                                            echo 'Divorciado'
+                                            break;
+                                        case 4:
+                                            echo 'Viúvo'
+                                            break;
+                                        case 5:
+                                            echo 'Amasiado'
+                                            break;
+                                        case 6:
+                                            echo 'Padre'
+                                            break;
+                                     }
+                                    @endphp
+                                </div>
                             </div>
                         </div>
                         <div class="col-3">
