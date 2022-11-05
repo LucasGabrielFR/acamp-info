@@ -38,6 +38,8 @@ return new class extends Migration
             $table->boolean('is_spouse_camper')->nullable(true);
             $table->string('spouse_name')->nullable(true);
             $table->string('image')->nullable(true);
+            $table->string('cpf')->unique()->nullable(true);
+            $table->string('marital_status')->nullable(true);
             $table->timestamps();
         });
     }

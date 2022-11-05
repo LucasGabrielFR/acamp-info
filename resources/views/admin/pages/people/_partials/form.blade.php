@@ -16,7 +16,7 @@
                     </div>
                     <div class="mb-3 text-center">
                         <label for="formFile" class="form-label">Foto</label>
-                        <input class="form-control" id="img-input" type="file" name="image" accept="image/*">
+                        <input class="form-control" id="img-input" type="file" name="image" accept="image/*" required>
                         <small>Inserir foto sem maquiagem, óculos de sol ou qualquer enfeite...</small>
                     </div>
                 </div>
@@ -90,14 +90,14 @@
         <div class="row">
             <div class="col-8">
                 <div class="form-group">
-                    <label>Nome*</label>
+                    <label>Nome</label>
                     <input type="text" name="name" id="name" class="form-control" placeholder="Nome"
                         value="{{ $person->name ?? '' }}" required>
                 </div>
             </div>
             <div class="col-4">
                 <div class="form-group">
-                    <label>Data de nascimento*</label>
+                    <label>Data de nascimento</label>
                     <input type="date" name="date_birthday" class="form-control"
                         value="{{ $person->date_birthday ?? '' }}" required>
                 </div>
@@ -108,12 +108,12 @@
                 <div class="form-group">
                     <label>Email</label>
                     <input type="email" name="email" class="form-control" placeholder="Email"
-                        value="{{ $person->email ?? '' }}">
+                        value="{{ $person->email ?? '' }}" required>
                 </div>
             </div>
             <div class="col-4">
                 <div class="form-group">
-                    <label>Telefone*</label>
+                    <label>Telefone</label>
 
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
@@ -122,6 +122,19 @@
                             OnKeyPress="formatar('## #####-####', this)" value="{{ $person->contact ?? '' }}" required>
                     </div>
 
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label>CPF</label>
+                    <input id="cpf" name="cpf" class="form-control" placeholder="XXX.XXX.XXX-XX"
+                            type="text" maxlength="14"
+                            OnKeyPress="formatar('###.###.###-##', this)" value="{{ $person->cpf ?? '' }}" required>
+                    <div class="alert alert-danger mt-1" role="alert" id="cpf-error" style="display: none">
+                        CPF incorreto ou inválido!
+                    </div>
                 </div>
             </div>
         </div>
@@ -134,7 +147,7 @@
                 <div class="form-group">
                     <label>Rua</label>
                     <input type="text" name="street" class="form-control" placeholder="Rua"
-                        value="{{ $person->street ?? '' }}">
+                        value="{{ $person->street ?? '' }}" required>
                 </div>
             </div>
             <div class="col-4">
@@ -142,7 +155,7 @@
                     <label>Bairro</label>
 
                     <input type="text" name="district" class="form-control" placeholder="Bairro"
-                        value="{{ $person->district ?? '' }}">
+                        value="{{ $person->district ?? '' }}" required>
 
                 </div>
             </div>
@@ -151,7 +164,7 @@
                     <label>Número</label>
 
                     <input type="number" name="number" class="form-control" placeholder="Nº"
-                        value="{{ $person->number ?? '' }}">
+                        value="{{ $person->number ?? '' }}" required>
 
                 </div>
             </div>
@@ -161,14 +174,14 @@
                 <div class="form-group">
                     <label>Cidade</label>
                     <input type="text" name="city" class="form-control" placeholder="Cidade"
-                        value="{{ $person->city ?? '' }}">
+                        value="{{ $person->city ?? '' }}" required>
                 </div>
             </div>
             <div class="col-4">
                 <div class="form-group">
                     <label>Estado</label>
 
-                    <select class="custom-select" id="state" name="state">
+                    <select class="custom-select" id="state" name="state" required>
                         <option>Selecione</option>
                         <option value="AC">Acre</option>
                         <option value="AL">Alagoas</option>
@@ -208,14 +221,14 @@
                 <div class="form-group">
                     <label>Religião</label>
                     <input type="text" name="religion" class="form-control" placeholder="Religião"
-                        value="{{ $person->religion ?? '' }}">
+                        value="{{ $person->religion ?? '' }}" required>
                 </div>
             </div>
             <div class="col-4">
                 <div class="form-group">
                     <label>Paróquia</label>
                     <input type="text" name="parish" class="form-control" placeholder="Paróquia"
-                        value="{{ $person->parish ?? '' }}">
+                        value="{{ $person->parish ?? '' }}" required>
                 </div>
             </div>
         </div>
@@ -250,21 +263,17 @@
         <div class="row">
             <div class="col-3">
                 <div class="form-group">
-                    <label>É casado(a)?</label>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="is_married" id="is_married_yes"
-                            onchange="handleChange(this)" value="1">
-                        <label class="form-check-label" for="is_married_yes">
-                            Sim
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="is_married" id="is_married_no"
-                            onchange="handleChange(this)" value="0" checked>
-                        <label class="form-check-label" for="is_married_no">
-                            Não
-                        </label>
-                    </div>
+                    <label>Estado Civil</label>
+                    <select name="marital_status" id="marital_status" class="custom-select" onchange="handleChange(this)" required>
+                        <option>Selecione</option>
+                        <option value="0">Solteiro</option>
+                        <option value="1">Casado</option>
+                        <option value="2">Separado</option>
+                        <option value="3">Divorciado</option>
+                        <option value="4">Viúvo</option>
+                        <option value="5">Amasiado</option>
+                        <option value="6">Padre</option>
+                    </select>
                 </div>
             </div>
             <div class="col-3">
@@ -319,12 +328,18 @@
         }
         document.getElementById("img-input").addEventListener("change", readImage, false);
 
+
+
         @php
         if(isset($person)){ @endphp
             window.onload = function exampleFunction() {
-                const selected = document.querySelector('#state');
-                const value = "@php echo $person->state @endphp";
-                selected.value = value;
+                const state = document.querySelector('#state');
+                const stateValue = "@php echo $person->state @endphp";
+                state.value = stateValue;
+
+                const maritalStatus = document.querySelector('#marital_status');
+                const maritalStatusValue = "@php echo $person->marital_status @endphp";
+                maritalStatus.value = maritalStatusValue;
 
                 const is_baptized = @php echo $person->is_baptized @endphp;
                 if(is_baptized == 1){
@@ -359,15 +374,16 @@
                     const pastoral = document.querySelector('#pastoral');
                     is_pastoral_yes.checked = true;
                     pastoral.disabled = false;
+                    pastoral.required = true;
                 }else{
                     const is_pastoral_no = document.querySelector('#is_pastoral_no');
                     is_pastoral_no.checked = true;
                 }
 
-                const is_married = @php echo $person->is_married @endphp;
-                if(is_married == 1){
-                    const is_married_yes = document.querySelector('#is_married_yes');
-                    is_married_yes.checked = true;
+                const marital_status = @php if(isset($person->marital_status)) echo $person->marital_status;
+                else echo '0';
+                @endphp;
+                if(marital_status == 1 || marital_status == 5){
 
                     const is_spouse_camper = @php
                     if($person->is_spouse_camper) echo $person->is_spouse_camper;
@@ -385,8 +401,7 @@
                     }
 
                 }else{
-                    const is_married_no = document.querySelector('#is_married_no');
-                    is_married_no.checked = true;
+
                 }
             }
         @php } @endphp
@@ -395,6 +410,11 @@
             var i = documento.value.length;
             var saida = mascara.substring(0, 1);
             var texto = mascara.substring(i);
+
+            if(isNaN(documento.value[i-1])){ // impede entrar outro caractere que não seja número
+                documento.value = documento.value.substring(0, i-1);
+                return;
+            }
 
             if (texto.substring(0, 1) != saida) {
                 documento.value += texto.substring(0, 1);
@@ -410,14 +430,16 @@
                     pastoral.value = '';
                 } else {
                     pastoral.disabled = false;
+                    pastoral.required = true;
                 }
             }
-            if (src.name == 'is_married') {
+            if (src.name == 'marital_status') {
                 var spouse_name = document.querySelector("#spouse_name");
                 var is_spouse_camper_yes = document.querySelector("#is_spouse_camper_yes");
                 var is_spouse_camper_no = document.querySelector("#is_spouse_camper_no");
-                if (src.value == 0) {
+                if (src.value != 1 && src.value != 5) {
                     spouse_name.disabled = true;
+                    spouse_name.required = false;
                     spouse_name.value = '';
                     is_spouse_camper_yes.disabled = true;
                     is_spouse_camper_no.disabled = true;
@@ -425,6 +447,7 @@
                     is_spouse_camper_no.checked = false;
                 } else {
                     spouse_name.disabled = false;
+                    spouse_name.required = true;
                     is_spouse_camper_yes.disabled = false;
                     is_spouse_camper_no.disabled = false;
                 }
@@ -434,6 +457,48 @@
         $('input').keyup(function () {
             this.value = this.value.toUpperCase();
         })
+
+        $('form').submit(function (event) {
+            const cpf = document.getElementById('cpf');
+
+            if(!validaCPF(cpf.value)){
+                event.preventDefault();
+                $('#cpf-error').css({display: "block"});
+            }
+        })
+
+        $('#cpf').blur(function () {
+            if(!validaCPF(this.value)){
+                $('#cpf').css({border: "solid 1px red"});
+                $('#cpf-error').css({display: "block"});
+            }else{
+                $('#cpf').css({border: ""});
+                $('#cpf-error').css({display: "none"});
+            }
+        })
+
+        function validaCPF(strCPF) {
+            var Soma;
+            var Resto;
+            Soma = 0;
+            strCPF = strCPF.replaceAll('.','');
+            strCPF = strCPF.replaceAll('-','');
+            if (strCPF == "00000000000") return false;
+
+            for (i=1; i<=9; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
+            Resto = (Soma * 10) % 11;
+
+                if ((Resto == 10) || (Resto == 11))  Resto = 0;
+                if (Resto != parseInt(strCPF.substring(9, 10)) ) return false;
+
+            Soma = 0;
+                for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
+                Resto = (Soma * 10) % 11;
+
+                if ((Resto == 10) || (Resto == 11))  Resto = 0;
+                if (Resto != parseInt(strCPF.substring(10, 11) ) ) return false;
+                return true;
+            }
     </script>
 
 @endsection

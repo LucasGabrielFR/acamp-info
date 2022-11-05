@@ -38,6 +38,8 @@ class Person extends Model
         'spouse_name',
         'is_spouse_camper',
         'image',
+        'cpf',
+        'marital_status'
     ];
 
     public function camper()
