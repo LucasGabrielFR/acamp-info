@@ -313,9 +313,72 @@
                 </div>
             </div>
         </div>
+        @if(isset($person))
+            <h2>Observações <x-adminlte-button label="Adicionar Observação" data-toggle="modal"
+                data-target="#observationModal" class="bg-success" /></h2>
+            <div class="row">
+                <div class="col-12">
+                    <div class="timeline" id="timeline">
+
+                        @foreach ($person->observations as $observation)
+                            @php
+                                $createdAt = $observation->created_at;
+                                $createdAt = new DateTime($createdAt);
+                            @endphp
+                            <div class="time-label">
+                                <span class="bg-red">{{$createdAt->format('d/m/Y')}}</span>
+                            </div>
+
+                            <div>
+                                <i class="fas fa-info bg-blue"></i>
+                                <div class="timeline-item">
+                                    <span class="time text-white"><i class="fas fa-clock"></i> {{$createdAt->format('H:i')}}</span>
+                                    <h3 class="timeline-header bg-info">
+                                        <b>{{$observation->camp->name}}</b>
+                                    </h3>
+                                    <div class="timeline-body">
+                                        {{$observation->observation}}
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        @endif
         <button type="submit" class="btn btn-dark">Salvar</button>
     </div>
 </div>
+
+<x-adminlte-modal id="observationModal" title="Adicionar Observação" size="lg" theme="teal" icon="fas fa-pen-to-square"
+v-centered static-backdrop scrollable>
+    <div class="row">
+        <label>Acampamento Referência da observação</label>
+        <select class="custom-select" id="acampamento-referencia">
+            <option value="">Selecionar</option>
+            @foreach ($person->camps as $camper)
+                <option value="{{$camper->camp->id}}">{{$camper->camp->name}}</option>
+            @endforeach
+            @foreach ($person->serves as $serve)
+                <option value="{{$serve->camp->id}}">{{$serve->camp->name}}</option>
+            @endforeach
+        </select>
+        <div class="alert alert-danger mt-1" role="alert" id="acampamento-referencia-error" style="display: none">
+            Selecione uma opção
+        </div>
+    </div>
+    <div class="row">
+        <label>Observação</label>
+        <textarea class="form-control" id="observation" cols="20" rows="5"></textarea>
+        <div class="alert alert-danger mt-1" role="alert" id="observation-error" style="display: none">
+            O campo não pode estar vazio
+        </div>
+    </div>
+    <x-slot name="footerSlot">
+        <x-adminlte-button onclick="newObservation()" class="mr-auto" theme="success" label="Adicionar" id="addObs" />
+        <x-adminlte-button theme="danger" label="Cancelar" data-dismiss="modal" id="cancelObs" />
+    </x-slot>
+</x-adminlte-modal>
 @section('js')
     <script>
         function readImage() {
@@ -404,6 +467,63 @@
                 }else{
 
                 }
+            }
+
+            function newObservation(){
+                var csrf = document.getElementsByName('_token')[0].value;
+                const observation = document.getElementById('observation');
+                const acampamentoReferencia = document.getElementById('acampamento-referencia');
+                let valido = true;
+
+                if(observation.value.length < 3){
+                    $('#observation-error').css({display: "block"});
+                    valido = false;
+                }else{
+                    $('#observation-error').css({display: "none"});
+                }
+                if(acampamentoReferencia.value.length < 1){
+                    $('#acampamento-referencia-error').css({display: "block"});
+                    valido = false;
+                }else{
+                    $('#acampamento-referencia-error').css({display: "none"});
+                }
+                if(valido){
+                    $('#addObs').prop('disabled', true);
+                    $('#cancelObs').prop('disabled', true);
+                    $.post("@php echo route('observation.store') @endphp", {
+                    _token: csrf,
+                    observation: observation.value,
+                    camp_id: acampamentoReferencia.value,
+                    person_id: "@php echo $person->id @endphp",
+                    type: 1,
+                    }, function(retorno) {
+                        let data = new Date(retorno[0].created_at);
+                        let dataFormatada = ((data.getDate() )) + "/" + ((data.getMonth() + 1)) + "/" + data.getFullYear();
+                        console.log(dataFormatada);
+                        const timeline = document.getElementById('timeline');
+                        let newHtml = '<div class="time-label">'
+                        newHtml += '<span class="bg-red">'
+                        newHtml += dataFormatada
+                        newHtml += '</span></div>'
+                        newHtml += '<div>'
+                        newHtml += '<i class="fas fa-info bg-blue"></i>'
+                        newHtml += '<div class="timeline-item">'
+                        newHtml += '<span class="time text-white"><i class="fas fa-clock"></i>'
+                        newHtml += "Agora</span>"
+                        newHtml += '<h3 class="timeline-header bg-info">'
+                        newHtml += '<b>' + retorno[1].name +'</b>'
+                        newHtml += '</h3>'
+                        newHtml += '<div class="timeline-body">'
+                        newHtml += retorno[0].observation
+                        newHtml += '</div>'
+                        newHtml += '</div>'
+                        newHtml += '</div>'
+
+                        timeline.innerHTML =  newHtml + timeline.innerHTML;
+                        $('#observationModal').modal('hide');
+                    })
+                }
+
             }
         @php } @endphp
 

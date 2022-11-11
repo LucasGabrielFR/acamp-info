@@ -42,13 +42,18 @@ class Person extends Model
         'marital_status'
     ];
 
-    public function camper()
+    public function camps()
     {
         return $this->hasMany(Camper::class);
     }
 
-    public function servant()
+    public function serves()
     {
         return $this->hasMany(Servant::class);
+    }
+
+    public function observations()
+    {
+        return $this->hasMany(Observation::class)->orderBy('created_at', 'desc');
     }
 }

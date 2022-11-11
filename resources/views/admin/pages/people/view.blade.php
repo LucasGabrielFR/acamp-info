@@ -242,32 +242,32 @@
                                 <br>
                                 <div class="text-danger">
                                     @php
-                                     switch ($person->marital_status) {
-                                        case 0:
-                                            echo 'Solteiro';
-                                            break;
-                                        case 1:
-                                            echo 'Casado';
-                                            break;
-                                        case 2:
-                                            echo 'Separado';
-                                            break;
-                                        case 3:
-                                            echo 'Divorciado';
-                                            break;
-                                        case 4:
-                                            echo 'Viúvo';
-                                            break;
-                                        case 5:
-                                            echo 'Amasiado';
-                                            break;
-                                        case 6:
-                                            echo 'Padre';
-                                            break;
-                                        case 7:
-                                            echo 'Freira';
-                                            break;
-                                     }
+                                        switch ($person->marital_status) {
+                                            case 0:
+                                                echo 'Solteiro';
+                                                break;
+                                            case 1:
+                                                echo 'Casado';
+                                                break;
+                                            case 2:
+                                                echo 'Separado';
+                                                break;
+                                            case 3:
+                                                echo 'Divorciado';
+                                                break;
+                                            case 4:
+                                                echo 'Viúvo';
+                                                break;
+                                            case 5:
+                                                echo 'Amasiado';
+                                                break;
+                                            case 6:
+                                                echo 'Padre';
+                                                break;
+                                            case 7:
+                                                echo 'Freira';
+                                                break;
+                                        }
                                     @endphp
                                 </div>
                             </div>
@@ -294,6 +294,37 @@
                             </div>
                         </div>
                     </div>
+                    <hr>
+                    <h2>Observações</h2>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="timeline">
+
+                                @foreach ($person->observations as $observation)
+                                    @php
+                                        $createdAt = $observation->created_at;
+                                        $createdAt = new DateTime($createdAt);
+                                    @endphp
+                                    <div class="time-label">
+                                        <span class="bg-red">{{$createdAt->format('d/m/Y')}}</span>
+                                    </div>
+
+                                    <div>
+                                        <i class="fas fa-info bg-blue"></i>
+                                        <div class="timeline-item">
+                                            <span class="time text-white"><i class="fas fa-clock"></i> {{$createdAt->format('H:i')}}</span>
+                                            <h3 class="timeline-header bg-info">
+                                                <b>{{$observation->camp->name}}</b>
+                                            </h3>
+                                            <div class="timeline-body">
+                                                {{$observation->observation}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -306,24 +337,24 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        @foreach ($person->markers as $marker)
+                        @foreach ($person->camps as $camper)
                             @php
-                                $cardColor = $marker->group;
+                                $cardColor = $camper->group;
                                 if ($cardColor == 'black') {
                                     $cardColor = 'dark';
                                 }
                             @endphp
                             <div class="col-auto">
-                                <x-adminlte-card title="{{ $marker->camp_name }}" icon="fas fa-lg fa-campground"
+                                <x-adminlte-card title="{{ $camper->camp->name }}" icon="fas fa-lg fa-campground"
                                     theme="{{ $cardColor }}" collapsible>
                                     @php
-                                        $startDate = strtotime($marker->date_start);
+                                        $startDate = strtotime($camper->camp->date_start);
                                         $startDate = date('d/m/Y', $startDate);
 
-                                        $endDate = strtotime($marker->date_end);
+                                        $endDate = strtotime($camper->camp->date_end);
                                         $endDate = date('d/m/Y', $endDate);
                                     @endphp
-                                    <b>{{ $marker->camp_name }}</b>
+                                    <b>{{ $camper->camp->name }}</b>
                                     <br>
                                     Início em: <b>{{ $startDate }}</b>
                                     <br>
@@ -331,7 +362,7 @@
                                     <br>
                                     Tribo: <span class="badge badge-{{ $cardColor }}">
                                         @php
-                                            switch ($marker->group) {
+                                            switch ($camper->group) {
                                                 case 'red':
                                                     echo 'Vermelha';
                                                     break;
@@ -374,18 +405,18 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-auto">
-                            @foreach ($person->servers as $serve)
+                            @foreach ($person->serves as $serve)
                                 <div class="col-auto">
-                                    <x-adminlte-card title="{{ $serve->camp_name }} - Servo" icon="fas fa-lg fa-user-tie"
+                                    <x-adminlte-card title="{{ $serve->camp->name }} - Servo" icon="fas fa-lg fa-user-tie"
                                         theme="servant" collapsible>
                                         @php
-                                            $startDate = strtotime($serve->date_start);
+                                            $startDate = strtotime($serve->camp->date_start);
                                             $startDate = date('d/m/Y', $startDate);
 
-                                            $endDate = strtotime($serve->date_end);
+                                            $endDate = strtotime($serve->camp->date_end);
                                             $endDate = date('d/m/Y', $endDate);
                                         @endphp
-                                        <b>{{ $serve->camp_name }}</b>
+                                        <b>{{ $serve->camp->name }}</b>
                                         <br>
                                         Início em: <b>{{ $startDate }}</b>
                                         <br>

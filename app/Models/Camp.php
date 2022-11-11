@@ -29,11 +29,16 @@ class Camp extends Model
 
     public function campers()
     {
-        return $this->hasMany(Camper::class);
+        return $this->belongsTo(Camper::class);
     }
 
     public function servants()
     {
-        return $this->hasMany(Servant::class);
+        return $this->belongsTo(Servant::class);
+    }
+
+    public function observations()
+    {
+        return $this->belongsTo(Observation::class);
     }
 }

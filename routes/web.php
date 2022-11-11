@@ -4,6 +4,7 @@ use App\Http\Controllers\AcampTypeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CampController;
 use App\Http\Controllers\ForayController;
+use App\Http\Controllers\ObservationController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +15,7 @@ Route::post('/login', [UserController::class, 'login'])->name('login.auth');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'auth.session'])->group(function () {
+    //Dashboard Route
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
 
     //People Routes
@@ -64,8 +66,11 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::get('admin/forays/edit/{id}', [ForayController::class, 'edit'])->name('foray.edit');
     Route::put('admin/forays/edit/{id}', [ForayController::class, 'update'])->name('foray.update');
     Route::delete('admin/forays/{id}', [ForayController::class, 'delete'])->name('foray.delete');
+
+    //Observation Routes
+    Route::post('admin/observation/create', [ObservationController::class, 'store'])->name('observation.store');
 });
-//Dashboard Route
+
 
 Route::get('/', function () {
     return redirect('/login');

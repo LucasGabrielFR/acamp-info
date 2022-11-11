@@ -6,7 +6,7 @@ use App\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Servant extends Model
+class Observation extends Model
 {
     use HasFactory, UuidTrait;
 
@@ -15,15 +15,13 @@ class Servant extends Model
     protected $keyType = 'uuid';
 
     protected $fillable = [
-        'camp_id',
+        'type',
         'person_id',
-        'shirt_size',
-        'sector',
-        'group',
-        'present',
+        'observation',
+        'camp_id',
     ];
 
-    public function people()
+    public function person()
     {
         return $this->belongsTo(Person::class);
     }
@@ -32,4 +30,5 @@ class Servant extends Model
     {
         return $this->hasOne(Camp::class, 'id', 'camp_id');
     }
+
 }

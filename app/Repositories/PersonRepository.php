@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Observation;
 use App\Models\Person;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -88,5 +89,10 @@ class PersonRepository
             ->join('acamp_types as t', 't.id', '=', 'c.type_id')
             ->where('people.id', $id)
             ->get();
+    }
+
+    public function getPersonObservations($id)
+    {
+        return Observation::where('person_id', $id)->get();
     }
 }
