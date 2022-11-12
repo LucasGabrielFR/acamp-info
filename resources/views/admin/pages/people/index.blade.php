@@ -125,10 +125,7 @@
                                                 $sector = 'Cozinha';
                                                 break;
                                             case 'anjo':
-                                                $sector = 'Anjo';
-                                                break;
-                                            case 'anjo-da-mata':
-                                                $sector = 'Anjo da mata';
+                                                $sector = 'Anjo/Líder/Padrinho';
                                                 break;
                                             case 'evangelizacao':
                                                 $sector = 'Evangelização';
@@ -139,6 +136,40 @@
                                             case 'coordenacao':
                                                 $sector = 'Coordenação';
                                                 break;
+                                            case 'cantinho-mariano':
+                                                $sector = 'Cantinho Mariano';
+                                                break;
+                                            case 'capela':
+                                                $sector = 'Capela';
+                                                break;
+                                            case 'diretor-espiritual':
+                                                $sector = 'Diretor Espiritual';
+                                                break;
+                                            case 'farmacia':
+                                                $sector = 'Farmácia';
+                                                break;
+                                            case 'animacao':
+                                                $sector = 'Animação';
+                                                break;
+                                            case 'ligacao':
+                                                $sector = 'Ligação';
+                                                break;
+                                            case 'manutencao':
+                                                $sector = 'Manutenção';
+                                                break;
+                                            case 'musica':
+                                                $sector = 'Música';
+                                                break;
+                                            case 'pregacao':
+                                                $sector = 'Pregação';
+                                                break;
+                                            case 'teatro':
+                                                $sector = 'Teatro';
+                                                break;
+                                            case 'tropa-de-elite':
+                                                $sector = 'Tropa de Elite';
+                                                break;
+
                                         }
 
                                         echo '<span class="badge badge-servant ml-1">' . "{$serve->camp_name} - {$sector} </span>";

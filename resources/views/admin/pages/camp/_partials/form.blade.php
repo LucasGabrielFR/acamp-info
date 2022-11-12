@@ -60,7 +60,9 @@
         }
 
         $('input').keyup(function () {
-            this.value = this.value.toUpperCase();
+            if(this.type != 'date'){
+                this.value = this.value.toUpperCase();
+            }
         })
     </script>
 @stop

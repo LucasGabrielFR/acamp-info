@@ -162,7 +162,7 @@
                                                 <option value="">Selecione</option>
                                                 <option value="animacao" @selected($servant->sector == 'animacao')>Animação</option>
                                                 <option value="anjo" @selected($servant->sector == 'anjo')>Anjo/Líder/Padrinho</option>
-                                                <option value="cantinho-mariano" @selected($servant->sector == 'cantinho-mariano')>Catinho Mariano</option>
+                                                <option value="cantinho-mariano" @selected($servant->sector == 'cantinho-mariano')>Cantinho Mariano</option>
                                                 <option value="capela" @selected($servant->sector == 'capela')>Capela</option>
                                                 <option value="coordenacao" @selected($servant->sector == 'coordenacao')>Coordenação</option>
                                                 <option value="cozinha" @selected($servant->sector == 'cozinha')>Cozinha</option>

@@ -426,24 +426,55 @@
                                             @php
                                                 switch ($serve->sector) {
                                                     case 'cozinha':
-                                                        echo 'Cozinha';
+                                                        $sector = 'Cozinha';
                                                         break;
                                                     case 'anjo':
-                                                        echo 'Anjo';
-                                                        break;
-                                                    case 'anjo-da-mata':
-                                                        echo 'Anjo da mata';
-                                                        break;
-                                                    case 'secretaria':
-                                                        echo 'Secretaria';
+                                                        $sector = 'Anjo/Líder/Padrinho';
                                                         break;
                                                     case 'evangelizacao':
-                                                        echo 'Evangelização';
+                                                        $sector = 'Evangelização';
+                                                        break;
+                                                    case 'secretaria':
+                                                        $sector = 'Secretaria';
                                                         break;
                                                     case 'coordenacao':
-                                                        echo 'Coordenação';
+                                                        $sector = 'Coordenação';
+                                                        break;
+                                                    case 'cantinho-mariano':
+                                                        $sector = 'Cantinho Mariano';
+                                                        break;
+                                                    case 'capela':
+                                                        $sector = 'Capela';
+                                                        break;
+                                                    case 'diretor-espiritual':
+                                                        $sector = 'Diretor Espiritual';
+                                                        break;
+                                                    case 'farmacia':
+                                                        $sector = 'Farmácia';
+                                                        break;
+                                                    case 'animacao':
+                                                        $sector = 'Animação';
+                                                        break;
+                                                    case 'ligacao':
+                                                        $sector = 'Ligação';
+                                                        break;
+                                                    case 'manutencao':
+                                                        $sector = 'Manutenção';
+                                                        break;
+                                                    case 'musica':
+                                                        $sector = 'Música';
+                                                        break;
+                                                    case 'pregacao':
+                                                        $sector = 'Pregação';
+                                                        break;
+                                                    case 'teatro':
+                                                        $sector = 'Teatro';
+                                                        break;
+                                                    case 'tropa-de-elite':
+                                                        $sector = 'Tropa de Elite';
                                                         break;
                                                 }
+                                                echo $sector;
                                             @endphp
                                         </span>
                                     </x-adminlte-card>
