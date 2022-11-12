@@ -160,12 +160,22 @@
                                             <select id="sector{{ $servant->id }}" class="custom-select"
                                                 onchange="alteraSetor(this)">
                                                 <option value="">Selecione</option>
-                                                <option value="cozinha" @selected($servant->sector == 'cozinha')>Cozinha</option>
-                                                <option value="anjo" @selected($servant->sector == 'anjo')>Anjo</option>
-                                                <option value="anjo-da-mata" @selected($servant->sector == 'anjo-da-mata')>Anjo da Mata</option>
-                                                <option value="evangelizacao" @selected($servant->sector == 'evangelizacao')>Evangelização</option>
-                                                <option value="secretaria" @selected($servant->sector == 'secretaria')>Secretaria</option>
+                                                <option value="animacao" @selected($servant->sector == 'animacao')>Animação</option>
+                                                <option value="anjo" @selected($servant->sector == 'anjo')>Anjo/Líder/Padrinho</option>
+                                                <option value="cantinho-mariano" @selected($servant->sector == 'cantinho-mariano')>Catinho Mariano</option>
+                                                <option value="capela" @selected($servant->sector == 'capela')>Capela</option>
                                                 <option value="coordenacao" @selected($servant->sector == 'coordenacao')>Coordenação</option>
+                                                <option value="cozinha" @selected($servant->sector == 'cozinha')>Cozinha</option>
+                                                <option value="diretor espiritual" @selected($servant->sector == 'diretor-espiritual')>Diretor Espiritual</option>
+                                                <option value="evangelizacao" @selected($servant->sector == 'evangelizacao')>Evangelização</option>
+                                                <option value="farmacia" @selected($servant->sector == 'farmacia')>Farmácia</option>
+                                                <option value="ligacao" @selected($servant->sector == 'ligacao')>Ligação</option>
+                                                <option value="manutencao" @selected($servant->sector == 'manutencao')>Manutenção</option>
+                                                <option value="musica" @selected($servant->sector == 'musica')>Música</option>
+                                                <option value="pregacao" @selected($servant->sector == 'pregacao')>Pregação</option>
+                                                <option value="secretaria" @selected($servant->sector == 'secretaria')>Secretaria</option>
+                                                <option value="teatro" @selected($servant->sector == 'teatro')>Teatro</option>
+                                                <option value="tropa-de-elite" @selected($servant->sector == 'tropa-de-elite')>Tropa de Elite</option>
                                             </select>
                                         </td>
                                         <td>

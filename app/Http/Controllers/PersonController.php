@@ -44,6 +44,11 @@ class PersonController extends Controller
         return view('admin.pages.people.create');
     }
 
+    public function online()
+    {
+        return view('online.form.create');
+    }
+
     public function store(Request $request)
     {
         $data = $request->all();

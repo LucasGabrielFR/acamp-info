@@ -71,7 +71,7 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::post('admin/observation/create', [ObservationController::class, 'store'])->name('observation.store');
 });
 
-
+Route::get('online/form', [PersonController::class, 'online'])->name('people.online');
 Route::get('/', function () {
     return redirect('/login');
 });

@@ -345,40 +345,39 @@
                     </div>
                 </div>
             </div>
+            <x-adminlte-modal id="observationModal" title="Adicionar Observação" size="lg" theme="teal" icon="fas fa-pen-to-square"
+            v-centered static-backdrop scrollable>
+                <div class="row">
+                    <label>Acampamento Referência da observação</label>
+                    <select class="custom-select" id="acampamento-referencia">
+                        <option value="">Selecionar</option>
+                        @foreach ($person->camps as $camper)
+                            <option value="{{$camper->camp->id}}">{{$camper->camp->name}}</option>
+                        @endforeach
+                        @foreach ($person->serves as $serve)
+                            <option value="{{$serve->camp->id}}">{{$serve->camp->name}}</option>
+                        @endforeach
+                    </select>
+                    <div class="alert alert-danger mt-1" role="alert" id="acampamento-referencia-error" style="display: none">
+                        Selecione uma opção
+                    </div>
+                </div>
+                <div class="row">
+                    <label>Observação</label>
+                    <textarea class="form-control" id="observation" cols="20" rows="5"></textarea>
+                    <div class="alert alert-danger mt-1" role="alert" id="observation-error" style="display: none">
+                        O campo não pode estar vazio
+                    </div>
+                </div>
+                <x-slot name="footerSlot">
+                    <x-adminlte-button onclick="newObservation()" class="mr-auto" theme="success" label="Adicionar" id="addObs" />
+                    <x-adminlte-button theme="danger" label="Cancelar" data-dismiss="modal" id="cancelObs" />
+                </x-slot>
+            </x-adminlte-modal>
         @endif
         <button type="submit" class="btn btn-dark">Salvar</button>
     </div>
 </div>
-
-<x-adminlte-modal id="observationModal" title="Adicionar Observação" size="lg" theme="teal" icon="fas fa-pen-to-square"
-v-centered static-backdrop scrollable>
-    <div class="row">
-        <label>Acampamento Referência da observação</label>
-        <select class="custom-select" id="acampamento-referencia">
-            <option value="">Selecionar</option>
-            @foreach ($person->camps as $camper)
-                <option value="{{$camper->camp->id}}">{{$camper->camp->name}}</option>
-            @endforeach
-            @foreach ($person->serves as $serve)
-                <option value="{{$serve->camp->id}}">{{$serve->camp->name}}</option>
-            @endforeach
-        </select>
-        <div class="alert alert-danger mt-1" role="alert" id="acampamento-referencia-error" style="display: none">
-            Selecione uma opção
-        </div>
-    </div>
-    <div class="row">
-        <label>Observação</label>
-        <textarea class="form-control" id="observation" cols="20" rows="5"></textarea>
-        <div class="alert alert-danger mt-1" role="alert" id="observation-error" style="display: none">
-            O campo não pode estar vazio
-        </div>
-    </div>
-    <x-slot name="footerSlot">
-        <x-adminlte-button onclick="newObservation()" class="mr-auto" theme="success" label="Adicionar" id="addObs" />
-        <x-adminlte-button theme="danger" label="Cancelar" data-dismiss="modal" id="cancelObs" />
-    </x-slot>
-</x-adminlte-modal>
 @section('js')
     <script>
         function readImage() {
