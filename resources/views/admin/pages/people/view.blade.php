@@ -66,6 +66,7 @@
 
 @section('content')
     <div class="card">
+        @csrf
         <div class="card-body">
             <div class="row">
                 <div class="col-4">
@@ -306,18 +307,19 @@
                                         $createdAt = new DateTime($createdAt);
                                     @endphp
                                     <div class="time-label">
-                                        <span class="bg-red">{{$createdAt->format('d/m/Y')}}</span>
+                                        <span class="bg-red">{{ $createdAt->format('d/m/Y') }}</span>
                                     </div>
 
                                     <div>
                                         <i class="fas fa-info bg-blue"></i>
                                         <div class="timeline-item">
-                                            <span class="time text-white"><i class="fas fa-clock"></i> {{$createdAt->format('H:i')}}</span>
+                                            <span class="time text-white"><i class="fas fa-clock"></i>
+                                                {{ $createdAt->format('H:i') }}</span>
                                             <h3 class="timeline-header bg-info">
-                                                <b>{{$observation->camp->name}}</b>
+                                                <b>{{ $observation->camp->name }}</b>
                                             </h3>
                                             <div class="timeline-body">
-                                                {{$observation->observation}}
+                                                {{ $observation->observation }}
                                             </div>
                                         </div>
                                     </div>
@@ -333,7 +335,13 @@
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
-                    Acampamentos
+                    <div class="card-title">
+                        Acampamentos
+                    </div>
+                    <div class="text-right">
+                        <x-adminlte-button label="+" data-toggle="modal" data-target="#campModal"
+                            class="bg-success" />
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -400,15 +408,21 @@
         <div class="col-6">
             <div class="card">
                 <div class="card-header">
-                    Serviços
+                    <div class="card-title">
+                        Serviços
+                    </div>
+                    <div class="text-right">
+                        <x-adminlte-button label="+" data-toggle="modal" data-target="#serveModal"
+                            class="bg-success" />
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-auto">
                             @foreach ($person->serves as $serve)
                                 <div class="col-auto">
-                                    <x-adminlte-card title="{{ $serve->camp->name }} - Servo" icon="fas fa-lg fa-user-tie"
-                                        theme="servant" collapsible>
+                                    <x-adminlte-card title="{{ $serve->camp->name }} - Servo"
+                                        icon="fas fa-lg fa-user-tie" theme="servant" collapsible>
                                         @php
                                             $startDate = strtotime($serve->camp->date_start);
                                             $startDate = date('d/m/Y', $startDate);
@@ -487,5 +501,189 @@
             </div>
         </div>
     </div>
+    <x-adminlte-modal id="campModal" title="Campista" size="lg" theme="teal" icon="fas fa-lg fa-campground"
+        v-centered static-backdrop scrollable>
+        <div class="row">
+            <label>Acampamento que foi campista</label>
+            <select class="custom-select" id="acampamento-camper">
+                <option value="">Selecionar</option>
+                @foreach ($camps as $camp)
+                    <option value="{{ $camp->id }}">{{ $camp->name }}</option>
+                @endforeach
+            </select>
+            <div class="alert alert-danger mt-1" role="alert" id="acampamento-camper-error" style="display: none">
+                Selecione uma opção
+            </div>
+        </div>
+        <div class="row">
+            <label>Tribo</label>
+            <select class="custom-select" id="camp-tribo" onchange="paintSelectedGroup(this)">
+                <option value="">Selecionar</option>
+                <option value="red">Vermelho</option>
+                <option value="blue">Azul</option>
+                <option value="brown">Marrom</option>
+                <option value="orange">Laranja</option>
+                <option value="yellow">Amarelo</option>
+                <option value="black">Preto</option>
+                <option value="purple">Roxo</option>
+                <option value="green">Verde</option>
+            </select>
+            <div class="alert alert-danger mt-1" role="alert" id="tribo-error" style="display: none">
+                Selecione uma opção
+            </div>
+        </div>
+        <x-slot name="footerSlot">
+            <x-adminlte-button onclick="signCamper()" class="mr-auto" theme="success" label="Adicionar"
+                id="addCamp" />
+            <x-adminlte-button theme="danger" label="Cancelar" data-dismiss="modal" id="cancelCamp" />
+        </x-slot>
+    </x-adminlte-modal>
+    <x-adminlte-modal id="serveModal" title="Servir" size="lg" theme="teal" icon="fas fa-lg fa-campground"
+        v-centered static-backdrop scrollable>
+        <div class="row">
+            <label>Acampamento que foi servo</label>
+            <select class="custom-select" id="acampamento-serve">
+                <option value="">Selecionar</option>
+                @foreach ($camps as $camp)
+                    <option value="{{ $camp->id }}">{{ $camp->name }}</option>
+                @endforeach
+            </select>
+            <div class="alert alert-danger mt-1" role="alert" id="acampamento-serve-error" style="display: none">
+                Selecione uma opção
+            </div>
+        </div>
+        <div class="row">
+            <label>Setor</label>
+            <select class="custom-select" id="camp-sector">
+                <option value="">Selecione</option>
+                <option value="animacao">Animação</option>
+                <option value="anjo">Anjo/Líder/Padrinho</option>
+                <option value="cantinho-mariano">Cantinho Mariano</option>
+                <option value="capela">Capela</option>
+                <option value="coordenacao">Coordenação</option>
+                <option value="cozinha">Cozinha</option>
+                <option value="diretor espiritual">Diretor Espiritual</option>
+                <option value="evangelizacao">Evangelização</option>
+                <option value="farmacia">Farmácia</option>
+                <option value="ligacao">Ligação</option>
+                <option value="manutencao">Manutenção</option>
+                <option value="musica">Música</option>
+                <option value="pregacao">Pregação</option>
+                <option value="secretaria">Secretaria</option>
+                <option value="teatro">Teatro</option>
+                <option value="tropa-de-elite">Tropa de Elite</option>
+            </select>
+            <div class="alert alert-danger mt-1" role="alert" id="sector-error" style="display: none">
+                Selecione uma opção
+            </div>
+        </div>
+        <x-slot name="footerSlot">
+            <x-adminlte-button onclick="signServe()" class="mr-auto" theme="success" label="Adicionar"
+                id="addServe" />
+            <x-adminlte-button theme="danger" label="Cancelar" data-dismiss="modal" id="cancelServe" />
+        </x-slot>
+    </x-adminlte-modal>
     <x-footer />
+@stop
+@section('js')
+    <script>
+        function paintSelectedGroup(src) {
+            if (src.value == 'blue' || src.value == 'brown' || src.value == 'blue' || src.value == 'red' || src.value ==
+                'black' || src.value == 'purple' || src.value == 'green') {
+                $('#' + src.id).css({
+                    'background': src.value,
+                    'color': 'white'
+                });
+            } else {
+                $('#' + src.id).css({
+                    'background': src.value,
+                    'color': 'black'
+                });
+            }
+        }
+
+        function signCamper() {
+            let valido = true;
+            var csrf = document.getElementsByName('_token')[0].value;
+            const acampamentoCamper = document.getElementById('acampamento-camper');
+            const campTribo = document.getElementById('camp-tribo');
+            if (acampamentoCamper.value.length < 3) {
+                $('#acampamento-camper-error').css({
+                    display: "block"
+                });
+                valido = false;
+            } else {
+                $('#acampamento-camper-error').css({
+                    display: "none"
+                });
+            }
+            if (campTribo.value.length < 3) {
+                $('#tribo-error').css({
+                    display: "block"
+                });
+                valido = false;
+            } else {
+                $('#tribo-error').css({
+                    display: "none"
+                });
+            }
+            if (valido) {
+                $('#addCamp').prop('disabled', true);
+                $('#cancelCamp').prop('disabled', true);
+                $.post("@php echo route('camp.add-camper') @endphp", {
+                    _token: csrf,
+                    person_id: '{{ $person->id }}',
+                    camp_id: acampamentoCamper.value,
+                    tribo: campTribo.value,
+                }, function(msg) {
+                    $('#addCamp').prop('disabled', false);
+                    $('#cancelCamp').prop('disabled', false);
+                    window.location.reload(true);
+                })
+            }
+
+        }
+
+        function signServe() {
+            let valido = true;
+            var csrf = document.getElementsByName('_token')[0].value;
+            const acampamentoServe = document.getElementById('acampamento-serve');
+            const campSector = document.getElementById('camp-sector');
+            if (acampamentoServe.value.length < 3) {
+                $('#acampamento-serve-error').css({
+                    display: "block"
+                });
+                valido = false;
+            } else {
+                $('#acampamento-serve-error').css({
+                    display: "none"
+                });
+            }
+            if (campSector.value.length < 3) {
+                $('#sector-error').css({
+                    display: "block"
+                });
+                valido = false;
+            } else {
+                $('#sector-error').css({
+                    display: "none"
+                });
+            }
+            if (valido) {
+                $('#addServe').prop('disabled', true);
+                $('#cancelServe').prop('disabled', true);
+                $.post("@php echo route('camp.add-serve') @endphp", {
+                    _token: csrf,
+                    person_id: '{{ $person->id }}',
+                    camp_id: acampamentoServe.value,
+                    sector: campSector.value,
+                }, function(msg) {
+                    $('#addServe').prop('disabled', false);
+                    $('#cancelServe').prop('disabled', false);
+                    window.location.reload(true);
+                })
+            }
+
+        }
+    </script>
 @stop

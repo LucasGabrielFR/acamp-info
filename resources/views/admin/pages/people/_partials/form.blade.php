@@ -498,7 +498,6 @@
                     }, function(retorno) {
                         let data = new Date(retorno[0].created_at);
                         let dataFormatada = ((data.getDate() )) + "/" + ((data.getMonth() + 1)) + "/" + data.getFullYear();
-                        console.log(dataFormatada);
                         const timeline = document.getElementById('timeline');
                         let newHtml = '<div class="time-label">'
                         newHtml += '<span class="bg-red">'
@@ -520,6 +519,8 @@
 
                         timeline.innerHTML =  newHtml + timeline.innerHTML;
                         $('#observationModal').modal('hide');
+                        $('#addObs').prop('disabled', false);
+                        $('#cancelObs').prop('disabled', false);
                     })
                 }
 

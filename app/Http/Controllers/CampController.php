@@ -110,6 +110,11 @@ class CampController extends Controller
         $this->repository->addCampers($request, $id);
     }
 
+    public function addCamper(Request $request)
+    {
+        $this->repository->addCamper($request);
+    }
+
     public function deleteCamper($id)
     {
         $camper = $this->repository->getCamper($id);
@@ -152,6 +157,11 @@ class CampController extends Controller
     public function addServants(Request $request, $id)
     {
         $this->repository->addServants($request, $id);
+    }
+
+    public function addServe(Request $request)
+    {
+        $this->repository->addServe($request);
     }
 
     public function deleteServant($id)

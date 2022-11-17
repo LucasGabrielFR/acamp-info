@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Camp;
+use App\Repositories\CampRepository;
 use App\Repositories\PersonRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -64,12 +66,20 @@ class PersonController extends Controller
     public function view($id)
     {
         $person = $this->repository->getPerson($id);
-
+        $campRepository = new CampRepository(new Camp());
+        $camps = $campRepository->getAllCamps();
+        $maior = 0;
+        foreach($camps as $camp){
+            if($camp->type->order > $maior){
+                $maior = $camp->type->order;
+            }
+        }
         if (!$person)
             return redirect()->back();
 
         return view('admin.pages.people.view', [
             'person' => $person,
+            'camps' => $camps,
         ]);
     }
 
