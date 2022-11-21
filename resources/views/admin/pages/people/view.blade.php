@@ -561,7 +561,7 @@
                 <option value="capela">Capela</option>
                 <option value="coordenacao">Coordenação</option>
                 <option value="cozinha">Cozinha</option>
-                <option value="diretor espiritual">Diretor Espiritual</option>
+                <option value="diretor-espiritual">Diretor Espiritual</option>
                 <option value="evangelizacao">Evangelização</option>
                 <option value="farmacia">Farmácia</option>
                 <option value="ligacao">Ligação</option>
