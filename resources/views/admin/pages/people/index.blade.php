@@ -91,6 +91,11 @@
             background: #ff9090;
             color: black;
         }
+
+        .badge-black{
+            background: black;
+            color: white;
+        }
     </style>
 @stop
 
