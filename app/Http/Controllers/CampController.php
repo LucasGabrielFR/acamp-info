@@ -112,7 +112,10 @@ class CampController extends Controller
 
     public function addCamper(Request $request)
     {
-        $this->repository->addCamper($request);
+        if($this->repository->addCamper($request)){
+            return response('Inscrição feita!', 200);
+        }
+        return response('Campista já está inscrito neste acampamento!',400);
     }
 
     public function deleteCamper($id)
@@ -161,7 +164,10 @@ class CampController extends Controller
 
     public function addServe(Request $request)
     {
-        $this->repository->addServe($request);
+        if($this->repository->addServe($request)){
+            return response('Inscrição feita!', 200);
+        }
+        return response('Servo já está inscrito neste acampamento!',400);
     }
 
     public function deleteServant($id)

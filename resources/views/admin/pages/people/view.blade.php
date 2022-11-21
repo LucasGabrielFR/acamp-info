@@ -418,83 +418,82 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-auto">
-                            @foreach ($person->serves as $serve)
-                                <div class="col-auto">
-                                    <x-adminlte-card title="{{ $serve->camp->name }} - Servo"
-                                        icon="fas fa-lg fa-user-tie" theme="servant" collapsible>
-                                        @php
-                                            $startDate = strtotime($serve->camp->date_start);
-                                            $startDate = date('d/m/Y', $startDate);
+                        @foreach ($person->serves as $serve)
+                            <div class="col-auto">
+                                <x-adminlte-card title="{{ $serve->camp->name }} - Servo" icon="fas fa-lg fa-user-tie"
+                                    theme="servant" collapsible>
+                                    @php
+                                        $startDate = strtotime($serve->camp->date_start);
+                                        $startDate = date('d/m/Y', $startDate);
 
-                                            $endDate = strtotime($serve->camp->date_end);
-                                            $endDate = date('d/m/Y', $endDate);
+                                        $endDate = strtotime($serve->camp->date_end);
+                                        $endDate = date('d/m/Y', $endDate);
+                                    @endphp
+                                    <b>{{ $serve->camp->name }}</b>
+                                    <br>
+                                    Início em: <b>{{ $startDate }}</b>
+                                    <br>
+                                    Término em: <b>{{ $endDate }}</b>
+                                    <br>
+                                    Setor: <span class="badge badge-servant">
+                                        @php
+                                            switch ($serve->sector) {
+                                                case 'cozinha':
+                                                    $sector = 'Cozinha';
+                                                    break;
+                                                case 'anjo':
+                                                    $sector = 'Anjo/Líder/Padrinho';
+                                                    break;
+                                                case 'evangelizacao':
+                                                    $sector = 'Evangelização';
+                                                    break;
+                                                case 'secretaria':
+                                                    $sector = 'Secretaria';
+                                                    break;
+                                                case 'coordenacao':
+                                                    $sector = 'Coordenação';
+                                                    break;
+                                                case 'cantinho-mariano':
+                                                    $sector = 'Cantinho Mariano';
+                                                    break;
+                                                case 'capela':
+                                                    $sector = 'Capela';
+                                                    break;
+                                                case 'diretor-espiritual':
+                                                    $sector = 'Diretor Espiritual';
+                                                    break;
+                                                case 'farmacia':
+                                                    $sector = 'Farmácia';
+                                                    break;
+                                                case 'animacao':
+                                                    $sector = 'Animação';
+                                                    break;
+                                                case 'ligacao':
+                                                    $sector = 'Ligação';
+                                                    break;
+                                                case 'manutencao':
+                                                    $sector = 'Manutenção';
+                                                    break;
+                                                case 'musica':
+                                                    $sector = 'Música';
+                                                    break;
+                                                case 'pregacao':
+                                                    $sector = 'Pregação';
+                                                    break;
+                                                case 'teatro':
+                                                    $sector = 'Teatro';
+                                                    break;
+                                                case 'tropa-de-elite':
+                                                    $sector = 'Tropa de Elite';
+                                                    break;
+                                            }
+                                            echo $sector;
                                         @endphp
-                                        <b>{{ $serve->camp->name }}</b>
-                                        <br>
-                                        Início em: <b>{{ $startDate }}</b>
-                                        <br>
-                                        Término em: <b>{{ $endDate }}</b>
-                                        <br>
-                                        Setor: <span class="badge badge-servant">
-                                            @php
-                                                switch ($serve->sector) {
-                                                    case 'cozinha':
-                                                        $sector = 'Cozinha';
-                                                        break;
-                                                    case 'anjo':
-                                                        $sector = 'Anjo/Líder/Padrinho';
-                                                        break;
-                                                    case 'evangelizacao':
-                                                        $sector = 'Evangelização';
-                                                        break;
-                                                    case 'secretaria':
-                                                        $sector = 'Secretaria';
-                                                        break;
-                                                    case 'coordenacao':
-                                                        $sector = 'Coordenação';
-                                                        break;
-                                                    case 'cantinho-mariano':
-                                                        $sector = 'Cantinho Mariano';
-                                                        break;
-                                                    case 'capela':
-                                                        $sector = 'Capela';
-                                                        break;
-                                                    case 'diretor-espiritual':
-                                                        $sector = 'Diretor Espiritual';
-                                                        break;
-                                                    case 'farmacia':
-                                                        $sector = 'Farmácia';
-                                                        break;
-                                                    case 'animacao':
-                                                        $sector = 'Animação';
-                                                        break;
-                                                    case 'ligacao':
-                                                        $sector = 'Ligação';
-                                                        break;
-                                                    case 'manutencao':
-                                                        $sector = 'Manutenção';
-                                                        break;
-                                                    case 'musica':
-                                                        $sector = 'Música';
-                                                        break;
-                                                    case 'pregacao':
-                                                        $sector = 'Pregação';
-                                                        break;
-                                                    case 'teatro':
-                                                        $sector = 'Teatro';
-                                                        break;
-                                                    case 'tropa-de-elite':
-                                                        $sector = 'Tropa de Elite';
-                                                        break;
-                                                }
-                                                echo $sector;
-                                            @endphp
-                                        </span>
-                                    </x-adminlte-card>
-                                </div>
-                            @endforeach
-                        </div>
+                                    </span>
+                                </x-adminlte-card>
+                            </div>
+                        @endforeach
+
                     </div>
 
                 </div>
@@ -631,15 +630,21 @@
                 $('#addCamp').prop('disabled', true);
                 $('#cancelCamp').prop('disabled', true);
                 $.post("@php echo route('camp.add-camper') @endphp", {
-                    _token: csrf,
-                    person_id: '{{ $person->id }}',
-                    camp_id: acampamentoCamper.value,
-                    tribo: campTribo.value,
-                }, function(msg) {
-                    $('#addCamp').prop('disabled', false);
-                    $('#cancelCamp').prop('disabled', false);
-                    window.location.reload(true);
-                })
+                        _token: csrf,
+                        person_id: '{{ $person->id }}',
+                        camp_id: acampamentoCamper.value,
+                        tribo: campTribo.value,
+                    })
+                    .done(function() {
+                        window.location.reload(true);
+                        $('#addCamp').prop('disabled', false);
+                        $('#cancelCamp').prop('disabled', false);
+                    })
+                    .fail(function() {
+                        $('#addCamp').prop('disabled', false);
+                        $('#cancelCamp').prop('disabled', false);
+                        alert("Esta pessoa já é campista neste acampamento")
+                    })
             }
 
         }
@@ -673,15 +678,21 @@
                 $('#addServe').prop('disabled', true);
                 $('#cancelServe').prop('disabled', true);
                 $.post("@php echo route('camp.add-serve') @endphp", {
-                    _token: csrf,
-                    person_id: '{{ $person->id }}',
-                    camp_id: acampamentoServe.value,
-                    sector: campSector.value,
-                }, function(msg) {
-                    $('#addServe').prop('disabled', false);
-                    $('#cancelServe').prop('disabled', false);
-                    window.location.reload(true);
-                })
+                        _token: csrf,
+                        person_id: '{{ $person->id }}',
+                        camp_id: acampamentoServe.value,
+                        sector: campSector.value,
+                    })
+                    .done(function() {
+                        window.location.reload(true);
+                        $('#addServe').prop('disabled', false);
+                        $('#cancelServe').prop('disabled', false);
+                    })
+                    .fail(function() {
+                        $('#addServe').prop('disabled', false);
+                        $('#cancelServe').prop('disabled', false);
+                        alert("Esta pessoa já é serva neste acampamento")
+                    })
             }
 
         }
