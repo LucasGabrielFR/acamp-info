@@ -16,7 +16,7 @@
                     </div>
                     <div class="mb-3 text-center">
                         <label for="formFile" class="form-label">Foto</label>
-                        <input class="form-control" id="img-input" type="file" name="image" accept="image/*" @if(!isset($person->image)) required @endif>
+                        <input class="form-control" id="img-input" type="file" name="image" accept="image/*" @if(!isset($person->image))  @endif>
                         <small>Inserir foto sem maquiagem, óculos de sol ou qualquer enfeite...</small>
                     </div>
                 </div>
@@ -92,14 +92,14 @@
                 <div class="form-group">
                     <label>Nome</label>
                     <input type="text" name="name" id="name" class="form-control" placeholder="Nome"
-                        value="{{ $person->name ?? '' }}" required>
+                        value="{{ $person->name ?? '' }}" >
                 </div>
             </div>
             <div class="col-4">
                 <div class="form-group">
                     <label>Data de nascimento</label>
                     <input type="date" name="date_birthday" class="form-control"
-                        value="{{ $person->date_birthday ?? '' }}" required>
+                        value="{{ $person->date_birthday ?? '' }}" >
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@
                 <div class="form-group">
                     <label>Email</label>
                     <input type="email" name="email" class="form-control" placeholder="Email"
-                        value="{{ $person->email ?? '' }}" required>
+                        value="{{ $person->email ?? '' }}" >
                 </div>
             </div>
             <div class="col-4">
@@ -119,7 +119,7 @@
                         <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
                         <input id="contact" name="contact" class="form-control" placeholder="XX XXXXX-XXXX"
                             type="text" maxlength="13" pattern="\[0-9]{2}\ [0-9]{4,6}-[0-9]{3,4}$"
-                            OnKeyPress="formatar('## #####-####', this)" value="{{ $person->contact ?? '' }}" required>
+                            OnKeyPress="formatar('## #####-####', this)" value="{{ $person->contact ?? '' }}" >
                     </div>
 
                 </div>
@@ -131,7 +131,7 @@
                     <label>CPF</label>
                     <input id="cpf" name="cpf" class="form-control" placeholder="XXX.XXX.XXX-XX"
                             type="text" maxlength="14"
-                            OnKeyPress="formatar('###.###.###-##', this)" value="{{ $person->cpf ?? '' }}" required>
+                            OnKeyPress="formatar('###.###.###-##', this)" value="{{ $person->cpf ?? '' }}" >
                     <div class="alert alert-danger mt-1" role="alert" id="cpf-error" style="display: none">
                         CPF incorreto ou inválido!
                     </div>
@@ -147,7 +147,7 @@
                 <div class="form-group">
                     <label>Rua</label>
                     <input type="text" name="street" class="form-control" placeholder="Rua"
-                        value="{{ $person->street ?? '' }}" required>
+                        value="{{ $person->street ?? '' }}" >
                 </div>
             </div>
             <div class="col-4">
@@ -155,7 +155,7 @@
                     <label>Bairro</label>
 
                     <input type="text" name="district" class="form-control" placeholder="Bairro"
-                        value="{{ $person->district ?? '' }}" required>
+                        value="{{ $person->district ?? '' }}" >
 
                 </div>
             </div>
@@ -164,7 +164,7 @@
                     <label>Número</label>
 
                     <input type="number" name="number" class="form-control" placeholder="Nº"
-                        value="{{ $person->number ?? '' }}" required>
+                        value="{{ $person->number ?? '' }}" >
 
                 </div>
             </div>
@@ -174,14 +174,14 @@
                 <div class="form-group">
                     <label>Cidade</label>
                     <input type="text" name="city" class="form-control" placeholder="Cidade"
-                        value="{{ $person->city ?? '' }}" required>
+                        value="{{ $person->city ?? '' }}" >
                 </div>
             </div>
             <div class="col-4">
                 <div class="form-group">
                     <label>Estado</label>
 
-                    <select class="custom-select" id="state" name="state" required>
+                    <select class="custom-select" id="state" name="state" >
                         <option>Selecione</option>
                         <option value="AC">Acre</option>
                         <option value="AL">Alagoas</option>
@@ -221,14 +221,14 @@
                 <div class="form-group">
                     <label>Religião</label>
                     <input type="text" name="religion" class="form-control" placeholder="Religião"
-                        value="{{ $person->religion ?? '' }}" required>
+                        value="{{ $person->religion ?? '' }}" >
                 </div>
             </div>
             <div class="col-4">
                 <div class="form-group">
                     <label>Paróquia</label>
                     <input type="text" name="parish" class="form-control" placeholder="Paróquia"
-                        value="{{ $person->parish ?? '' }}" required>
+                        value="{{ $person->parish ?? '' }}" >
                 </div>
             </div>
         </div>
@@ -264,7 +264,7 @@
             <div class="col-3">
                 <div class="form-group">
                     <label>Estado Civil</label>
-                    <select name="marital_status" id="marital_status" class="custom-select" onchange="handleChange(this)" required>
+                    <select name="marital_status" id="marital_status" class="custom-select" onchange="handleChange(this)" >
                         <option>Selecione</option>
                         <option value="0">Solteiro</option>
                         <option value="1">Casado</option>
@@ -585,7 +585,7 @@
             const cpf = document.getElementById('cpf');
 
             if(!validaCPF(cpf.value)){
-                event.preventDefault();
+                // event.preventDefault();
                 $('#cpf-error').css({display: "block"});
             }
         })
