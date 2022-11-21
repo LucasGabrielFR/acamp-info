@@ -47,9 +47,48 @@
             color: white
         }
 
-        .badge-servant {
+        .badge-sky-blue {
+            background: #87ceeb;
+            color: black
+        }
+
+        .badge-herbal {
+            background: #2e8b57;
+            color: white
+        }
+
+        .badge-pink {
+            background: #e83e8c;
+            color: white
+        }
+
+        .badge-salmon {
             background: #fa7f72;
-            border-radius: 10px;
+            color: black;
+        }
+
+        .badge-royal-blue {
+            background: #7694ce;
+            color: black;
+        }
+
+        .badge-dark-green{
+            background: #00421a;
+            color: white;
+        }
+
+        .badge-inverted{
+            background: #2f4f4f;
+            color: white;
+        }
+
+        .badge-gray{
+            background: gray;
+            color: white;
+        }
+
+        .badge-white-red{
+            background: #ff9090;
             color: black;
         }
     </style>
@@ -123,56 +162,71 @@
                                         switch ($serve->sector) {
                                             case 'cozinha':
                                                 $sector = 'Cozinha';
+                                                $cardColor = 'red';
                                                 break;
                                             case 'anjo':
                                                 $sector = 'Anjo/Líder/Padrinho';
+                                                $cardColor = 'blue';
                                                 break;
                                             case 'evangelizacao':
                                                 $sector = 'Evangelização';
+                                                $cardColor = 'brown';
                                                 break;
                                             case 'secretaria':
                                                 $sector = 'Secretaria';
+                                                $cardColor = 'orange';
                                                 break;
                                             case 'coordenacao':
                                                 $sector = 'Coordenação';
+                                                $cardColor = 'yellow';
                                                 break;
                                             case 'cantinho-mariano':
                                                 $sector = 'Cantinho Mariano';
+                                                $cardColor = 'sky-blue';
                                                 break;
                                             case 'capela':
                                                 $sector = 'Capela';
+                                                $cardColor = 'royal-blue';
                                                 break;
                                             case 'diretor-espiritual':
                                                 $sector = 'Diretor Espiritual';
+                                                $cardColor = 'herbal';
                                                 break;
                                             case 'farmacia':
                                                 $sector = 'Farmácia';
+                                                $cardColor = 'white-red';
                                                 break;
                                             case 'animacao':
                                                 $sector = 'Animação';
+                                                $cardColor = 'pink';
                                                 break;
                                             case 'ligacao':
                                                 $sector = 'Ligação';
+                                                $cardColor = 'purple';
                                                 break;
                                             case 'manutencao':
                                                 $sector = 'Manutenção';
+                                                $cardColor = 'dark-green';
                                                 break;
                                             case 'musica':
                                                 $sector = 'Música';
+                                                $cardColor = 'gray';
                                                 break;
                                             case 'pregacao':
                                                 $sector = 'Pregação';
+                                                $cardColor = 'inverted';
                                                 break;
                                             case 'teatro':
                                                 $sector = 'Teatro';
+                                                $cardColor = 'salmon';
                                                 break;
                                             case 'tropa-de-elite':
                                                 $sector = 'Tropa de Elite';
+                                                $cardColor = 'black';
                                                 break;
-
                                         }
 
-                                        echo '<span class="badge badge-servant ml-1">' . "{$serve->camp_name} - {$sector} </span>";
+                                        echo '<span class="badge badge-' . $cardColor . ' ml-1">' . "{$serve->camp_name} - {$sector} </span>";
                                     }
                                 }
 
