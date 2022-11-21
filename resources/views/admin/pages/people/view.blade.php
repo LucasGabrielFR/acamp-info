@@ -9,8 +9,38 @@
             color: white;
         }
 
-        .card-servant>.card-header {
+        .card-salmon>.card-header {
             background: #fa7f72;
+            color: black;
+        }
+
+        .card-sky-blue>.card-header {
+            background: #87ceeb;
+            color: black;
+        }
+
+        .card-herbal>.card-header {
+            background: #2e8b57;
+            color: white;
+        }
+
+        .card-royal-blue>.card-header {
+            background: #7694ce;
+            color: white;
+        }
+
+        .card-dark-green>.card-header {
+            background: #00421a;
+            color: white;
+        }
+
+        .card-inverted>.card-header {
+            background: #2f4f4f;
+            color: white;
+        }
+
+        .card-white-red>.card-header {
+            background: #ff9090;
             color: black;
         }
 
@@ -47,9 +77,48 @@
             color: white
         }
 
-        .badge-servant {
+        .badge-sky-blue {
+            background: #87ceeb;
+            color: black
+        }
+
+        .badge-herbal {
+            background: #2e8b57;
+            color: white
+        }
+
+        .badge-pink {
+            background: #e83e8c;
+            color: white
+        }
+
+        .badge-salmon {
             background: #fa7f72;
-            border-radius: 10px;
+            color: black;
+        }
+
+        .badge-royal-blue {
+            background: #7694ce;
+            color: black;
+        }
+
+        .badge-dark-green{
+            background: #00421a;
+            color: white;
+        }
+
+        .badge-inverted{
+            background: #2f4f4f;
+            color: white;
+        }
+
+        .badge-gray{
+            background: gray;
+            color: white;
+        }
+
+        .badge-white-red{
+            background: #ff9090;
             color: black;
         }
     </style>
@@ -419,9 +488,77 @@
                 <div class="card-body">
                     <div class="row">
                         @foreach ($person->serves as $serve)
+                            @php
+                                switch ($serve->sector) {
+                                    case 'cozinha':
+                                        $sector = 'Cozinha';
+                                        $cardColor = 'red';
+                                        break;
+                                    case 'anjo':
+                                        $sector = 'Anjo/Líder/Padrinho';
+                                        $cardColor = 'blue';
+                                        break;
+                                    case 'evangelizacao':
+                                        $sector = 'Evangelização';
+                                        $cardColor = 'brown';
+                                        break;
+                                    case 'secretaria':
+                                        $sector = 'Secretaria';
+                                        $cardColor = 'orange';
+                                        break;
+                                    case 'coordenacao':
+                                        $sector = 'Coordenação';
+                                        $cardColor = 'yellow';
+                                        break;
+                                    case 'cantinho-mariano':
+                                        $sector = 'Cantinho Mariano';
+                                        $cardColor = 'sky-blue';
+                                        break;
+                                    case 'capela':
+                                        $sector = 'Capela';
+                                        $cardColor = 'royal-blue';
+                                        break;
+                                    case 'diretor-espiritual':
+                                        $sector = 'Diretor Espiritual';
+                                        $cardColor = 'herbal';
+                                        break;
+                                    case 'farmacia':
+                                        $sector = 'Farmácia';
+                                        $cardColor = 'white-red';
+                                        break;
+                                    case 'animacao':
+                                        $sector = 'Animação';
+                                        $cardColor = 'pink';
+                                        break;
+                                    case 'ligacao':
+                                        $sector = 'Ligação';
+                                        $cardColor = 'purple';
+                                        break;
+                                    case 'manutencao':
+                                        $sector = 'Manutenção';
+                                        $cardColor = 'dark-green';
+                                        break;
+                                    case 'musica':
+                                        $sector = 'Música';
+                                        $cardColor = 'gray';
+                                        break;
+                                    case 'pregacao':
+                                        $sector = 'Pregação';
+                                        $cardColor = 'inverted';
+                                        break;
+                                    case 'teatro':
+                                        $sector = 'Teatro';
+                                        $cardColor = 'salmon';
+                                        break;
+                                    case 'tropa-de-elite':
+                                        $sector = 'Tropa de Elite';
+                                        $cardColor = 'black';
+                                        break;
+                                }
+                            @endphp
                             <div class="col-auto">
                                 <x-adminlte-card title="{{ $serve->camp->name }} - Servo" icon="fas fa-lg fa-user-tie"
-                                    theme="servant" collapsible>
+                                    theme="{{ $cardColor }}" collapsible>
                                     @php
                                         $startDate = strtotime($serve->camp->date_start);
                                         $startDate = date('d/m/Y', $startDate);
@@ -435,61 +572,7 @@
                                     <br>
                                     Término em: <b>{{ $endDate }}</b>
                                     <br>
-                                    Setor: <span class="badge badge-servant">
-                                        @php
-                                            switch ($serve->sector) {
-                                                case 'cozinha':
-                                                    $sector = 'Cozinha';
-                                                    break;
-                                                case 'anjo':
-                                                    $sector = 'Anjo/Líder/Padrinho';
-                                                    break;
-                                                case 'evangelizacao':
-                                                    $sector = 'Evangelização';
-                                                    break;
-                                                case 'secretaria':
-                                                    $sector = 'Secretaria';
-                                                    break;
-                                                case 'coordenacao':
-                                                    $sector = 'Coordenação';
-                                                    break;
-                                                case 'cantinho-mariano':
-                                                    $sector = 'Cantinho Mariano';
-                                                    break;
-                                                case 'capela':
-                                                    $sector = 'Capela';
-                                                    break;
-                                                case 'diretor-espiritual':
-                                                    $sector = 'Diretor Espiritual';
-                                                    break;
-                                                case 'farmacia':
-                                                    $sector = 'Farmácia';
-                                                    break;
-                                                case 'animacao':
-                                                    $sector = 'Animação';
-                                                    break;
-                                                case 'ligacao':
-                                                    $sector = 'Ligação';
-                                                    break;
-                                                case 'manutencao':
-                                                    $sector = 'Manutenção';
-                                                    break;
-                                                case 'musica':
-                                                    $sector = 'Música';
-                                                    break;
-                                                case 'pregacao':
-                                                    $sector = 'Pregação';
-                                                    break;
-                                                case 'teatro':
-                                                    $sector = 'Teatro';
-                                                    break;
-                                                case 'tropa-de-elite':
-                                                    $sector = 'Tropa de Elite';
-                                                    break;
-                                            }
-                                            echo $sector;
-                                        @endphp
-                                    </span>
+                                    Setor: <span class="badge badge-{{$cardColor}}">{{$sector}}</span>
                                 </x-adminlte-card>
                             </div>
                         @endforeach
