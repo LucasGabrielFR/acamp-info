@@ -79,7 +79,7 @@
                                             <select id="group{{ $camper->id }}" class="custom-select"
                                                 onchange="alteraTribo(this)"
                                                 @php
-                                                switch ($camper->group) {
+switch ($camper->group) {
                                                     case 'red':
                                                         echo 'style="background: red; color: white"';
                                                         break;
@@ -161,13 +161,18 @@
                                                 onchange="alteraSetor(this)">
                                                 <option value="">Selecione</option>
                                                 <option value="animacao" @selected($servant->sector == 'animacao')>Animação</option>
-                                                <option value="anjo" @selected($servant->sector == 'anjo')>Anjo/Líder/Padrinho</option>
-                                                <option value="cantinho-mariano" @selected($servant->sector == 'cantinho-mariano')>Cantinho Mariano</option>
+                                                <option value="anjo" @selected($servant->sector == 'anjo')>Anjo/Líder/Padrinho
+                                                </option>
+                                                <option value="cantinho-mariano" @selected($servant->sector == 'cantinho-mariano')>Cantinho
+                                                    Mariano</option>
                                                 <option value="capela" @selected($servant->sector == 'capela')>Capela</option>
-                                                <option value="coordenacao" @selected($servant->sector == 'coordenacao')>Coordenação</option>
+                                                <option value="coordenacao" @selected($servant->sector == 'coordenacao')>Coordenação
+                                                </option>
                                                 <option value="cozinha" @selected($servant->sector == 'cozinha')>Cozinha</option>
-                                                <option value="diretor espiritual" @selected($servant->sector == 'diretor-espiritual')>Diretor Espiritual</option>
-                                                <option value="evangelizacao" @selected($servant->sector == 'evangelizacao')>Evangelização</option>
+                                                <option value="diretor espiritual" @selected($servant->sector == 'diretor-espiritual')>Diretor
+                                                    Espiritual</option>
+                                                <option value="evangelizacao" @selected($servant->sector == 'evangelizacao')>Evangelização
+                                                </option>
                                                 <option value="farmacia" @selected($servant->sector == 'farmacia')>Farmácia</option>
                                                 <option value="ligacao" @selected($servant->sector == 'ligacao')>Ligação</option>
                                                 <option value="manutencao" @selected($servant->sector == 'manutencao')>Manutenção</option>
@@ -175,7 +180,8 @@
                                                 <option value="pregacao" @selected($servant->sector == 'pregacao')>Pregação</option>
                                                 <option value="secretaria" @selected($servant->sector == 'secretaria')>Secretaria</option>
                                                 <option value="teatro" @selected($servant->sector == 'teatro')>Teatro</option>
-                                                <option value="tropa-de-elite" @selected($servant->sector == 'tropa-de-elite')>Tropa de Elite</option>
+                                                <option value="tropa-de-elite" @selected($servant->sector == 'tropa-de-elite')>Tropa de Elite
+                                                </option>
                                             </select>
                                         </td>
                                         <td>
@@ -192,8 +198,8 @@
             </div>
         </div>
     </div>
-    <x-adminlte-modal id="campersModal" title="Adicionar Campista" size="lg" theme="teal" icon="fas fa-user-plus"
-        v-centered static-backdrop scrollable>
+    <x-adminlte-modal id="campersModal" title="Adicionar Campista" size="lg" theme="teal"
+        icon="fas fa-user-plus" v-centered static-backdrop scrollable>
         @csrf
         <div class="row">
             <div class="col-4">
@@ -251,6 +257,7 @@
                 el.classList.add('fa-plus');
                 addCampers.splice(addCampers.indexOf(id), 1);
             }
+            console.log(addCampers);
         }
 
         function adicionarServo(id) {
@@ -264,6 +271,7 @@
                 el.classList.add('fa-plus');
                 addServants.splice(addServants.indexOf(id), 1);
             }
+            console.log(addServants);
         }
 
         function loadNoCampers(search = 0) {
@@ -284,8 +292,16 @@
                         newHtml += calculaIdade(new Date(person.date_birthday), new Date())
                         newHtml += '</div>'
                         newHtml += '<div class="col-2 text-right">'
-                        newHtml += '<a onclick="adicionarCampista(' + "'" + person.id + "'" +')" style="cursor: pointer;">'
-                        newHtml += '<i class="fas fa-lg fa-fw fa-plus text-success" id="camper' + person.id + '"></i>'
+                        newHtml += '<a onclick="adicionarCampista(' + "'" + person.id + "'" +
+                            ')" style="cursor: pointer;">'
+                        if (addCampers.includes(person.id)) {
+                            newHtml += '<i class="fas fa-lg fa-fw fa-check text-success" id="camper' +
+                                person
+                                .id + '"></i>'
+                        } else {
+                            newHtml += '<i class="fas fa-lg fa-fw fa-plus text-success" id="camper' + person
+                                .id + '"></i>'
+                        }
                         newHtml += '</a>'
                         newHtml += '</div>'
                         newHtml += '</div>'
@@ -312,8 +328,16 @@
                         newHtml += calculaIdade(new Date(person.date_birthday), new Date())
                         newHtml += '</div>'
                         newHtml += '<div class="col-2 text-right">'
-                        newHtml += '<a onclick="adicionarCampista(' + "'" + person.id + "'" +')" style="cursor: pointer;">'
-                        newHtml += '<i class="fas fa-lg fa-fw fa-plus text-success" id="camper' + person.id + '"></i>'
+                        newHtml += '<a onclick="adicionarCampista(' + "'" + person.id + "'" +
+                            ')" style="cursor: pointer;">'
+                        if (addCampers.includes(person.id)) {
+                            newHtml += '<i class="fas fa-lg fa-fw fa-check text-success" id="camper' +
+                                person
+                                .id + '"></i>'
+                        } else {
+                            newHtml += '<i class="fas fa-lg fa-fw fa-plus text-success" id="camper' + person
+                                .id + '"></i>'
+                        }
                         newHtml += '</a>'
                         newHtml += '</div>'
                         newHtml += '</div>'
@@ -343,8 +367,15 @@
                         newHtml += calculaIdade(new Date(person.date_birthday), new Date())
                         newHtml += '</div>'
                         newHtml += '<div class="col-2 text-right">'
-                        newHtml += '<a onclick="adicionarServo(' + "'" + person.id + "'" +')" style="cursor: pointer;">'
-                        newHtml += '<i class="fas fa-lg fa-fw fa-plus text-success" id="servant' + person.id + '"></i>'
+                        newHtml += '<a onclick="adicionarServo(' + "'" + person.id + "'" +
+                            ')" style="cursor: pointer;">'
+                        if (addServants.includes(person.id)) {
+                            newHtml += '<i class="fas fa-lg fa-fw fa-check text-success" id="servant' +
+                                person.id + '"></i>'
+                        } else {
+                            newHtml += '<i class="fas fa-lg fa-fw fa-plus text-success" id="servant' +
+                                person.id + '"></i>'
+                        }
                         newHtml += '</a>'
                         newHtml += '</div>'
                         newHtml += '</div>'
@@ -371,8 +402,15 @@
                         newHtml += calculaIdade(new Date(person.date_birthday), new Date())
                         newHtml += '</div>'
                         newHtml += '<div class="col-2 text-right">'
-                        newHtml += '<a onclick="adicionarServo(' + "'" + person.id + "'" +')" style="cursor: pointer;">'
-                        newHtml += '<i class="fas fa-lg fa-fw fa-plus text-success" id="servant' + person.id + '"></i>'
+                        newHtml += '<a onclick="adicionarServo(' + "'" + person.id + "'" +
+                            ')" style="cursor: pointer;">'
+                        if (addServants.includes(person.id)) {
+                            newHtml += '<i class="fas fa-lg fa-fw fa-check text-success" id="servant' +
+                                person.id + '"></i>'
+                        } else {
+                            newHtml += '<i class="fas fa-lg fa-fw fa-plus text-success" id="servant' +
+                                person.id + '"></i>'
+                        }
                         newHtml += '</a>'
                         newHtml += '</div>'
                         newHtml += '</div>'
