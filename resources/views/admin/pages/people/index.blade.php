@@ -2,6 +2,21 @@
 
 @section('title', 'Pessoas')
 
+@section('js')
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var table = $('#table1').DataTable();
+            table.order([1, 'asc']).draw();
+        });
+    </script>
+@stop
+
 @section('content_header')
     @if ($type == 'noCampers')
         <h1>Fichas disponíveis</h1>
@@ -72,27 +87,27 @@
             color: black;
         }
 
-        .badge-dark-green{
+        .badge-dark-green {
             background: #00421a;
             color: white;
         }
 
-        .badge-inverted{
+        .badge-inverted {
             background: #2f4f4f;
             color: white;
         }
 
-        .badge-gray{
+        .badge-gray {
             background: gray;
             color: white;
         }
 
-        .badge-white-red{
+        .badge-white-red {
             background: #ff9090;
             color: black;
         }
 
-        .badge-black{
+        .badge-black {
             background: black;
             color: white;
         }
@@ -255,12 +270,4 @@
         </div>
     </div>
     <x-footer />
-@stop
-@section('js')
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
 @stop
