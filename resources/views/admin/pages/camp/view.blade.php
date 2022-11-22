@@ -169,7 +169,7 @@ switch ($camper->group) {
                                                 <option value="coordenacao" @selected($servant->sector == 'coordenacao')>Coordenação
                                                 </option>
                                                 <option value="cozinha" @selected($servant->sector == 'cozinha')>Cozinha</option>
-                                                <option value="diretor espiritual" @selected($servant->sector == 'diretor-espiritual')>Diretor
+                                                <option value="diretor-espiritual" @selected($servant->sector == 'diretor-espiritual')>Diretor
                                                     Espiritual</option>
                                                 <option value="evangelizacao" @selected($servant->sector == 'evangelizacao')>Evangelização
                                                 </option>
