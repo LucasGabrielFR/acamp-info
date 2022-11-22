@@ -9,6 +9,11 @@
             color: white;
         }
 
+        .card-black>.card-header {
+            background: black;
+            color: white;
+        }
+
         .card-salmon>.card-header {
             background: #fa7f72;
             color: black;
