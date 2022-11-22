@@ -267,7 +267,6 @@
         }
 
         function loadNoCampers(search = 0) {
-            addCampers = [];
             let waitingHtml = '<b>Carregando...</b>'
             campersContent.innerHTML = waitingHtml;
             if (search == 0) {
@@ -327,7 +326,6 @@
         }
 
         function loadNoServants(search = 0) {
-            addServants = [];
             let waitingHtml = '<b>Carregando...</b>'
             servantsContent.innerHTML = waitingHtml;
             if (search == 0) {
@@ -391,6 +389,7 @@
         }
 
         function signCampers() {
+            addCampers = [];
             if (addCampers.length > 0) {
                 $.post("@php echo route('camp.add-campers', $camp->id) @endphp", {
                     _token: csrf,
@@ -403,6 +402,7 @@
         }
 
         function signServants() {
+            addServants = [];
             if (addServants.length > 0) {
                 $.post("@php echo route('camp.add-servants', $camp->id) @endphp", {
                     _token: csrf,
