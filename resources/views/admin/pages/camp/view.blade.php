@@ -257,7 +257,6 @@ switch ($camper->group) {
                 el.classList.add('fa-plus');
                 addCampers.splice(addCampers.indexOf(id), 1);
             }
-            console.log(addCampers);
         }
 
         function adicionarServo(id) {
@@ -271,7 +270,6 @@ switch ($camper->group) {
                 el.classList.add('fa-plus');
                 addServants.splice(addServants.indexOf(id), 1);
             }
-            console.log(addServants);
         }
 
         function loadNoCampers(search = 0) {
@@ -427,7 +425,6 @@ switch ($camper->group) {
         }
 
         function signCampers() {
-            addCampers = [];
             if (addCampers.length > 0) {
                 $.post("@php echo route('camp.add-campers', $camp->id) @endphp", {
                     _token: csrf,
@@ -436,11 +433,11 @@ switch ($camper->group) {
                 }, function(msg) {
                     window.location.reload(true);
                 })
+                addCampers = [];
             }
         }
 
         function signServants() {
-            addServants = [];
             if (addServants.length > 0) {
                 $.post("@php echo route('camp.add-servants', $camp->id) @endphp", {
                     _token: csrf,
@@ -449,6 +446,7 @@ switch ($camper->group) {
                 }, function(msg) {
                     window.location.reload(true);
                 })
+                addServants = [];
             }
         }
 
