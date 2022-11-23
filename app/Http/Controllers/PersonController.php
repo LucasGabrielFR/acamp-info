@@ -6,6 +6,7 @@ use App\Models\Camp;
 use App\Repositories\CampRepository;
 use App\Repositories\PersonRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class PersonController extends Controller
@@ -134,4 +135,36 @@ class PersonController extends Controller
 
         return redirect()->route('people.index');
     }
+
+    public function personal()
+    {
+        $user = Auth::user();
+        $id = $user->person_id;
+        $person = $this->repository->getPerson($id);
+        $campRepository = new CampRepository(new Camp());
+        $camps = $campRepository->getAllCamps();
+        $maior = 0;
+        foreach($camps as $camp){
+            if($camp->type->order > $maior){
+                $maior = $camp->type->order;
+            }
+        }
+
+        return view('admin.pages.person.view', [
+            'person' => $person,
+            'camps' => $camps,
+        ]);
+    }
+
+    public function personalEdit()
+    {
+        $user = Auth::user();
+        $id = $user->person_id;
+        $person = $this->repository->getPerson($id);
+
+        return view('admin.pages.person.edit', [
+            'person' => $person,
+        ]);
+    }
+
 }

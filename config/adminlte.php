@@ -294,11 +294,19 @@ return [
         [
             'text' => 'Home',
             'url'  => '/admin',
-            'icon' => 'fas fa-church'
+            'icon' => 'fas fa-church',
+            'can'  => 'admin',
+        ],
+        [
+            'text' => 'Perfil',
+            'url'  => '/person',
+            'icon' => 'fas fa-user',
+            'can'  => 'ver-perfil'
         ],
         [
             'text' => 'Pessoas',
             'icon' => 'fas fa-list-alt',
+            'can'  => 'admin',
             'submenu' => [
                 [
                     'text' => 'Fichas',
@@ -313,6 +321,7 @@ return [
         [
             'text' => 'Acampamentos',
             'icon' => 'fas fa-campground',
+            'can'  => 'admin',
             'submenu' => [
                 [
                     'text' => 'Acampamentos',
