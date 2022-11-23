@@ -106,7 +106,6 @@
                                                             echo 'style="background: green; color: white"';
                                                             break;
                                                     } @endphp>
-                                                <option value="">Selecione</option>
                                                 @if ($camper->group)
                                                     <option value="{{ $camper->group }}" selected>
                                                         @switch($camper->group)
@@ -190,7 +189,6 @@
                                             <select id="sector{{ $servant->id }}" class="custom-select"
                                                 onchange="alteraSetor(this, 1)" onclick="adicionaOptions(this, 1)"
                                                 onblur="removeOptions(this, 1)">
-                                                <option value="">Selecione</option>
                                                 @if ($servant->sector)
                                                     <option value="{{ $servant->sector }}" selected>
                                                         @switch($servant->sector)
@@ -636,7 +634,7 @@
             }
         }
 
-        function alteraTribo(src) {
+        function alteraTribo(src, type) {
             paintSelectedGroup(src);
 
             let camper_id = src.id.split('group');
@@ -647,10 +645,14 @@
                 camper_id: camper_id[1]
             });
             removeOptions(src, type);
+            let divSearch = document.getElementById("table1_filter");
+            let search = divSearch.querySelector("input");
+
             $('#table1').DataTable().destroy();
-            $('#table1').DataTable({
+            let table1 = $('#table1').DataTable({
                 "autoWidth": true
             });
+            table1.search(search.value).draw();
         }
 
         function adicionaOptions(src, type) {
@@ -708,10 +710,15 @@
                 servant_id: servant_id[1]
             });
             removeOptions(src, type);
+
+            let divSearch = document.getElementById("table2_filter");
+            let search = divSearch.querySelector("input");
+
             $('#table2').DataTable().destroy();
-            $('#table2').DataTable({
+            let table2 = $('#table2').DataTable({
                 "autoWidth": true
             });
+            table2.search(search.value).draw();
 
         }
     </script>
