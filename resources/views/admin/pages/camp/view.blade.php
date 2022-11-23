@@ -77,43 +77,73 @@
                                         <td>{{ $camper->parish }}</td>
                                         <td>
                                             <select id="group{{ $camper->id }}" class="custom-select"
-                                                onchange="alteraTribo(this)"
+                                                onchange="alteraTribo(this, 0)" onclick="adicionaOptions(this, 0)"
+                                                onblur="removeOptions(this, 0)"
                                                 @php
-switch ($camper->group) {
-                                                    case 'red':
-                                                        echo 'style="background: red; color: white"';
-                                                        break;
-                                                    case 'blue':
-                                                        echo 'style="background: blue; color: white"';
-                                                        break;
-                                                    case 'brown':
-                                                        echo 'style="background: brown; color: white"';
-                                                        break;
-                                                    case 'orange':
-                                                        echo 'style="background: orange; color: black"';
-                                                        break;
-                                                    case 'yellow':
-                                                        echo 'style="background: yellow; color: black"';
-                                                        break;
-                                                    case 'black':
-                                                        echo 'style="background: black; color: white"';
-                                                        break;
-                                                    case 'purple':
-                                                        echo 'style="background: purple; color: white"';
-                                                        break;
-                                                    case 'green':
-                                                        echo 'style="background: green; color: white"';
-                                                        break;
-                                                } @endphp>
+                                                    switch ($camper->group) {
+                                                        case 'red':
+                                                            echo 'style="background: red; color: white"';
+                                                            break;
+                                                        case 'blue':
+                                                            echo 'style="background: blue; color: white"';
+                                                            break;
+                                                        case 'brown':
+                                                            echo 'style="background: brown; color: white"';
+                                                            break;
+                                                        case 'orange':
+                                                            echo 'style="background: orange; color: black"';
+                                                            break;
+                                                        case 'yellow':
+                                                            echo 'style="background: yellow; color: black"';
+                                                            break;
+                                                        case 'black':
+                                                            echo 'style="background: black; color: white"';
+                                                            break;
+                                                        case 'purple':
+                                                            echo 'style="background: purple; color: white"';
+                                                            break;
+                                                        case 'green':
+                                                            echo 'style="background: green; color: white"';
+                                                            break;
+                                                    } @endphp>
                                                 <option value="">Selecione</option>
-                                                <option value="red" @selected($camper->group == 'red')>Vermelho</option>
-                                                <option value="blue" @selected($camper->group == 'blue')>Azul</option>
-                                                <option value="brown" @selected($camper->group == 'brown')>Marrom</option>
-                                                <option value="orange" @selected($camper->group == 'orange')>Laranja</option>
-                                                <option value="yellow" @selected($camper->group == 'yellow')>Amarelo</option>
-                                                <option value="black" @selected($camper->group == 'black')>Preto</option>
-                                                <option value="purple" @selected($camper->group == 'purple')>Roxo</option>
-                                                <option value="green" @selected($camper->group == 'green')>Verde</option>
+                                                @if ($camper->group)
+                                                    <option value="{{ $camper->group }}" selected>
+                                                        @switch($camper->group)
+                                                            @case('red')
+                                                                Vermelho
+                                                            @break
+
+                                                            @case('blue')
+                                                                Azul
+                                                            @break
+
+                                                            @case('brown')
+                                                                Marrom
+                                                            @break
+
+                                                            @case('orange')
+                                                                Laranja
+                                                            @break
+
+                                                            @case('yellow')
+                                                                Amarelo
+                                                            @break
+
+                                                            @case('black')
+                                                                Preto
+                                                            @break
+
+                                                            @case('purple')
+                                                                Roxo
+                                                            @break
+
+                                                            @case('green')
+                                                                Verde
+                                                            @break
+                                                        @endswitch
+                                                    </option>
+                                                @endif
                                             </select>
                                         </td>
                                         <td>
@@ -158,29 +188,78 @@ switch ($camper->group) {
                                         <td>{{ $servant->parish }}</td>
                                         <td>
                                             <select id="sector{{ $servant->id }}" class="custom-select"
-                                                onchange="alteraSetor(this)">
+                                                onchange="alteraSetor(this, 1)" onclick="adicionaOptions(this, 1)"
+                                                onblur="removeOptions(this, 1)">
                                                 <option value="">Selecione</option>
-                                                <option value="animacao" @selected($servant->sector == 'animacao')>Animação</option>
-                                                <option value="anjo" @selected($servant->sector == 'anjo')>Anjo/Líder/Padrinho
-                                                </option>
-                                                <option value="cantinho-mariano" @selected($servant->sector == 'cantinho-mariano')>Cantinho
-                                                    Mariano</option>
-                                                <option value="capela" @selected($servant->sector == 'capela')>Capela</option>
-                                                <option value="coordenacao" @selected($servant->sector == 'coordenacao')>Coordenação
-                                                </option>
-                                                <option value="cozinha" @selected($servant->sector == 'cozinha')>Cozinha</option>
-                                                <option value="diretor-espiritual" @selected($servant->sector == 'diretor-espiritual')>Diretor
-                                                    Espiritual</option>
-                                                <option value="evangelizacao" @selected($servant->sector == 'evangelizacao')>Evangelização
-                                                </option>
-                                                <option value="farmacia" @selected($servant->sector == 'farmacia')>Farmácia</option>
-                                                <option value="ligacao" @selected($servant->sector == 'ligacao')>Ligação</option>
-                                                <option value="manutencao" @selected($servant->sector == 'manutencao')>Manutenção</option>
-                                                <option value="musica" @selected($servant->sector == 'musica')>Música</option>
-                                                <option value="pregacao" @selected($servant->sector == 'pregacao')>Pregação</option>
-                                                <option value="secretaria" @selected($servant->sector == 'secretaria')>Secretaria</option>
-                                                <option value="teatro" @selected($servant->sector == 'teatro')>Teatro</option>
-                                                <option value="tropa-de-elite" @selected($servant->sector == 'tropa-de-elite')>Tropa de Elite
+                                                @if ($servant->sector)
+                                                    <option value="{{ $servant->sector }}" selected>
+                                                        @switch($servant->sector)
+                                                            @case('animacao')
+                                                                Animação
+                                                            @break
+
+                                                            @case('anjo')
+                                                                Anjo/Líder/Padrinho
+                                                            @break
+
+                                                            @case('cantinho-mariano')
+                                                                Cantinho Mariano
+                                                            @break
+
+                                                            @case('capela')
+                                                                Capela
+                                                            @break
+
+                                                            @case('coordenacao')
+                                                                Coordenação
+                                                            @break
+
+                                                            @case('cozinha')
+                                                                Cozinha
+                                                            @break
+
+                                                            @case('diretor-espiritual')
+                                                                Diretor Espiritual
+                                                            @break
+
+                                                            @case('evangelizacao')
+                                                                Evangelização
+                                                            @break
+
+                                                            @case('farmacia')
+                                                                Farmácia
+                                                            @break
+
+                                                            @case('ligacao')
+                                                                Ligação
+                                                            @break
+
+                                                            @case('manutencao')
+                                                                Manutenção
+                                                            @break
+
+                                                            @case('musica')
+                                                                Música
+                                                            @break
+
+                                                            @case('pregacao')
+                                                                Pregação
+                                                            @break
+
+                                                            @case('secretaria')
+                                                                Secretaria
+                                                            @break
+
+                                                            @case('teatro')
+                                                                Teatro
+                                                            @break
+
+                                                            @case('tropa-de-elite')
+                                                                Tropa de Elite
+                                                            @break
+                                                        @endswitch
+                                                    </option>
+                                                @endif
                                                 </option>
                                             </select>
                                         </td>
@@ -198,8 +277,8 @@ switch ($camper->group) {
             </div>
         </div>
     </div>
-    <x-adminlte-modal id="campersModal" title="Adicionar Campista" size="lg" theme="teal"
-        icon="fas fa-user-plus" v-centered static-backdrop scrollable>
+    <x-adminlte-modal id="campersModal" title="Adicionar Campista" size="lg" theme="teal" icon="fas fa-user-plus"
+        v-centered static-backdrop scrollable>
         @csrf
         <div class="row">
             <div class="col-4">
@@ -245,6 +324,98 @@ switch ($camper->group) {
         var campersContent = document.querySelector('#campersContent');
         var servantsContent = document.querySelector('#servantsContent');
         var csrf = document.getElementsByName('_token')[0].value;
+        var groups = [{
+                cor: "red",
+                traducao: "Vermelho"
+            },
+            {
+                cor: "blue",
+                traducao: "Azul"
+            },
+            {
+                cor: "brown",
+                traducao: "Marrom"
+            },
+            {
+                cor: "orange",
+                traducao: "Laranja"
+            },
+            {
+                cor: "yellow",
+                traducao: "Amarelo"
+            },
+            {
+                cor: "black",
+                traducao: "Preto"
+            },
+            {
+                cor: "purple",
+                traducao: "Roxo"
+            },
+            {
+                cor: "green",
+                traducao: "Verde"
+            }
+        ];
+
+        var sectors = [
+            {
+                sector: "animcao",
+                label: "Animação"
+            },
+            {
+                sector: "anjo",
+                label: "Anjo/Líder/Padrinho"
+            },
+            {
+                sector: "cantinho-mariano",
+                label: "Cantinho Mariano"
+            },
+            {
+                sector: "capela",
+                label: "Capela"
+            },
+            {
+                sector: "coordenacao",
+                label: "Coordenação"
+            },
+            {
+                sector: "cozinha",
+                label: "Cozinha"
+            },
+            {
+                sector: "diretor-espiritual",
+                label: "Diretor Espiritual"
+            },
+            {
+                sector: "evangelizacao",
+                label: "Evangelização"
+            },
+            {
+                sector: "pregacao",
+                label: "Pregação"
+            },
+            {
+                sector: "manutencao",
+                label: "Manutenção"
+            },
+            {
+                sector: "musica",
+                label: "Música"
+            },
+            {
+                sector: "secretaria",
+                label: "Secretaria"
+            },
+            {
+                sector: "teatro",
+                label: "Teatro"
+            },
+            {
+                sector: "tropa-de-elite",
+                label: "Tropa de Elite"
+            },
+        ];
 
         function adicionarCampista(id) {
             let el = document.getElementById('camper' + id);
@@ -475,10 +646,59 @@ switch ($camper->group) {
                 group: src.value,
                 camper_id: camper_id[1]
             });
+            removeOptions(src, type);
+            $('#table1').DataTable().destroy();
+            $('#table1').DataTable({
+                "autoWidth": true
+            });
+        }
+
+        function adicionaOptions(src, type) {
+            const selectedOption = src.value;
+            removeOptions(src, type);
+            const arrayOptions = Array.apply(src.options);
+            if(type === 0){
+                groups.forEach(cor => {
+                    if (selectedOption !== cor.cor) {
+                        let newOption = new Option(cor.traducao, cor.cor)
+                        src.add(newOption);
+                    }
+                });
+            }else{
+                sectors.forEach(sector => {
+                    if (selectedOption !== sector.sector) {
+                        let newOption = new Option(sector.label, sector.sector);
+                        src.add(newOption);
+                    }
+                });
+            }
 
         }
 
-        function alteraSetor(src) {
+        function removeOptions(src, type) {
+            const selectedOption = src.value;
+            while (src.options.length > 0) {
+                src.remove(0);
+            }
+            if(type === 0){
+                groups.forEach(cor => {
+                    if (selectedOption === cor.cor) {
+                        let newOption = new Option(cor.traducao, cor.cor)
+                        src.add(newOption);
+                    }
+                });
+            }else{
+                sectors.forEach(sector => {
+                    if (selectedOption === sector.sector) {
+                        let newOption = new Option(sector.label, sector.sector);
+                        src.add(newOption);
+                    }
+                });
+            }
+
+        }
+
+        function alteraSetor(src, type) {
 
             let servant_id = src.id.split('sector');
 
@@ -486,6 +706,11 @@ switch ($camper->group) {
                 _token: csrf,
                 sector: src.value,
                 servant_id: servant_id[1]
+            });
+            removeOptions(src, type);
+            $('#table2').DataTable().destroy();
+            $('#table2').DataTable({
+                "autoWidth": true
             });
 
         }
