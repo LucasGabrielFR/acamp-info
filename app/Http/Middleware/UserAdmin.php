@@ -19,7 +19,7 @@ class UserAdmin
     {
         $user = Auth::user();
         if($user->acl !== 1){
-            return redirect('person/' . $user->person_id);
+            return redirect('person');
         }
         return $next($request);
     }

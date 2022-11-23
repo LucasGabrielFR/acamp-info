@@ -299,7 +299,7 @@ return [
         ],
         [
             'text' => 'Perfil',
-            'url'  => '/person',
+            'url'  => '/personal',
             'icon' => 'fas fa-user',
             'can'  => 'ver-perfil'
         ],

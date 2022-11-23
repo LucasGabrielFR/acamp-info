@@ -28,6 +28,7 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::put('admin/person/edit/{id}', [PersonController::class, 'update'])->name('person.update')->middleware('isAdmin');
     Route::get('person', [PersonController::class, 'personal'])->name('personal');
     Route::get('person/edit', [PersonController::class, 'personalEdit'])->name('personal.edit');
+    Route::put('person/edit/{id}', [PersonController::class, 'personalUpdate'])->name('personal.update');
 
 
     //Camp Routes

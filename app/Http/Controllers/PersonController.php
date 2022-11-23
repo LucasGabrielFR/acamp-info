@@ -167,4 +167,28 @@ class PersonController extends Controller
         ]);
     }
 
+    public function personalUpdate(Request $request, $id)
+    {
+        $data = $request->all();
+        $person = $this->repository->getPerson($id);
+        if (!$person)
+            return redirect()->back();
+
+        if ($request->hasFile('image')) {
+
+            if($person->image){
+                if (Storage::disk('custom_uploads')->exists($person->image)) {
+                    Storage::disk('custom_uploads')->delete($person->image);
+                }
+            }
+
+            $imagePath = $request->file('image')->store('people', ['disk' => 'custom_uploads']);
+            $data['image'] = $imagePath;
+        }
+
+        $this->repository->updatePerson($person, $data);
+
+        return redirect()->route('personal');
+    }
+
 }

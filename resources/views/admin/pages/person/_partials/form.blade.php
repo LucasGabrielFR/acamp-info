@@ -16,7 +16,7 @@
                     </div>
                     <div class="mb-3 text-center">
                         <label for="formFile" class="form-label">Foto</label>
-                        <input class="form-control" id="img-input" type="file" name="image" accept="image/*" @if(!isset($person->image))  @endif>
+                        <input class="form-control" id="img-input" type="file" name="image" accept="image/*" @if(!isset($person->image)) required @endif>
                         <small>Inserir foto sem maquiagem, óculos de sol ou qualquer enfeite...</small>
                     </div>
                 </div>
@@ -92,14 +92,14 @@
                 <div class="form-group">
                     <label>Nome</label>
                     <input type="text" name="name" id="name" class="form-control" placeholder="Nome"
-                        value="{{ $person->name ?? '' }}" >
+                        value="{{ $person->name ?? '' }}" required>
                 </div>
             </div>
             <div class="col-4">
                 <div class="form-group">
                     <label>Data de nascimento</label>
                     <input type="date" name="date_birthday" class="form-control"
-                        value="{{ $person->date_birthday ?? '' }}" >
+                        value="{{ $person->date_birthday ?? '' }}" required>
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@
                 <div class="form-group">
                     <label>Email</label>
                     <input type="email" name="email" class="form-control" placeholder="Email"
-                        value="{{ $person->email ?? '' }}" >
+                        value="{{ $person->email ?? '' }}">
                 </div>
             </div>
             <div class="col-4">
@@ -119,7 +119,7 @@
                         <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
                         <input id="contact" name="contact" class="form-control" placeholder="XX XXXXX-XXXX"
                             type="text" maxlength="13" pattern="\[0-9]{2}\ [0-9]{4,6}-[0-9]{3,4}$"
-                            OnKeyPress="formatar('## #####-####', this)" value="{{ $person->contact ?? '' }}" >
+                            OnKeyPress="formatar('## #####-####', this)" value="{{ $person->contact ?? '' }}" required>
                     </div>
 
                 </div>
@@ -131,7 +131,7 @@
                     <label>CPF</label>
                     <input id="cpf" name="cpf" class="form-control" placeholder="XXX.XXX.XXX-XX"
                             type="text" maxlength="14"
-                            OnKeyPress="formatar('###.###.###-##', this)" value="{{ $person->cpf ?? '' }}" >
+                            OnKeyPress="formatar('###.###.###-##', this)" value="{{ $person->cpf ?? '' }}" required>
                     <div class="alert alert-danger mt-1" role="alert" id="cpf-error" style="display: none">
                         CPF incorreto ou inválido!
                     </div>
@@ -147,7 +147,7 @@
                 <div class="form-group">
                     <label>Rua</label>
                     <input type="text" name="street" class="form-control" placeholder="Rua"
-                        value="{{ $person->street ?? '' }}" >
+                        value="{{ $person->street ?? '' }}" required>
                 </div>
             </div>
             <div class="col-4">
@@ -155,7 +155,7 @@
                     <label>Bairro</label>
 
                     <input type="text" name="district" class="form-control" placeholder="Bairro"
-                        value="{{ $person->district ?? '' }}" >
+                        value="{{ $person->district ?? '' }}" required>
 
                 </div>
             </div>
@@ -164,7 +164,7 @@
                     <label>Número</label>
 
                     <input type="number" name="number" class="form-control" placeholder="Nº"
-                        value="{{ $person->number ?? '' }}" >
+                        value="{{ $person->number ?? '' }}" required>
 
                 </div>
             </div>
@@ -174,14 +174,14 @@
                 <div class="form-group">
                     <label>Cidade</label>
                     <input type="text" name="city" class="form-control" placeholder="Cidade"
-                        value="{{ $person->city ?? '' }}" >
+                        value="{{ $person->city ?? '' }}" required>
                 </div>
             </div>
             <div class="col-4">
                 <div class="form-group">
                     <label>Estado</label>
 
-                    <select class="custom-select" id="state" name="state" >
+                    <select class="custom-select" id="state" name="state" required>
                         <option>Selecione</option>
                         <option value="AC">Acre</option>
                         <option value="AL">Alagoas</option>
@@ -221,14 +221,14 @@
                 <div class="form-group">
                     <label>Religião</label>
                     <input type="text" name="religion" class="form-control" placeholder="Religião"
-                        value="{{ $person->religion ?? '' }}" >
+                        value="{{ $person->religion ?? '' }}" required>
                 </div>
             </div>
             <div class="col-4">
                 <div class="form-group">
                     <label>Paróquia</label>
                     <input type="text" name="parish" class="form-control" placeholder="Paróquia"
-                        value="{{ $person->parish ?? '' }}" >
+                        value="{{ $person->parish ?? '' }}" required>
                 </div>
             </div>
         </div>
@@ -264,7 +264,7 @@
             <div class="col-3">
                 <div class="form-group">
                     <label>Estado Civil</label>
-                    <select name="marital_status" id="marital_status" class="custom-select" onchange="handleChange(this)" >
+                    <select name="marital_status" id="marital_status" class="custom-select" onchange="handleChange(this)" required>
                         <option>Selecione</option>
                         <option value="0">Solteiro</option>
                         <option value="1">Casado</option>
@@ -308,73 +308,12 @@
             <div class="col-12">
                 <div class="form-group">
                     <label>Restrições Médicas</label>
-                    <textarea class="form-control" name="medical_attention" id="medical_attention" cols="20" rows="5"
-                        value="{{ $person->medical_attention ?? '' }}"></textarea>
+                    <textarea class="form-control" name="medical_attention" id="medical_attention" cols="20" rows="5">
+                        {{ $person->medical_attention ?? '' }}
+                    </textarea>
                 </div>
             </div>
         </div>
-        @if(isset($person))
-            <h2>Observações <x-adminlte-button label="Adicionar Observação" data-toggle="modal"
-                data-target="#observationModal" class="bg-success" /></h2>
-            <div class="row">
-                <div class="col-12">
-                    <div class="timeline" id="timeline">
-
-                        @foreach ($person->observations as $observation)
-                            @php
-                                $createdAt = $observation->created_at;
-                                $createdAt = new DateTime($createdAt);
-                            @endphp
-                            <div class="time-label">
-                                <span class="bg-red">{{$createdAt->format('d/m/Y')}}</span>
-                            </div>
-
-                            <div>
-                                <i class="fas fa-info bg-blue"></i>
-                                <div class="timeline-item">
-                                    <span class="time text-white"><i class="fas fa-clock"></i> {{$createdAt->format('H:i')}}</span>
-                                    <h3 class="timeline-header bg-info">
-                                        <b>{{$observation->camp->name}}</b>
-                                    </h3>
-                                    <div class="timeline-body">
-                                        {{$observation->observation}}
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-            <x-adminlte-modal id="observationModal" title="Adicionar Observação" size="lg" theme="teal" icon="fas fa-pen-to-square"
-            v-centered static-backdrop scrollable>
-                <div class="row">
-                    <label>Acampamento Referência da observação</label>
-                    <select class="custom-select" id="acampamento-referencia">
-                        <option value="">Selecionar</option>
-                        @foreach ($person->camps as $camper)
-                            <option value="{{$camper->camp->id}}">{{$camper->camp->name}}</option>
-                        @endforeach
-                        @foreach ($person->serves as $serve)
-                            <option value="{{$serve->camp->id}}">{{$serve->camp->name}}</option>
-                        @endforeach
-                    </select>
-                    <div class="alert alert-danger mt-1" role="alert" id="acampamento-referencia-error" style="display: none">
-                        Selecione uma opção
-                    </div>
-                </div>
-                <div class="row">
-                    <label>Observação</label>
-                    <textarea class="form-control" id="observation" cols="20" rows="5"></textarea>
-                    <div class="alert alert-danger mt-1" role="alert" id="observation-error" style="display: none">
-                        O campo não pode estar vazio
-                    </div>
-                </div>
-                <x-slot name="footerSlot">
-                    <x-adminlte-button onclick="newObservation()" class="mr-auto" theme="success" label="Adicionar" id="addObs" />
-                    <x-adminlte-button theme="danger" label="Cancelar" data-dismiss="modal" id="cancelObs" />
-                </x-slot>
-            </x-adminlte-modal>
-        @endif
         <button type="submit" class="btn btn-dark">Salvar</button>
     </div>
 </div>
@@ -468,63 +407,6 @@
                 }
             }
 
-            function newObservation(){
-                var csrf = document.getElementsByName('_token')[0].value;
-                const observation = document.getElementById('observation');
-                const acampamentoReferencia = document.getElementById('acampamento-referencia');
-                let valido = true;
-
-                if(observation.value.length < 3){
-                    $('#observation-error').css({display: "block"});
-                    valido = false;
-                }else{
-                    $('#observation-error').css({display: "none"});
-                }
-                if(acampamentoReferencia.value.length < 1){
-                    $('#acampamento-referencia-error').css({display: "block"});
-                    valido = false;
-                }else{
-                    $('#acampamento-referencia-error').css({display: "none"});
-                }
-                if(valido){
-                    $('#addObs').prop('disabled', true);
-                    $('#cancelObs').prop('disabled', true);
-                    $.post("@php echo route('observation.store') @endphp", {
-                    _token: csrf,
-                    observation: observation.value,
-                    camp_id: acampamentoReferencia.value,
-                    person_id: "@php echo $person->id @endphp",
-                    type: 1,
-                    }, function(retorno) {
-                        let data = new Date(retorno[0].created_at);
-                        let dataFormatada = ((data.getDate() )) + "/" + ((data.getMonth() + 1)) + "/" + data.getFullYear();
-                        const timeline = document.getElementById('timeline');
-                        let newHtml = '<div class="time-label">'
-                        newHtml += '<span class="bg-red">'
-                        newHtml += dataFormatada
-                        newHtml += '</span></div>'
-                        newHtml += '<div>'
-                        newHtml += '<i class="fas fa-info bg-blue"></i>'
-                        newHtml += '<div class="timeline-item">'
-                        newHtml += '<span class="time text-white"><i class="fas fa-clock"></i>'
-                        newHtml += "Agora</span>"
-                        newHtml += '<h3 class="timeline-header bg-info">'
-                        newHtml += '<b>' + retorno[1].name +'</b>'
-                        newHtml += '</h3>'
-                        newHtml += '<div class="timeline-body">'
-                        newHtml += retorno[0].observation
-                        newHtml += '</div>'
-                        newHtml += '</div>'
-                        newHtml += '</div>'
-
-                        timeline.innerHTML =  newHtml + timeline.innerHTML;
-                        $('#observationModal').modal('hide');
-                        $('#addObs').prop('disabled', false);
-                        $('#cancelObs').prop('disabled', false);
-                    })
-                }
-
-            }
         @php } @endphp
 
         function formatar(mascara, documento) {
@@ -585,7 +467,7 @@
             const cpf = document.getElementById('cpf');
 
             if(!validaCPF(cpf.value)){
-                // event.preventDefault();
+                event.preventDefault();
                 $('#cpf-error').css({display: "block"});
             }
         })

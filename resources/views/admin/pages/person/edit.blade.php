@@ -9,10 +9,10 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('person.update', $person->id) }}" class="form" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('personal.update', $person->id) }}" class="form" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                @include('admin.pages.people._partials.form')
+                @include('admin.pages.person._partials.form')
             </form>
         </div>
     </div>
