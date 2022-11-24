@@ -585,7 +585,8 @@
             const cpf = document.getElementById('cpf');
 
             if(!validaCPF(cpf.value)){
-                // event.preventDefault();
+                event.preventDefault();
+                $('#cpf').focus();
                 $('#cpf-error').css({display: "block"});
             }
         })

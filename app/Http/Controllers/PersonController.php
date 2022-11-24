@@ -60,8 +60,15 @@ class PersonController extends Controller
 
             $data['image'] = $imagePath;
         }
-        $this->repository->storePerson($data);
-        return redirect()->route('people.index');
+        if ($this->repository->storePerson($data)) {
+            toastr()->success('Pré-Ficha Criada com sucesso!');
+
+            return redirect()->route('people.index');
+        }
+
+        toastr()->error('Este CPF já esta cadastrado!');
+
+        return back();
     }
 
     public function view($id)
@@ -70,8 +77,8 @@ class PersonController extends Controller
         $campRepository = new CampRepository(new Camp());
         $camps = $campRepository->getAllCamps();
         $maior = 0;
-        foreach($camps as $camp){
-            if($camp->type->order > $maior){
+        foreach ($camps as $camp) {
+            if ($camp->type->order > $maior) {
                 $maior = $camp->type->order;
             }
         }
@@ -90,7 +97,7 @@ class PersonController extends Controller
         if (!$person)
             return redirect()->back();
 
-        if($person->image){
+        if ($person->image) {
             if (Storage::disk('custom_uploads')->exists($person->image)) {
                 Storage::disk('custom_uploads')->delete($person->image);
             }
@@ -121,7 +128,7 @@ class PersonController extends Controller
 
         if ($request->hasFile('image')) {
 
-            if($person->image){
+            if ($person->image) {
                 if (Storage::disk('custom_uploads')->exists($person->image)) {
                     Storage::disk('custom_uploads')->delete($person->image);
                 }
@@ -131,9 +138,15 @@ class PersonController extends Controller
             $data['image'] = $imagePath;
         }
 
-        $this->repository->updatePerson($person, $data);
+        if ($this->repository->updatePerson($person, $data)) {
+            toastr()->success('Cadastro salvo com sucesso!');
 
-        return redirect()->route('people.index');
+            return redirect()->route('people.index');
+        }
+
+        toastr()->error('Este CPF já esta cadastrado!');
+
+        return back();
     }
 
     public function personal()
@@ -144,8 +157,8 @@ class PersonController extends Controller
         $campRepository = new CampRepository(new Camp());
         $camps = $campRepository->getAllCamps();
         $maior = 0;
-        foreach($camps as $camp){
-            if($camp->type->order > $maior){
+        foreach ($camps as $camp) {
+            if ($camp->type->order > $maior) {
                 $maior = $camp->type->order;
             }
         }
@@ -176,7 +189,7 @@ class PersonController extends Controller
 
         if ($request->hasFile('image')) {
 
-            if($person->image){
+            if ($person->image) {
                 if (Storage::disk('custom_uploads')->exists($person->image)) {
                     Storage::disk('custom_uploads')->delete($person->image);
                 }
@@ -186,9 +199,14 @@ class PersonController extends Controller
             $data['image'] = $imagePath;
         }
 
-        $this->repository->updatePerson($person, $data);
+        if ($this->repository->updatePerson($person, $data)) {
+            toastr()->success('Cadastro salvo com sucesso!');
 
-        return redirect()->route('personal');
+            return redirect()->route('people.index');
+        }
+
+        toastr()->error('Este CPF já esta cadastrado!');
+
+        return back();
     }
-
 }

@@ -309,7 +309,7 @@ return [
             'can'  => 'admin',
             'submenu' => [
                 [
-                    'text' => 'Fichas',
+                    'text' => 'Pré-Fichas',
                     'url'  => 'admin/people',
                 ],
                 [

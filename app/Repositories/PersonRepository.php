@@ -39,7 +39,11 @@ class PersonRepository
 
     public function storePerson($data)
     {
-        $this->entity->create($data);
+        if(!$this->verifyCpf($data["cpf"])){
+            $this->entity->create($data);
+            return true;
+        }
+        return false;
     }
 
     public function getPerson($id)
@@ -56,7 +60,11 @@ class PersonRepository
 
     public function updatePerson($person, $data)
     {
-        $person->update($data);
+        if(!$this->verifyCpf($data["cpf"])){
+            $person->update($data);
+            return true;
+        }
+        return false;
     }
 
     public function getPersonCamps($id)
@@ -94,5 +102,15 @@ class PersonRepository
     public function getPersonObservations($id)
     {
         return Observation::where('person_id', $id)->get();
+    }
+
+    private function verifyCpf($cpf)
+    {
+       $verify = $this->entity->where('cpf', $cpf)->get();
+       if($verify){
+        return true;
+       }
+
+       return false;
     }
 }
