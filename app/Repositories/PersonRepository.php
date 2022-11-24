@@ -60,6 +60,10 @@ class PersonRepository
 
     public function updatePerson($person, $data)
     {
+        if($person->cpf === $data["cpf"]){
+            $person->update($data);
+            return true;
+        }
         if(!$this->verifyCpf($data["cpf"])){
             $person->update($data);
             return true;
