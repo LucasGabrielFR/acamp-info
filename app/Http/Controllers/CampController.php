@@ -184,4 +184,11 @@ class CampController extends Controller
 
         $this->repository->changeSector($servant, $request->sector);
     }
+
+    public function changeHierarchy(Request $request)
+    {
+        $servant = $this->repository->getServant($request->servant_id);
+
+        $this->repository->changeHierarchy($servant, $request->hierarchy);
+    }
 }

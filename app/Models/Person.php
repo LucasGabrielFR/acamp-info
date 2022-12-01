@@ -39,7 +39,8 @@ class Person extends Model
         'is_spouse_camper',
         'image',
         'cpf',
-        'marital_status'
+        'marital_status',
+        'occupation'
     ];
 
     public function camps()

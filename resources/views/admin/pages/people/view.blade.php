@@ -669,6 +669,18 @@
                 Selecione uma opção
             </div>
         </div>
+        <div class="row">
+            <label>Função</label>
+            <select class="custom-select" id="camp-hierarchy">
+                <option value="">Selecione</option>
+                <option value="coordenacao">Coordenação</option>
+                <option value="aux">Auxiliar</option>
+                <option value="servo">Servo</option>
+            </select>
+            <div class="alert alert-danger mt-1" role="alert" id="hierarchy-error" style="display: none">
+                Selecione uma opção
+            </div>
+        </div>
         <x-slot name="footerSlot">
             <x-adminlte-button onclick="signServe()" class="mr-auto" theme="success" label="Adicionar"
                 id="addServe" />
@@ -747,6 +759,7 @@
             var csrf = document.getElementsByName('_token')[0].value;
             const acampamentoServe = document.getElementById('acampamento-serve');
             const campSector = document.getElementById('camp-sector');
+            const campHierarchy = document.getElementById('camp-hierarchy');
             if (acampamentoServe.value.length < 3) {
                 $('#acampamento-serve-error').css({
                     display: "block"
@@ -767,6 +780,16 @@
                     display: "none"
                 });
             }
+            if (campHierarchy.value.length < 3) {
+                $('#hierarchy-error').css({
+                    display: "block"
+                });
+                valido = false;
+            } else {
+                $('#hierarchy-error').css({
+                    display: "none"
+                });
+            }
             if (valido) {
                 $('#addServe').prop('disabled', true);
                 $('#cancelServe').prop('disabled', true);
@@ -775,6 +798,7 @@
                         person_id: '{{ $person->id }}',
                         camp_id: acampamentoServe.value,
                         sector: campSector.value,
+                        hierarchy: campHierarchy.value
                     })
                     .done(function() {
                         window.location.reload(true);

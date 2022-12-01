@@ -73,6 +73,7 @@ class CampRepository
             's.id',
             's.group',
             's.sector',
+            's.hierarchy',
             'p.name',
             'p.date_birthday',
             'p.contact',
@@ -234,6 +235,12 @@ class CampRepository
         $servant->update();
     }
 
+    public function changeHierarchy($servant, $hierarchy)
+    {
+        $servant->hierarchy = $hierarchy;
+        $servant->update();
+    }
+
     public function addServants(Request $request, $id)
     {
         foreach ($request->servants as $new) {
@@ -248,11 +255,13 @@ class CampRepository
     {
         $serve = new Servant;
         $serve = $serve->where('person_id', $request->person_id)->where('camp_id', $request->camp_id)->first();
+
         if(!$serve){
             $serve = new Servant;
             $serve->person_id = $request->person_id;
             $serve->camp_id = $request->camp_id;
             $serve->sector = $request->sector;
+            $serve->hierarchy = $request->hierarchy;
             $serve->save();
             return true;
         }else{

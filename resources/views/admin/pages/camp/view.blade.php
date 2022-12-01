@@ -158,7 +158,7 @@
                 </div>
                 <div class="tab-pane fade" id="nav-servants" role="tabpanel" aria-labelledby="nav-profile-tab">
                     @php
-                        $heads = ['Nome', 'Contato', 'Idade', 'Paróquia', 'Setor', 'Ações'];
+                        $heads = ['Nome', 'Contato', 'Idade', 'Paróquia', 'Setor', 'Função', 'Ações'];
 
                         $config = [
                             'data' => $servants,
@@ -259,6 +259,20 @@
                                                     </option>
                                                 @endif
                                                 </option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            @php
+                                                if(!isset($servant->hierarchy)){
+                                                    $servant->hierarchy = '';
+                                                }
+                                            @endphp
+                                            <select id="hierarchy{{ $servant->id }}" class="custom-select"
+                                                onchange="alteraHierarquia(this)">
+                                                <option>Selecione</option>
+                                                <option value="coordenacao" @selected($servant->hierarchy === 'coordenacao')>Coordenação</option>
+                                                <option value="aux" @selected($servant->hierarchy === 'aux')>Auxiliar</option>
+                                                <option value="servo" @selected($servant->hierarchy === 'servo')>Servo</option>
                                             </select>
                                         </td>
                                         <td>
@@ -720,6 +734,17 @@
             });
             table2.search(search.value).draw();
 
+        }
+
+        function alteraHierarquia(src) {
+
+            let servant_id = src.id.split('hierarchy');
+
+            $.post("@php echo route('servant.change-hierarchy') @endphp", {
+                _token: csrf,
+                hierarchy: src.value,
+                servant_id: servant_id[1]
+            });
         }
     </script>
 @stop

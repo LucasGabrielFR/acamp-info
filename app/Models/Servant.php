@@ -21,6 +21,7 @@ class Servant extends Model
         'sector',
         'group',
         'present',
+        'hierarchy'
     ];
 
     public function people()

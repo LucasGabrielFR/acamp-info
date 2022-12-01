@@ -43,6 +43,7 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::delete('admin/servant/{id}', [CampController::class, 'deleteServant'])->name('camp.delete-servant')->middleware('isAdmin');
     Route::post('admin/camper/group', [CampController::class, 'changeGroup'])->name('camper.change-group')->middleware('isAdmin');
     Route::post('admin/servant/sector', [CampController::class, 'changeSector'])->name('servant.change-sector')->middleware('isAdmin');
+    Route::post('admin/servant/hierarchy', [CampController::class, 'changeHierarchy'])->name('servant.change-hierarchy')->middleware('isAdmin');
     Route::get('admin/camp/{id}/noCampers', [CampController::class, 'noCampers'])->name('camp.no-campers')->middleware('isAdmin');
     Route::get('admin/camp/{id}/noServants', [CampController::class, 'noServants'])->name('camp.no-servants');
     Route::post('admin/camp/{id}/noCampers', [CampController::class, 'noCampersSearch'])->name('camp.no-campers-search')->middleware('isAdmin');
