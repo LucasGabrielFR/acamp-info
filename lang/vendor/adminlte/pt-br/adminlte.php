@@ -3,7 +3,7 @@
 return [
 
     'full_name'                   => 'Nome completo',
-    'email'                       => 'Email',
+    'email'                       => 'Usuário',
     'password'                    => 'Senha',
     'retype_password'             => 'Repita a senha',
     'remember_me'                 => 'Lembrar-me',
@@ -24,5 +24,7 @@ return [
     'verify_check_your_email'     => 'Antes de continuar, por favor verifique seu email com o link de confirmação.',
     'verify_if_not_recieved'      => 'caso não tenha recebido o email',
     'verify_request_another'      => 'clique aqui para solicitar um novo',
+    'validation_email'            => 'Email ou senha incorretos',
+    'validation_password'         => 'Email ou senha incorretos',
     'confirm_password_message'    => 'Por favor, confirme sua senha para continuar.',
 ];
