@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Camp;
+use App\Models\User;
 use App\Repositories\CampRepository;
 use App\Repositories\PersonRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class PersonController extends Controller
@@ -55,12 +58,30 @@ class PersonController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('people', ['disk' => 'custom_uploads']);
 
             $data['image'] = $imagePath;
         }
-        if ($this->repository->storePerson($data)) {
+        $result = $this->repository->storePerson($data);
+
+        if ($result[0]) {
+            $userRepository = new UserRepository(new User());
+            if (count($userRepository->verifyUser($result[1]->id)) < 1){
+                $username = $data['cpf'];
+                $username = str_replace('.', '', $username);
+                $username = str_replace('-', '', $username);
+
+                $user = new User();
+                $user->email = $username;
+                $user->password = Hash::make($username);
+                $user->name = $result[1]->name;
+                $user->person_id = $result[1]->id;
+                $user->acl = 2;
+                $userRepository->storeUser($user);
+            }
+
             toastr()->success('Pré-Ficha Criada com sucesso!');
 
             return redirect()->route('people.index');
@@ -137,8 +158,24 @@ class PersonController extends Controller
             $imagePath = $request->file('image')->store('people', ['disk' => 'custom_uploads']);
             $data['image'] = $imagePath;
         }
+        $result = $this->repository->updatePerson($person, $data);
+        if ($result[0]) {
 
-        if ($this->repository->updatePerson($person, $data)) {
+            $userRepository = new UserRepository(new User());
+            if (count($userRepository->verifyUser($result[1]->id)) < 1){
+                $username = $data['cpf'];
+                $username = str_replace('.', '', $username);
+                $username = str_replace('-', '', $username);
+
+                $user = new User();
+                $user->email = $username;
+                $user->password = Hash::make($username);
+                $user->name = $result[1]->name;
+                $user->person_id = $result[1]->id;
+                $user->acl = 2;
+                $userRepository->storeUser($user);
+            }
+
             toastr()->success('Cadastro salvo com sucesso!');
 
             return redirect()->route('people.index');

@@ -40,10 +40,10 @@ class PersonRepository
     public function storePerson($data)
     {
         if(!$this->verifyCpf($data["cpf"])){
-            $this->entity->create($data);
-            return true;
+            $person = $this->entity->create($data);
+            return [true, $person];
         }
-        return false;
+        return [false];
     }
 
     public function getPerson($id)
@@ -62,13 +62,13 @@ class PersonRepository
     {
         if($person->cpf === $data["cpf"]){
             $person->update($data);
-            return true;
+            return [true, $person];
         }
         if(!$this->verifyCpf($data["cpf"])){
             $person->update($data);
-            return true;
+            return [true, $person];
         }
-        return false;
+        return [false];
     }
 
     public function getPersonCamps($id)
@@ -111,7 +111,7 @@ class PersonRepository
     private function verifyCpf($cpf)
     {
        $verify = $this->entity->where('cpf', $cpf)->get();
-       if($verify){
+       if(count($verify)>0){
         return true;
        }
 
