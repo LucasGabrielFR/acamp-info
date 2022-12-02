@@ -367,6 +367,12 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-6">
+                            <label>Profissão</label>
+                            <div class="text-danger">{{ $person->occupation }}</div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-12">
                             <div class="form-group">
                                 <label>Restrições Médicas</label>

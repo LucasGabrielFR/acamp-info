@@ -305,6 +305,13 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-6">
+                <label>Profissão</label>
+                <input type="text" name="occupation" id="occupation" class="form-control"
+                placeholder="Profissão" value="{{ $person->occupation ?? '' }}">
+            </div>
+        </div>
+        <div class="row">
             <div class="col-12">
                 <div class="form-group">
                     <label>Restrições Médicas</label>
