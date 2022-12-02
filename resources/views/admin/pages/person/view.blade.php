@@ -468,8 +468,10 @@
                     </div>
                     {{-- TIRAR FUTURAMENTE --}}
                     <div class="text-right">
-                        <x-adminlte-button label="+" data-toggle="modal" data-target="#serveModal"
+                        @if (count($person->camps) > 1)
+                            <x-adminlte-button label="+" data-toggle="modal" data-target="#serveModal"
                             class="bg-success" />
+                        @endif
                     </div>
                     {{-- TIRAR FUTURAMENTE --}}
                 </div>
