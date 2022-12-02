@@ -107,27 +107,27 @@
             color: black;
         }
 
-        .badge-dark-green{
+        .badge-dark-green {
             background: #00421a;
             color: white;
         }
 
-        .badge-inverted{
+        .badge-inverted {
             background: #2f4f4f;
             color: white;
         }
 
-        .badge-gray{
+        .badge-gray {
             background: gray;
             color: white;
         }
 
-        .badge-white-red{
+        .badge-white-red {
             background: #ff9090;
             color: black;
         }
 
-        .badge-black{
+        .badge-black {
             background: black;
             color: white;
         }
@@ -385,6 +385,11 @@
                     <div class="card-title">
                         Acampamentos
                     </div>
+                    {{-- TIRAR FUTURAMENTE --}}
+                    <div class="text-right">
+                        <x-adminlte-button label="+" data-toggle="modal" data-target="#campModal" class="bg-success" />
+                    </div>
+                    {{-- TIRAR FUTURAMENTE --}}
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -454,6 +459,12 @@
                     <div class="card-title">
                         Serviços
                     </div>
+                    {{-- TIRAR FUTURAMENTE --}}
+                    <div class="text-right">
+                        <x-adminlte-button label="+" data-toggle="modal" data-target="#serveModal"
+                            class="bg-success" />
+                    </div>
+                    {{-- TIRAR FUTURAMENTE --}}
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -542,7 +553,7 @@
                                     <br>
                                     Término em: <b>{{ $endDate }}</b>
                                     <br>
-                                    Setor: <span class="badge badge-{{$cardColor}}">{{$sector}}</span>
+                                    Setor: <span class="badge badge-{{ $cardColor }}">{{ $sector }}</span>
                                 </x-adminlte-card>
                             </div>
                         @endforeach
@@ -553,7 +564,227 @@
             </div>
         </div>
     </div>
+    {{-- TIRAR FUTURAMENTE --}}
+    <x-adminlte-modal id="campModal" title="Campista" size="lg" theme="teal" icon="fas fa-lg fa-campground"
+        v-centered static-backdrop scrollable>
+        <div class="row">
+            <label>Acampamento que foi campista</label>
+            <select class="custom-select" id="acampamento-camper">
+                <option value="">Selecionar</option>
+                @foreach ($camps as $camp)
+                    <option value="{{ $camp->id }}">{{ $camp->name }}</option>
+                @endforeach
+            </select>
+            <div class="alert alert-danger mt-1" role="alert" id="acampamento-camper-error" style="display: none">
+                Selecione uma opção
+            </div>
+        </div>
+        <div class="row">
+            <label>Tribo</label>
+            <select class="custom-select" id="camp-tribo" onchange="paintSelectedGroup(this)">
+                <option value="">Selecionar</option>
+                <option value="red">Vermelho</option>
+                <option value="blue">Azul</option>
+                <option value="brown">Marrom</option>
+                <option value="orange">Laranja</option>
+                <option value="yellow">Amarelo</option>
+                <option value="black">Preto</option>
+                <option value="purple">Roxo</option>
+                <option value="green">Verde</option>
+            </select>
+            <div class="alert alert-danger mt-1" role="alert" id="tribo-error" style="display: none">
+                Selecione uma opção
+            </div>
+        </div>
+        <x-slot name="footerSlot">
+            <x-adminlte-button onclick="signCamper()" class="mr-auto" theme="success" label="Adicionar"
+                id="addCamp" />
+            <x-adminlte-button theme="danger" label="Cancelar" data-dismiss="modal" id="cancelCamp" />
+        </x-slot>
+    </x-adminlte-modal>
+    <x-adminlte-modal id="serveModal" title="Servir" size="lg" theme="teal" icon="fas fa-lg fa-campground"
+        v-centered static-backdrop scrollable>
+        <div class="row">
+            <label>Acampamento que foi servo</label>
+            <select class="custom-select" id="acampamento-serve">
+                <option value="">Selecionar</option>
+                @foreach ($camps as $camp)
+                    <option value="{{ $camp->id }}">{{ $camp->name }}</option>
+                @endforeach
+            </select>
+            <div class="alert alert-danger mt-1" role="alert" id="acampamento-serve-error" style="display: none">
+                Selecione uma opção
+            </div>
+        </div>
+        <div class="row">
+            <label>Setor</label>
+            <select class="custom-select" id="camp-sector">
+                <option value="">Selecione</option>
+                <option value="animacao">Animação</option>
+                <option value="anjo">Anjo/Líder/Padrinho</option>
+                <option value="cantinho-mariano">Cantinho Mariano</option>
+                <option value="capela">Capela</option>
+                <option value="coordenacao">Coordenação</option>
+                <option value="cozinha">Cozinha</option>
+                <option value="diretor-espiritual">Diretor Espiritual</option>
+                <option value="evangelizacao">Evangelização</option>
+                <option value="farmacia">Farmácia</option>
+                <option value="ligacao">Ligação</option>
+                <option value="manutencao">Manutenção</option>
+                <option value="musica">Música</option>
+                <option value="pregacao">Pregação</option>
+                <option value="secretaria">Secretaria</option>
+                <option value="teatro">Teatro</option>
+                <option value="tropa-de-elite">Tropa de Elite</option>
+            </select>
+            <div class="alert alert-danger mt-1" role="alert" id="sector-error" style="display: none">
+                Selecione uma opção
+            </div>
+        </div>
+        <div class="row">
+            <label>Função</label>
+            <select class="custom-select" id="camp-hierarchy">
+                <option value="">Selecione</option>
+                <option value="coordenacao">Coordenação</option>
+                <option value="aux">Auxiliar</option>
+                <option value="servo">Servo</option>
+            </select>
+            <div class="alert alert-danger mt-1" role="alert" id="hierarchy-error" style="display: none">
+                Selecione uma opção
+            </div>
+        </div>
+        <x-slot name="footerSlot">
+            <x-adminlte-button onclick="signServe()" class="mr-auto" theme="success" label="Adicionar"
+                id="addServe" />
+            <x-adminlte-button theme="danger" label="Cancelar" data-dismiss="modal" id="cancelServe" />
+        </x-slot>
+    </x-adminlte-modal>
+    {{-- TIRAR FUTURAMENTE --}}
     <x-footer />
 @stop
 @section('js')
+    <script>
+        function paintSelectedGroup(src) {
+            if (src.value == 'blue' || src.value == 'brown' || src.value == 'blue' || src.value == 'red' || src.value ==
+                'black' || src.value == 'purple' || src.value == 'green') {
+                $('#' + src.id).css({
+                    'background': src.value,
+                    'color': 'white'
+                });
+            } else {
+                $('#' + src.id).css({
+                    'background': src.value,
+                    'color': 'black'
+                });
+            }
+        }
+
+        function signCamper() {
+            let valido = true;
+            var csrf = document.getElementsByName('_token')[0].value;
+            const acampamentoCamper = document.getElementById('acampamento-camper');
+            const campTribo = document.getElementById('camp-tribo');
+            if (acampamentoCamper.value.length < 3) {
+                $('#acampamento-camper-error').css({
+                    display: "block"
+                });
+                valido = false;
+            } else {
+                $('#acampamento-camper-error').css({
+                    display: "none"
+                });
+            }
+            if (campTribo.value.length < 3) {
+                $('#tribo-error').css({
+                    display: "block"
+                });
+                valido = false;
+            } else {
+                $('#tribo-error').css({
+                    display: "none"
+                });
+            }
+            if (valido) {
+                $('#addCamp').prop('disabled', true);
+                $('#cancelCamp').prop('disabled', true);
+                $.post("@php echo route('camp.add-camper') @endphp", {
+                        _token: csrf,
+                        person_id: '{{ $person->id }}',
+                        camp_id: acampamentoCamper.value,
+                        tribo: campTribo.value,
+                    })
+                    .done(function() {
+                        window.location.reload(true);
+                        $('#addCamp').prop('disabled', false);
+                        $('#cancelCamp').prop('disabled', false);
+                    })
+                    .fail(function() {
+                        $('#addCamp').prop('disabled', false);
+                        $('#cancelCamp').prop('disabled', false);
+                        alert("Esta pessoa já é campista neste acampamento")
+                    })
+            }
+
+        }
+
+        function signServe() {
+            let valido = true;
+            var csrf = document.getElementsByName('_token')[0].value;
+            const acampamentoServe = document.getElementById('acampamento-serve');
+            const campSector = document.getElementById('camp-sector');
+            const campHierarchy = document.getElementById('camp-hierarchy');
+            if (acampamentoServe.value.length < 3) {
+                $('#acampamento-serve-error').css({
+                    display: "block"
+                });
+                valido = false;
+            } else {
+                $('#acampamento-serve-error').css({
+                    display: "none"
+                });
+            }
+            if (campSector.value.length < 3) {
+                $('#sector-error').css({
+                    display: "block"
+                });
+                valido = false;
+            } else {
+                $('#sector-error').css({
+                    display: "none"
+                });
+            }
+            if (campHierarchy.value.length < 3) {
+                $('#hierarchy-error').css({
+                    display: "block"
+                });
+                valido = false;
+            } else {
+                $('#hierarchy-error').css({
+                    display: "none"
+                });
+            }
+            if (valido) {
+                $('#addServe').prop('disabled', true);
+                $('#cancelServe').prop('disabled', true);
+                $.post("@php echo route('camp.add-serve') @endphp", {
+                        _token: csrf,
+                        person_id: '{{ $person->id }}',
+                        camp_id: acampamentoServe.value,
+                        sector: campSector.value,
+                        hierarchy: campHierarchy.value
+                    })
+                    .done(function() {
+                        window.location.reload(true);
+                        $('#addServe').prop('disabled', false);
+                        $('#cancelServe').prop('disabled', false);
+                    })
+                    .fail(function() {
+                        $('#addServe').prop('disabled', false);
+                        $('#cancelServe').prop('disabled', false);
+                        alert("Esta pessoa já é serva neste acampamento")
+                    })
+            }
+
+        }
+    </script>
 @stop
