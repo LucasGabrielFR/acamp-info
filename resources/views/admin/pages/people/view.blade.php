@@ -148,10 +148,10 @@
         @csrf
         <div class="card-body">
             <div class="row">
-                <div class="col-4">
+                <div class="col-auto">
                     <div class="row">
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body" style="max-width: 33vh;">
                                 <div class="p-3">
                                     @if (isset($person->image))
                                         <img src="{{ url("{$person->image}") }}" alt="" class="card-img-top">
@@ -188,19 +188,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-8">
+                <div class="col-auto">
                     <h2>
                         Dados Pessoais
                     </h2>
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-auto">
                             <div class="form-group">
                                 <label>Nome*</label>
                                 <br>
                                 <div class="text-danger">{{ $person->name }}</div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-auto">
                             <div class="form-group">
                                 <label>Data de nascimento*</label>
                                 <br>
@@ -217,14 +217,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-auto">
                             <div class="form-group">
                                 <label>Email</label>
                                 <br>
                                 <div class="text-danger">{{ $person->email }}</div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-auto">
                             <div class="form-group">
                                 <label>Telefone*</label>
                                 <br>
@@ -233,7 +233,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-auto">
                             <div class="form-group">
                                 <label>CPF</label>
                                 <br>
@@ -246,13 +246,13 @@
                         Endereço
                     </h2>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-auto">
                             <div class="form-group">
                                 <label>Rua</label>
                                 <div class="text-danger">{{ $person->street }}</div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-auto">
                             <div class="form-group">
                                 <label>Bairro</label>
                                 <br>
@@ -260,7 +260,7 @@
 
                             </div>
                         </div>
-                        <div class="col-2">
+                        <div class="col-auto">
                             <div class="form-group">
                                 <label>Número</label>
                                 <br>
@@ -270,14 +270,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-auto">
                             <div class="form-group">
                                 <label>Cidade</label>
                                 <br>
                                 <div class="text-danger">{{ $person->city }}</div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-auto">
                             <div class="form-group">
                                 <label>Estado</label>
                                 <div class="text-danger">{{ $person->state }}</div>
@@ -287,13 +287,13 @@
                     <hr>
                     <h2>Informações</h2>
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-auto">
                             <div class="form-group">
                                 <label>Religião</label>
                                 <div class="text-danger">{{ $person->religion }}</div>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-auto">
                             <div class="form-group">
                                 <label>Paróquia</label>
                                 <div class="text-danger">{{ $person->parish }}</div>
@@ -301,14 +301,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-auto">
                             <div class="form-group">
                                 <label>Participa de alguma pastoral?</label>
                                 <br>
                                 <div class="text-danger">{{ $person->is_pastoral == 1 ? 'Sim' : 'Não' }}</div>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-auto">
                             <div class="form-group">
                                 <label>Pastoral</label>
                                 <div class="text-danger">{{ $person->pastoral }}</div>
@@ -316,7 +316,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-3">
+                        <div class="col-auto">
                             <div class="form-group">
                                 <label>Estado Civil</label>
                                 <br>
@@ -352,14 +352,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-auto">
                             <div class="form-group">
                                 <label>Cônjuge é campista?</label>
                                 <br>
                                 <div class="text-danger">{{ $person->is_spouse_camper == 1 ? 'Sim' : 'Não' }}</div>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-auto">
                             <div class="form-group">
                                 <label>Nome do Cônjuge</label>
                                 <div class="text-danger">{{ $person->spouse_name }}</div>
@@ -367,13 +367,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-auto">
                             <label>Profissão</label>
                             <div class="text-danger">{{ $person->occupation }}</div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-auto">
                             <div class="form-group">
                                 <label>Restrições Médicas</label>
                                 <div class="text-danger">{{ $person->medical_attention }}</div>
@@ -383,7 +383,7 @@
                     <hr>
                     <h2>Observações</h2>
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-auto">
                             <div class="timeline">
 
                                 @foreach ($person->observations as $observation)
@@ -417,7 +417,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-6">
+        <div class="col-auto">
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
@@ -490,7 +490,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-auto">
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">

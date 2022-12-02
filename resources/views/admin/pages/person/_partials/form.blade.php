@@ -1,8 +1,8 @@
 <div class="row">
-    <div class="col-4">
+    <div class="col-auto">
         <div class="row">
             <div class="card">
-                <div class="card-body">
+                <div class="card-body" style="max-width: 33vh;">
                     <div class="p-3" id="img-container">
                         @if(isset($person->image))
                             <img src="{{url("{$person->image}")}}"
@@ -83,19 +83,19 @@
             </div>
         </div>
     </div>
-    <div class="col-8">
+    <div class="col-auto">
         <h2>
             Dados Pessoais
         </h2>
         <div class="row">
-            <div class="col-8">
+            <div class="col-auto">
                 <div class="form-group">
                     <label>Nome</label>
                     <input type="text" name="name" id="name" class="form-control" placeholder="Nome"
                         value="{{ $person->name ?? '' }}" required>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-auto">
                 <div class="form-group">
                     <label>Data de nascimento</label>
                     <input type="date" name="date_birthday" class="form-control"
@@ -104,14 +104,14 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-8">
+            <div class="col-auto">
                 <div class="form-group">
                     <label>Email</label>
                     <input type="email" name="email" class="form-control" placeholder="Email"
                         value="{{ $person->email ?? '' }}">
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-auto">
                 <div class="form-group">
                     <label>Telefone</label>
 
@@ -126,7 +126,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-6">
+            <div class="col-auto">
                 <div class="form-group">
                     <label>CPF</label>
                     <input id="cpf" name="cpf" class="form-control" placeholder="XXX.XXX.XXX-XX"
@@ -143,14 +143,14 @@
             Endereço
         </h2>
         <div class="row">
-            <div class="col-6">
+            <div class="col-auto">
                 <div class="form-group">
                     <label>Rua</label>
                     <input type="text" name="street" class="form-control" placeholder="Rua"
                         value="{{ $person->street ?? '' }}" required>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-auto">
                 <div class="form-group">
                     <label>Bairro</label>
 
@@ -159,7 +159,7 @@
 
                 </div>
             </div>
-            <div class="col-2">
+            <div class="col-auto">
                 <div class="form-group">
                     <label>Número</label>
 
@@ -170,14 +170,14 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-8">
+            <div class="col-auto">
                 <div class="form-group">
                     <label>Cidade</label>
                     <input type="text" name="city" class="form-control" placeholder="Cidade"
                         value="{{ $person->city ?? '' }}" required>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-auto">
                 <div class="form-group">
                     <label>Estado</label>
 
@@ -217,14 +217,14 @@
         <hr>
         <h2>Informações</h2>
         <div class="row">
-            <div class="col-8">
+            <div class="col-auto">
                 <div class="form-group">
                     <label>Religião</label>
                     <input type="text" name="religion" class="form-control" placeholder="Religião"
                         value="{{ $person->religion ?? '' }}" required>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-auto">
                 <div class="form-group">
                     <label>Paróquia</label>
                     <input type="text" name="parish" class="form-control" placeholder="Paróquia"
@@ -233,7 +233,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-6">
+            <div class="col-auto">
                 <div class="form-group">
                     <label>Participa de alguma pastoral?</label>
                     <div class="form-check">
@@ -252,7 +252,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-auto">
                 <div class="form-group">
                     <label>Pastoral</label>
                     <input type="text" name="pastoral" id="pastoral" class="form-control"
@@ -261,7 +261,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-3">
+            <div class="col-auto">
                 <div class="form-group">
                     <label>Estado Civil</label>
                     <select name="marital_status" id="marital_status" class="custom-select" onchange="handleChange(this)" required>
@@ -277,7 +277,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-auto">
                 <div class="form-group">
                     <label>Cônjuge é campista?</label>
                     <div class="form-check">
@@ -296,7 +296,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-auto">
                 <div class="form-group">
                     <label>Nome do Cônjuge</label>
                     <input type="text" name="spouse_name" id="spouse_name" class="form-control"
@@ -305,14 +305,14 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-6">
+            <div class="col-auto">
                 <label>Profissão</label>
                 <input type="text" name="occupation" id="occupation" class="form-control"
                 placeholder="Profissão" value="{{ $person->occupation ?? '' }}">
             </div>
         </div>
         <div class="row">
-            <div class="col-12">
+            <div class="col-auto">
                 <div class="form-group">
                     <label>Restrições Médicas</label>
                     <textarea class="form-control" name="medical_attention" id="medical_attention" cols="20" rows="5">
