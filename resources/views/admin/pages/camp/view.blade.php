@@ -336,7 +336,12 @@
         var campersContent = document.querySelector('#campersContent');
         var servantsContent = document.querySelector('#servantsContent');
         var csrf = document.getElementsByName('_token')[0].value;
-        var groups = [{
+        var groups = [
+            {
+                cor: "",
+                traducao: "Selecione"
+            },
+            {
                 cor: "red",
                 traducao: "Vermelho"
             },
@@ -371,6 +376,10 @@
         ];
 
         var sectors = [
+            {
+                sector: "",
+                label: "Selecione"
+            },
             {
                 sector: "animcao",
                 label: "Animação"
