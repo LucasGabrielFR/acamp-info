@@ -49,8 +49,8 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::post('admin/camp/{id}/noCampers', [CampController::class, 'noCampersSearch'])->name('camp.no-campers-search')->middleware('isAdmin');
     Route::post('admin/camp/{id}/noServants', [CampController::class, 'noServantsSearch'])->name('camp.no-servants-search')->middleware('isAdmin');
     Route::post('admin/camp/{id}/addCampers', [CampController::class, 'addCampers'])->name('camp.add-campers')->middleware('isAdmin');
-    Route::post('admin/camp/addCamper', [CampController::class, 'addCamper'])->name('camp.add-camper')->middleware('isAdmin');
-    Route::post('admin/camp/addServe', [CampController::class, 'addServe'])->name('camp.add-serve')->middleware('isAdmin');
+    Route::post('admin/camp/addCamper', [CampController::class, 'addCamper'])->name('camp.add-camper');
+    Route::post('admin/camp/addServe', [CampController::class, 'addServe'])->name('camp.add-serve');
     Route::post('admin/camp/{id}/addServants', [CampController::class, 'addServants'])->name('camp.add-servants')->middleware('isAdmin');
 
     //Camper Routes
