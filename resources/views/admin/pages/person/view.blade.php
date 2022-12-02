@@ -554,6 +554,20 @@
                                     Término em: <b>{{ $endDate }}</b>
                                     <br>
                                     Setor: <span class="badge badge-{{ $cardColor }}">{{ $sector }}</span>
+                                    <br>
+                                    Função:
+                                    @switch($serve->hierarchy)
+                                        @case('coordenacao')
+                                            Coordenação
+                                            @break
+                                        @case('aux')
+                                            Auxiliar
+                                            @break
+                                        @case('servo')
+                                            Servo
+                                            @break
+
+                                    @endswitch
                                 </x-adminlte-card>
                             </div>
                         @endforeach
