@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    protected $repository;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->repository = $userRepository;
+    }
+
     public function index()
     {
         if (Auth::check()) {
@@ -42,5 +50,13 @@ class UserController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/login');
+    }
+
+    public function authorizeData(Request $request)
+    {
+        $userId = $request->user_id;
+        $user = $this->repository->findUser($userId);
+        $user->is_authorized = 1;
+        $user->save();
     }
 }

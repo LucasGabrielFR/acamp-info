@@ -393,7 +393,8 @@
                     </div>
                     {{-- TIRAR FUTURAMENTE --}}
                     <div class="text-right">
-                        <x-adminlte-button label="+" data-toggle="modal" data-target="#campModal" class="bg-success" />
+                        <x-adminlte-button label="+" data-toggle="modal" data-target="#campModal"
+                            class="bg-success" />
                     </div>
                     {{-- TIRAR FUTURAMENTE --}}
                 </div>
@@ -565,14 +566,15 @@
                                     @switch($serve->hierarchy)
                                         @case('coordenacao')
                                             Coordenação
-                                            @break
+                                        @break
+
                                         @case('aux')
                                             Auxiliar
-                                            @break
+                                        @break
+
                                         @case('servo')
                                             Servo
-                                            @break
-
+                                        @break
                                     @endswitch
                                 </x-adminlte-card>
                             </div>
@@ -584,6 +586,49 @@
             </div>
         </div>
     </div>
+
+    <x-adminlte-modal id="authorizeModal" title="TERMO DE CONSENTIMENTO PARA USO DE DADOS PESSOAIS" size="xl"
+        theme="teal" icon="fas fa-lg fa-bell" v-centered static-backdrop scrollable>
+        O Titular autoriza a plataforma AcampAdmin a realizar o tratamento, ou seja, a utilizar os seguintes dados pessoais,
+        para a gestão
+        dos acampamentos, usando dos seguintes dados:
+        <br>
+        <br>
+        – Nome completo
+        <br>
+        – Data de nascimento;
+        <br>
+        – Número do Cadastro de Pessoas Físicas (CPF);
+        <br>
+        – Fotografia;
+        <br>
+        – Endereço completo;
+        <br>
+        – Números de telefone, WhatsApp e endereços de e-mail;
+        <br>
+        – Redes Sociais;
+        <br>
+        – Informações de formação cristã católica (Batismo, Primeira Eucaristia, Crisma e Matrimônio);
+        <br>
+        - Informações sobre a realidade religiosa pessoal;
+        <br>
+        - Informações sobre serviços paroquiais exercidos;
+        <br>
+        - Informações sobre estado civil;
+        <br>
+        - Nome do Cônjuge se for aplicável a situação;
+        <br>
+        - Profissão exercida;
+        <br>
+        - Dados acerca de restrições médicas;
+        <x-slot name="footerSlot">
+            <x-adminlte-button onclick="aceitarTermos()" class="mr-auto" theme="success" label="Aceitar"
+                id="authorizeButton" />
+            <x-adminlte-button onclick="recusarTermos()" theme="danger" label="Recusar" data-dismiss="modal"
+                id="refuseButton" />
+        </x-slot>
+    </x-adminlte-modal>
+
     {{-- TIRAR FUTURAMENTE --}}
     <x-adminlte-modal id="campModal" title="Campista" size="lg" theme="teal" icon="fas fa-lg fa-campground"
         v-centered static-backdrop scrollable>
@@ -684,6 +729,31 @@
 @stop
 @section('js')
     <script>
+        var csrf = document.getElementsByName('_token')[0].value;
+        @if ($user->is_authorized !== 1)
+            $(document).ready(function() {
+                $("#authorizeModal").modal('show');
+                $("#close-authorizeModal").hide();
+            });
+
+            function aceitarTermos() {
+                $.post("@php echo route('user.authorize') @endphp", {
+                    _token: csrf,
+                    user_id: '{{ $user->id }}',
+                })
+                .done(function(){
+                    $("#authorizeModal").modal('hide');
+                })
+            }
+
+            function recusarTermos() {
+                $.post("@php echo route('logout') @endphp", {
+                    _token: csrf,
+                }, function() {
+                    location.reload();
+                })
+            }
+        @endif
         function paintSelectedGroup(src) {
             if (src.value == 'blue' || src.value == 'brown' || src.value == 'blue' || src.value == 'red' || src.value ==
                 'black' || src.value == 'purple' || src.value == 'green') {
@@ -701,7 +771,6 @@
 
         function signCamper() {
             let valido = true;
-            var csrf = document.getElementsByName('_token')[0].value;
             const acampamentoCamper = document.getElementById('acampamento-camper');
             const campTribo = document.getElementById('camp-tribo');
             if (acampamentoCamper.value.length < 3) {
@@ -749,7 +818,6 @@
 
         function signServe() {
             let valido = true;
-            var csrf = document.getElementsByName('_token')[0].value;
             const acampamentoServe = document.getElementById('acampamento-serve');
             const campSector = document.getElementById('camp-sector');
             const campHierarchy = document.getElementById('camp-hierarchy');

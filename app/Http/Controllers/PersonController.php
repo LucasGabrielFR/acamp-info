@@ -203,6 +203,7 @@ class PersonController extends Controller
         return view('admin.pages.person.view', [
             'person' => $person,
             'camps' => $camps,
+            'user' => $user,
         ]);
     }
 

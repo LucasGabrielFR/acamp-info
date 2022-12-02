@@ -24,6 +24,7 @@ class User extends Authenticatable
         'date_limit',
         'acl',
         'person_id',
+        'is_authorized'
     ];
 
     /**

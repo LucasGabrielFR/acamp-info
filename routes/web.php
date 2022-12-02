@@ -76,6 +76,9 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
 
     //Observation Routes
     Route::post('admin/observation/create', [ObservationController::class, 'store'])->name('observation.store')->middleware('isAdmin');
+
+    //User Routes
+    Route::post('user/authorize', [UserController::class, 'authorizeData'])->name('user.authorize');
 });
 
 Route::get('online/form', [PersonController::class, 'online'])->name('people.online');

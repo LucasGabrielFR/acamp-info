@@ -34,4 +34,9 @@ class UserRepository
         return $this->entity->where('person_id', $personId)->get();
     }
 
+    public function findUser($userId)
+    {
+        return $this->entity->where('id', $userId)->first();
+    }
+
 }
