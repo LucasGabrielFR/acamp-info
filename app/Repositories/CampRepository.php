@@ -284,6 +284,20 @@ class CampRepository
         }
     }
 
+    public function updateCamper(Request $request)
+    {
+        $camper = Camper::where('person_id', $request->person_id)->where('camp_id', $request->old_camp_id)->first();
+
+        if($camper){
+            $camper->camp_id = $request->camp_id;
+            $camper->group = $request->tribo;
+            $camper->update();
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public function deleteServant($servant)
     {
         $servant->delete();

@@ -483,6 +483,10 @@
                                             }
                                         @endphp
                                     </span>
+                                    <div class="row justify-content-end">
+                                        <x-adminlte-button icon="fas fa-sm fa-fw fa-pen" label="Editar"
+                                            class="bg-primary" onclick="carregaModalCamper('{{ $camper->id }}')" />
+                                    </div>
                                 </x-adminlte-card>
                             </div>
                         @endforeach
@@ -651,8 +655,10 @@
             </div>
         </div>
         <x-slot name="footerSlot">
-            <x-adminlte-button onclick="signCamper()" class="mr-auto" theme="success" label="Adicionar"
+            <x-adminlte-button onclick="signCamper(1)" class="mr-auto" theme="success" label="Adicionar"
                 id="addCamp" />
+                <x-adminlte-button onclick="signCamper(2)" class="mr-auto" theme="success" label="Salvar" id="updateCamper"
+                style="display: none" />
             <x-adminlte-button theme="danger" label="Cancelar" data-dismiss="modal" id="cancelCamp" />
         </x-slot>
     </x-adminlte-modal>
@@ -737,7 +743,7 @@
             }
         }
 
-        function signCamper() {
+        function signCamper(type) {
             let valido = true;
             const acampamentoCamper = document.getElementById('acampamento-camper');
             const campTribo = document.getElementById('camp-tribo');
@@ -764,7 +770,8 @@
             if (valido) {
                 $('#addCamp').prop('disabled', true);
                 $('#cancelCamp').prop('disabled', true);
-                $.post("@php echo route('camp.add-camper') @endphp", {
+                if(type === 1){
+                    $.post("@php echo route('camp.add-camper') @endphp", {
                         _token: csrf,
                         person_id: '{{ $person->id }}',
                         camp_id: acampamentoCamper.value,
@@ -780,6 +787,21 @@
                         $('#cancelCamp').prop('disabled', false);
                         alert("Esta pessoa já é campista neste acampamento")
                     })
+                }else{
+                    $.post("@php echo route('camp.update-camper') @endphp", {
+                        _token: csrf,
+                        person_id: '{{ $person->id }}',
+                        camp_id: acampamentoCamper.value,
+                        old_camp_id: camp_id,
+                        tribo: campTribo.value,
+                    })
+                    .done(function() {
+                        window.location.reload(true);
+                        $('#updateCamper').prop('disabled', false);
+                        $('#cancelCamp').prop('disabled', false);
+                    })
+                }
+
             }
 
         }
@@ -872,6 +894,20 @@
                 $("#addServe").hide();
                 $("#updateServe").show();
                 $("#serveModal").modal('show');
+                camp_id = retorno.camp_id;
+            });
+        }
+
+        function carregaModalCamper(camperId) {
+            $.post("@php echo route('camp.get-camper') @endphp", {
+                camper_id: camperId,
+                _token: csrf,
+            }, function(retorno) {
+                $("#acampamento-camper").val(retorno.camp_id);
+                $("#camp-tribo").val(retorno.group);
+                $("#addCamp").hide();
+                $("#updateCamper").show();
+                $("#campModal").modal('show');
                 camp_id = retorno.camp_id;
             });
         }

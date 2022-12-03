@@ -204,4 +204,17 @@ class CampController extends Controller
         $servant = $this->repository->getServant($request->servant_id);
         return $servant;
     }
+
+    public function getCamper(Request $request)
+    {
+        $camper = $this->repository->getCamper($request->camper_id);
+        return $camper;
+    }
+
+    public function updateCamper(Request $request)
+    {
+        if($this->repository->updateCamper($request)){
+            return response('Inscrição Atualizada!', 200);
+        }
+    }
 }
