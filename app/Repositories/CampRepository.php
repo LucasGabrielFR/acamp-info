@@ -274,13 +274,17 @@ class CampRepository
         $serve = Servant::where('person_id', $request->person_id)->where('camp_id', $request->old_camp_id)->first();
 
         if($serve){
+            if($request->old_camp_id !== $request->camp_id){
+                $serveNew = Servant::where('person_id', $request->person_id)->where('camp_id', $request->camp_id)->first();
+                if($serveNew){
+                    return false;
+                }
+            }
             $serve->camp_id = $request->camp_id;
             $serve->sector = $request->sector;
             $serve->hierarchy = $request->hierarchy;
             $serve->update();
             return true;
-        }else{
-            return false;
         }
     }
 
@@ -289,12 +293,16 @@ class CampRepository
         $camper = Camper::where('person_id', $request->person_id)->where('camp_id', $request->old_camp_id)->first();
 
         if($camper){
+            if($request->old_camp_id !== $request->camp_id){
+                $camperNew = Camper::where('person_id', $request->person_id)->where('camp_id', $request->camp_id)->first();
+                if($camperNew){
+                    return false;
+                }
+            }
             $camper->camp_id = $request->camp_id;
             $camper->group = $request->tribo;
             $camper->update();
             return true;
-        }else{
-            return false;
         }
     }
 

@@ -175,6 +175,7 @@ class CampController extends Controller
         if($this->repository->updateServe($request)){
             return response('Inscrição Atualizada!', 200);
         }
+        return response('Servo já está inscrito neste acampamento!',400);
     }
 
     public function deleteServant($id)
@@ -216,5 +217,6 @@ class CampController extends Controller
         if($this->repository->updateCamper($request)){
             return response('Inscrição Atualizada!', 200);
         }
+        return response('Servo já está inscrito neste acampamento!',400);
     }
 }
