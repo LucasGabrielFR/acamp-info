@@ -846,7 +846,7 @@
                         _token: csrf,
                         person_id: '{{ $person->id }}',
                         camp_id: acampamentoServe.value,
-                        old_camp_id: camp_id
+                        old_camp_id: camp_id,
                         sector: campSector.value,
                         hierarchy: campHierarchy.value
                     })
