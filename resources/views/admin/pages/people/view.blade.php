@@ -720,6 +720,7 @@
 @section('js')
     <script>
         var csrf = document.getElementsByName('_token')[0].value;
+        var camp_id = null;
 
         function paintSelectedGroup(src) {
             if (src.value == 'blue' || src.value == 'brown' || src.value == 'blue' || src.value == 'red' || src.value ==
@@ -844,7 +845,7 @@
                     $.post("@php echo route('camp.update-serve') @endphp", {
                         _token: csrf,
                         person_id: person_id,
-                        camp_id: acampamentoServe.value,
+                        camp_id: camp_id
                         sector: campSector.value,
                         hierarchy: campHierarchy.value
                     })
@@ -870,6 +871,7 @@
                 $("#addServe").hide();
                 $("#updateServe").show();
                 $("#serveModal").modal('show');
+                camp_id = retorno.camp_id;
             });
         }
     </script>
