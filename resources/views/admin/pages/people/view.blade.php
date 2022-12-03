@@ -844,7 +844,7 @@
                 }else{
                     $.post("@php echo route('camp.update-serve') @endphp", {
                         _token: csrf,
-                        person_id: person_id,
+                        person_id: '{{ $person->id }}',
                         camp_id: camp_id,
                         sector: campSector.value,
                         hierarchy: campHierarchy.value
