@@ -269,6 +269,21 @@ class CampRepository
         }
     }
 
+    public function updateServe(Request $request)
+    {
+        $serve = $this->getServant($request->servant_id);
+
+        if($serve){
+            $serve->camp_id = $request->camp_id;
+            $serve->sector = $request->sector;
+            $serve->hierarchy = $request->hierarchy;
+            $serve->update();
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public function deleteServant($servant)
     {
         $servant->delete();

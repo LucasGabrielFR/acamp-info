@@ -170,6 +170,13 @@ class CampController extends Controller
         return response('Servo já está inscrito neste acampamento!',400);
     }
 
+    public function updateServe(Request $request)
+    {
+        if($this->repository->updateServe($request)){
+            return response('Inscrição Atualizada!', 200);
+        }
+    }
+
     public function deleteServant($id)
     {
         $servant = $this->repository->getServant($id);
@@ -190,5 +197,11 @@ class CampController extends Controller
         $servant = $this->repository->getServant($request->servant_id);
 
         $this->repository->changeHierarchy($servant, $request->hierarchy);
+    }
+
+    public function getServant(Request $request)
+    {
+        $servant = $this->repository->getServant($request->servant_id);
+        return $servant;
     }
 }

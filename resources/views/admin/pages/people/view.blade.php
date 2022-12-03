@@ -107,27 +107,27 @@
             color: black;
         }
 
-        .badge-dark-green{
+        .badge-dark-green {
             background: #00421a;
             color: white;
         }
 
-        .badge-inverted{
+        .badge-inverted {
             background: #2f4f4f;
             color: white;
         }
 
-        .badge-gray{
+        .badge-gray {
             background: gray;
             color: white;
         }
 
-        .badge-white-red{
+        .badge-white-red {
             background: #ff9090;
             color: black;
         }
 
-        .badge-black{
+        .badge-black {
             background: black;
             color: white;
         }
@@ -574,7 +574,7 @@
                             @endphp
                             <div class="col-auto">
                                 <x-adminlte-card title="{{ $serve->camp->name }} - Servo" icon="fas fa-lg fa-user-tie"
-                                    theme="{{ $cardColor }}" collapsible>
+                                    id="card-{{ $serve->id }}" theme="{{ $cardColor }}" collapsible>
                                     @php
                                         $startDate = strtotime($serve->camp->date_start);
                                         $startDate = date('d/m/Y', $startDate);
@@ -588,21 +588,27 @@
                                     <br>
                                     Término em: <b>{{ $endDate }}</b>
                                     <br>
-                                    Setor: <span class="badge badge-{{$cardColor}}">{{$sector}}</span>
+                                    Setor: <span class="badge badge-{{ $cardColor }}">{{ $sector }}</span>
                                     <br>
                                     Função:
                                     @switch($serve->hierarchy)
                                         @case('coordenacao')
                                             Coordenação
-                                            @break
+                                        @break
+
                                         @case('aux')
                                             Auxiliar
-                                            @break
+                                        @break
+
                                         @case('servo')
                                             Servo
-                                            @break
-
+                                        @break
                                     @endswitch
+                                    <br>
+                                    <div class="row justify-content-end">
+                                        <x-adminlte-button icon="fas fa-sm fa-fw fa-pen" label="Editar"
+                                            class="bg-primary" onclick="carregaModalServe('{{ $serve->id }}')" />
+                                    </div>
                                 </x-adminlte-card>
                             </div>
                         @endforeach
@@ -702,8 +708,10 @@
             </div>
         </div>
         <x-slot name="footerSlot">
-            <x-adminlte-button onclick="signServe()" class="mr-auto" theme="success" label="Adicionar"
+            <x-adminlte-button onclick="signServe(1)" class="mr-auto" theme="success" label="Adicionar"
                 id="addServe" />
+            <x-adminlte-button onclick="signServe(2, '{{ $serve->id }}')" class="mr-auto" theme="success" label="Salvar" id="updateServe"
+                style="display: none" />
             <x-adminlte-button theme="danger" label="Cancelar" data-dismiss="modal" id="cancelServe" />
         </x-slot>
     </x-adminlte-modal>
@@ -711,6 +719,8 @@
 @stop
 @section('js')
     <script>
+        var csrf = document.getElementsByName('_token')[0].value;
+
         function paintSelectedGroup(src) {
             if (src.value == 'blue' || src.value == 'brown' || src.value == 'blue' || src.value == 'red' || src.value ==
                 'black' || src.value == 'purple' || src.value == 'green') {
@@ -728,7 +738,6 @@
 
         function signCamper() {
             let valido = true;
-            var csrf = document.getElementsByName('_token')[0].value;
             const acampamentoCamper = document.getElementById('acampamento-camper');
             const campTribo = document.getElementById('camp-tribo');
             if (acampamentoCamper.value.length < 3) {
@@ -774,9 +783,8 @@
 
         }
 
-        function signServe() {
+        function signServe(type, servantId = null) {
             let valido = true;
-            var csrf = document.getElementsByName('_token')[0].value;
             const acampamentoServe = document.getElementById('acampamento-serve');
             const campSector = document.getElementById('camp-sector');
             const campHierarchy = document.getElementById('camp-hierarchy');
@@ -812,26 +820,57 @@
             }
             if (valido) {
                 $('#addServe').prop('disabled', true);
+                $('#updateServe').prop('disabled', true);
                 $('#cancelServe').prop('disabled', true);
-                $.post("@php echo route('camp.add-serve') @endphp", {
+                if (type === 1) {
+                    $.post("@php echo route('camp.add-serve') @endphp", {
+                            _token: csrf,
+                            person_id: '{{ $person->id }}',
+                            camp_id: acampamentoServe.value,
+                            sector: campSector.value,
+                            hierarchy: campHierarchy.value
+                        })
+                        .done(function() {
+                            window.location.reload(true);
+                            $('#addServe').prop('disabled', false);
+                            $('#cancelServe').prop('disabled', false);
+                        })
+                        .fail(function() {
+                            $('#addServe').prop('disabled', false);
+                            $('#cancelServe').prop('disabled', false);
+                            alert("Esta pessoa já é serva neste acampamento")
+                        })
+                }else{
+                    $.post("@php echo route('camp.update-serve') @endphp", {
                         _token: csrf,
-                        person_id: '{{ $person->id }}',
+                        servant_id: servantId,
                         camp_id: acampamentoServe.value,
                         sector: campSector.value,
                         hierarchy: campHierarchy.value
                     })
                     .done(function() {
                         window.location.reload(true);
-                        $('#addServe').prop('disabled', false);
+                        $('#updateServe').prop('disabled', false);
                         $('#cancelServe').prop('disabled', false);
                     })
-                    .fail(function() {
-                        $('#addServe').prop('disabled', false);
-                        $('#cancelServe').prop('disabled', false);
-                        alert("Esta pessoa já é serva neste acampamento")
-                    })
+                }
+
             }
 
+        }
+
+        function carregaModalServe(servantId) {
+            $.post("@php echo route('camp.get-servant') @endphp", {
+                servant_id: servantId,
+                _token: csrf,
+            }, function(retorno) {
+                $("#acampamento-serve").val(retorno.camp_id);
+                $("#camp-hierarchy").val(retorno.hierarchy);
+                $("#camp-sector").val(retorno.sector);
+                $("#addServe").hide();
+                $("#updateServe").show();
+                $("#serveModal").modal('show');
+            });
         }
     </script>
 @stop
