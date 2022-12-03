@@ -710,7 +710,7 @@
         <x-slot name="footerSlot">
             <x-adminlte-button onclick="signServe(1)" class="mr-auto" theme="success" label="Adicionar"
                 id="addServe" />
-            <x-adminlte-button onclick="signServe(2, '{{ $serve->id }}')" class="mr-auto" theme="success" label="Salvar" id="updateServe"
+            <x-adminlte-button onclick="signServe(2)" class="mr-auto" theme="success" label="Salvar" id="updateServe"
                 style="display: none" />
             <x-adminlte-button theme="danger" label="Cancelar" data-dismiss="modal" id="cancelServe" />
         </x-slot>
@@ -783,7 +783,7 @@
 
         }
 
-        function signServe(type, servantId = null) {
+        function signServe(type) {
             let valido = true;
             const acampamentoServe = document.getElementById('acampamento-serve');
             const campSector = document.getElementById('camp-sector');
@@ -843,7 +843,7 @@
                 }else{
                     $.post("@php echo route('camp.update-serve') @endphp", {
                         _token: csrf,
-                        servant_id: servantId,
+                        person_id: person_id,
                         camp_id: acampamentoServe.value,
                         sector: campSector.value,
                         hierarchy: campHierarchy.value

@@ -271,7 +271,7 @@ class CampRepository
 
     public function updateServe(Request $request)
     {
-        $serve = $this->getServant($request->servant_id);
+        $serve = Servant::where('person_id', $request->person_id)->where('camp_id', $request->camp_id)->first();
 
         if($serve){
             $serve->camp_id = $request->camp_id;
