@@ -308,7 +308,7 @@
             <div class="col-auto">
                 <label>Profissão</label>
                 <input type="text" name="occupation" id="occupation" class="form-control"
-                placeholder="Profissão" value="{{ $person->occupation ?? '' }}">
+                placeholder="Profissão" value="{{ $person->occupation ?? '' }}" required>
             </div>
         </div>
         <div class="row">
