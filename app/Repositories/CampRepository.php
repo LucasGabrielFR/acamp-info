@@ -20,7 +20,7 @@ class CampRepository
 
     public function getAllCamps()
     {
-        return $this->entity->orderBy('name')->get();
+        return $this->entity->orderBy('date_end', 'desc')->get();
     }
 
     public function storeCamp(Request $request)
