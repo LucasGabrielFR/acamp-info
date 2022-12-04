@@ -31,6 +31,6 @@ class Servant extends Model
 
     public function camp()
     {
-        return $this->hasOne(Camp::class, 'id', 'camp_id');
+        return $this->hasOne(Camp::class, 'id', 'camp_id')->orderBy('date_end', 'desc');
     }
 }
