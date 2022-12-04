@@ -468,10 +468,8 @@
                     </div>
                     {{-- TIRAR FUTURAMENTE --}}
                     <div class="text-right">
-                        @if (count($person->camps) > 1)
-                            <x-adminlte-button label="+" data-toggle="modal" data-target="#serveModal"
+                        <x-adminlte-button label="+" data-toggle="modal" data-target="#serveModal"
                             class="bg-success" />
-                        @endif
                     </div>
                     {{-- TIRAR FUTURAMENTE --}}
                 </div>
@@ -740,12 +738,12 @@
 
             function aceitarTermos() {
                 $.post("@php echo route('user.authorize') @endphp", {
-                    _token: csrf,
-                    user_id: '{{ $user->id }}',
-                })
-                .done(function(){
-                    $("#authorizeModal").modal('hide');
-                })
+                        _token: csrf,
+                        user_id: '{{ $user->id }}',
+                    })
+                    .done(function() {
+                        $("#authorizeModal").modal('hide');
+                    })
             }
 
             function recusarTermos() {
