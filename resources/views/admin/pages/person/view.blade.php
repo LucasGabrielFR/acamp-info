@@ -399,7 +399,7 @@
                     {{-- TIRAR FUTURAMENTE --}}
                 </div>
                 <div class="card-body">
-                    <div class="row">
+                    <div class="flex-row">
                         @foreach ($person->camps as $camper)
                             @php
                                 $cardColor = $camper->group;
@@ -474,7 +474,7 @@
                     {{-- TIRAR FUTURAMENTE --}}
                 </div>
                 <div class="card-body">
-                    <div class="row">
+                    <div class="flex-row">
                         @foreach ($serves as $serve)
                             @php
                                 switch ($serve->sector) {
