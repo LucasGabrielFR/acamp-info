@@ -143,41 +143,41 @@
                         <td class="align-middle">{{ $person->parish }}</td>
                         <td class="align-middle">
                             @php
-                                if (isset($person->markers)) {
-                                    foreach ($person->markers as $marker) {
-                                        switch ($marker->group) {
+                                if (isset($person->camps)) {
+                                    foreach ($person->camps as $camper) {
+                                        switch ($camper->group) {
                                             case 'red':
-                                                echo '<span class="badge badge-red ml-1">' . $marker->camp_name . '</span>';
+                                                echo '<span class="badge badge-red ml-1">' . $camper->camp->name . '</span>';
                                                 break;
                                             case 'blue':
-                                                echo '<span class="badge badge-blue ml-1">' . $marker->camp_name . '</span>';
+                                                echo '<span class="badge badge-blue ml-1">' . $camper->camp->name . '</span>';
                                                 break;
                                             case 'brown':
-                                                echo '<span class="badge badge-brown ml-1">' . $marker->camp_name . '</span>';
+                                                echo '<span class="badge badge-brown ml-1">' . $camper->camp->name . '</span>';
                                                 break;
                                             case 'orange':
-                                                echo '<span class="badge badge-orange ml-1">' . $marker->camp_name . '</span>';
+                                                echo '<span class="badge badge-orange ml-1">' . $camper->camp->name . '</span>';
                                                 break;
                                             case 'yellow':
-                                                echo '<span class="badge badge-yellow ml-1">' . $marker->camp_name . '</span>';
+                                                echo '<span class="badge badge-yellow ml-1">' . $camper->camp->name . '</span>';
                                                 break;
                                             case 'black':
-                                                echo '<span class="badge badge-dark ml-1">' . $marker->camp_name . '</span>';
+                                                echo '<span class="badge badge-dark ml-1">' . $camper->camp->name . '</span>';
                                                 break;
                                             case 'purple':
-                                                echo '<span class="badge badge-purple ml-1">' . $marker->camp_name . '</span>';
+                                                echo '<span class="badge badge-purple ml-1">' . $camper->camp->name . '</span>';
                                                 break;
                                             case 'green':
-                                                echo '<span class="badge badge-green ml-1">' . $marker->camp_name . '</span>';
+                                                echo '<span class="badge badge-green ml-1">' . $camper->camp->name . '</span>';
                                                 break;
                                             default:
-                                                echo '<span class="badge badge-light ml-1">' . $marker->camp_name . '</span>';
+                                                echo '<span class="badge badge-light ml-1">' . $camper->camp->name . '</span>';
                                                 break;
                                         }
                                     }
                                 }
-                                if (isset($person->servers)) {
-                                    foreach ($person->servers as $serve) {
+                                if (isset($person->serves)) {
+                                    foreach ($person->serves as $serve) {
                                         $sector = '';
                                         switch ($serve->sector) {
                                             case 'cozinha':
@@ -246,7 +246,20 @@
                                                 break;
                                         }
 
-                                        echo '<span class="badge badge-' . $cardColor . ' ml-1">' . "{$serve->camp_name} - {$sector} </span>";
+                                        $hierarchy = null;
+                                        switch ($serve->hierarchy) {
+                                            case 'coordenacao':
+                                                $hierarchy = "Coordenação";
+                                                break;
+                                            case 'aux':
+                                                $hierarchy = "Auxiliar";
+                                                break;
+                                            case 'servo':
+                                                $hierarchy = "Servo";
+                                                break;
+                                        }
+
+                                        echo '<span class="badge badge-' . $cardColor . ' ml-1">' . "{$serve->camp->name} - {$sector} - {$hierarchy} </span>";
                                     }
                                 }
 

@@ -34,10 +34,6 @@ class PersonController extends Controller
     public function campers()
     {
         $people = $this->repository->getAllCampers();
-        foreach ($people as $person) {
-            $person->markers = $this->repository->getPersonCamps($person->id);
-            $person->servers = $this->repository->getPersonServers($person->id);
-        }
 
         return view('admin.pages.people.index', [
             'people' => $people,
@@ -68,7 +64,7 @@ class PersonController extends Controller
 
         if ($result[0]) {
             $userRepository = new UserRepository(new User());
-            if (count($userRepository->verifyUser($result[1]->id)) < 1){
+            if (count($userRepository->verifyUser($result[1]->id)) < 1) {
                 $username = $data['cpf'];
                 $username = str_replace('.', '', $username);
                 $username = str_replace('-', '', $username);
@@ -162,7 +158,7 @@ class PersonController extends Controller
         if ($result[0]) {
 
             $userRepository = new UserRepository(new User());
-            if (count($userRepository->verifyUser($result[1]->id)) < 1){
+            if (count($userRepository->verifyUser($result[1]->id)) < 1) {
                 $username = $data['cpf'];
                 $username = str_replace('.', '', $username);
                 $username = str_replace('-', '', $username);

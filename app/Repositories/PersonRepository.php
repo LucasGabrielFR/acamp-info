@@ -94,7 +94,8 @@ class PersonRepository
             'c.name as camp_name',
             'c.date_start',
             'c.date_end',
-            's.sector'
+            's.sector',
+            's.hierarchy'
         )
             ->join('servants as s', 's.person_id', '=', 'people.id')
             ->join('camps as c', 'c.id', '=', 's.camp_id')
