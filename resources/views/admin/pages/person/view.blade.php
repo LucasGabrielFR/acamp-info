@@ -400,7 +400,7 @@
                 </div>
                 <div class="card-body">
                     <div class="flex-row">
-                        @foreach ($person->camps as $camper)
+                        @foreach ($campers as $camper)
                             @php
                                 $cardColor = $camper->group;
                                 if ($cardColor == 'black') {
