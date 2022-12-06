@@ -408,16 +408,16 @@
                                 }
                             @endphp
                             <div class="col-auto">
-                                <x-adminlte-card title="{{ $camper->camp->name }}" icon="fas fa-lg fa-campground"
+                                <x-adminlte-card title="{{ $camper->camp_name }}" icon="fas fa-lg fa-campground"
                                     theme="{{ $cardColor }}" collapsible>
                                     @php
-                                        $startDate = strtotime($camper->camp->date_start);
+                                        $startDate = strtotime($camper->date_start);
                                         $startDate = date('d/m/Y', $startDate);
 
-                                        $endDate = strtotime($camper->camp->date_end);
+                                        $endDate = strtotime($camper->date_end);
                                         $endDate = date('d/m/Y', $endDate);
                                     @endphp
-                                    <b>{{ $camper->camp->name }}</b>
+                                    <b>{{ $camper->camp_name }}</b>
                                     <br>
                                     Início em: <b>{{ $startDate }}</b>
                                     <br>
@@ -475,7 +475,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        @foreach ($person->serves as $serve)
+                        @foreach ($serves as $serve)
                             @php
                                 switch ($serve->sector) {
                                     case 'cozinha':
@@ -545,16 +545,16 @@
                                 }
                             @endphp
                             <div class="col-auto">
-                                <x-adminlte-card title="{{ $serve->camp->name }} - Servo" icon="fas fa-lg fa-user-tie"
+                                <x-adminlte-card title="{{ $serve->camp_name }} - Servo" icon="fas fa-lg fa-user-tie"
                                     theme="{{ $cardColor }}" collapsible>
                                     @php
-                                        $startDate = strtotime($serve->camp->date_start);
+                                        $startDate = strtotime($serve->date_start);
                                         $startDate = date('d/m/Y', $startDate);
 
-                                        $endDate = strtotime($serve->camp->date_end);
+                                        $endDate = strtotime($serve->date_end);
                                         $endDate = date('d/m/Y', $endDate);
                                     @endphp
-                                    <b>{{ $serve->camp->name }}</b>
+                                    <b>{{ $serve->camp_name }}</b>
                                     <br>
                                     Início em: <b>{{ $startDate }}</b>
                                     <br>

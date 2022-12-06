@@ -49,7 +49,6 @@ class PersonRepository
     public function getPerson($id)
     {
         $person = $this->entity->where('id', $id)->first();
-
         return $person;
     }
 
@@ -78,12 +77,14 @@ class PersonRepository
             'c.name as camp_name',
             'c.date_start',
             'c.date_end',
-            'ca.group'
+            'ca.group',
+            'c.id as camper_id'
         )
             ->join('campers as ca', 'ca.person_id', '=', 'people.id')
             ->join('camps as c', 'c.id', '=', 'ca.camp_id')
             ->join('acamp_types as t', 't.id', '=', 'c.type_id')
             ->where('people.id', $id)
+            ->orderBy('c.date_end', 'desc')
             ->get();
     }
 
@@ -92,6 +93,7 @@ class PersonRepository
         return $this->entity->select(
             't.name as type_name',
             'c.name as camp_name',
+            's.id as servant_id',
             'c.date_start',
             'c.date_end',
             's.sector',
@@ -101,6 +103,7 @@ class PersonRepository
             ->join('camps as c', 'c.id', '=', 's.camp_id')
             ->join('acamp_types as t', 't.id', '=', 'c.type_id')
             ->where('people.id', $id)
+            ->orderBy('c.date_end', 'desc')
             ->get();
     }
 
