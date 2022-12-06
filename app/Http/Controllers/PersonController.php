@@ -188,17 +188,15 @@ class PersonController extends Controller
         $person = $this->repository->getPerson($id);
         $campRepository = new CampRepository(new Camp());
         $camps = $campRepository->getAllCamps();
-        $maior = 0;
-        foreach ($camps as $camp) {
-            if ($camp->type->order > $maior) {
-                $maior = $camp->type->order;
-            }
-        }
+        $serves = $this->repository->getPersonServers($id);
+        $campers = $this->repository->getPersonCamps($id);
 
         return view('admin.pages.person.view', [
             'person' => $person,
             'camps' => $camps,
             'user' => $user,
+            'serves' => $serves,
+            'campers' => $campers
         ]);
     }
 
