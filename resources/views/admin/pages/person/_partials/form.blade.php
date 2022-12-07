@@ -314,6 +314,27 @@
         <div class="row">
             <div class="col-auto">
                 <div class="form-group">
+                    <label>Possui Restrições Médicas?</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio"
+                            id="is_medical_attention_yes" value="1" disabled>
+                        <label class="form-check-label" for="is_medical_attention_yes">
+                            Sim
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio"
+                            id="is_medical_attention_no" value="0" disabled>
+                        <label class="form-check-label" for="is_medical_attention_no">
+                            Não
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-auto">
+                <div class="form-group">
                     <label>Restrições Médicas</label>
                     <textarea class="form-control" name="medical_attention" id="medical_attention" cols="20" rows="5">
                         {{ $person->medical_attention ?? '' }}

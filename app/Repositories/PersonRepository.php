@@ -59,6 +59,9 @@ class PersonRepository
 
     public function updatePerson($person, $data)
     {
+        if(!isset($data["medical_attention"])){
+            $data["medical_attention"] = null;
+        }
         if($person->cpf === $data["cpf"]){
             $person->update($data);
             return [true, $person];

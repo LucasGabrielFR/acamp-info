@@ -186,6 +186,7 @@ class PersonController extends Controller
         $user = Auth::user();
         $id = $user->person_id;
         $person = $this->repository->getPerson($id);
+
         $campRepository = new CampRepository(new Camp());
         $camps = $campRepository->getAllCamps();
         $serves = $this->repository->getPersonServers($id);

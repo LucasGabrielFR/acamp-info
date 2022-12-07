@@ -311,12 +311,34 @@
                 placeholder="Profissão" value="{{ $person->occupation ?? '' }}">
             </div>
         </div>
+        <hr>
+        <div class="row">
+            <div class="col-auto">
+                <div class="form-group">
+                    <label>Possui Restrições Médicas?</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="is_medical_attention_yes" name="is_medical_attention"
+                            id="is_medical_attention" value="1" onchange="handleChange(this)">
+                        <label class="form-check-label" for="is_medical_attention_yes">
+                            Sim
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" id="is_medical_attention_no" name="is_medical_attention"
+                            id="is_medical_attention" value="0" onchange="handleChange(this)" checked>
+                        <label class="form-check-label" for="is_medical_attention_no">
+                            Não
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-auto">
                 <div class="form-group">
                     <label>Restrições Médicas</label>
                     <textarea class="form-control" name="medical_attention" id="medical_attention" cols="20" rows="5"
-                        value="{{ $person->medical_attention ?? '' }}"></textarea>
+                        disabled>{{ $person->medical_attention ?? '' }}</textarea>
                 </div>
             </div>
         </div>
@@ -450,6 +472,16 @@
                     is_pastoral_no.checked = true;
                 }
 
+                const medical_attention = "@php if(isset($person->medical_attention)) echo $person->medical_attention; else echo '';@endphp"
+
+                if(medical_attention.length > 2){
+                    const is_medical_attention_yes = document.querySelector('#is_medical_attention_yes');
+                    const medical_attention = document.querySelector('#medical_attention');
+                    is_medical_attention_yes.checked = true;
+                    medical_attention.disabled = false;
+                    medical_attention.required = true;
+                }
+
                 const marital_status = @php if(isset($person->marital_status)) echo $person->marital_status;
                 else echo '0';
                 @endphp;
@@ -559,6 +591,16 @@
                 } else {
                     pastoral.disabled = false;
                     pastoral.required = true;
+                }
+            }
+            if (src.name == 'is_medical_attention'){
+                var medicalAttention = document.querySelector("#medical_attention");
+                if (src.value == 0) {
+                    medicalAttention.disabled = true;
+                    medicalAttention.value = '';
+                } else {
+                    medicalAttention.disabled = false;
+                    medicalAttention.required = true;
                 }
             }
             if (src.name == 'marital_status') {
