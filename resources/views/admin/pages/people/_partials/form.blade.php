@@ -415,7 +415,7 @@
                 </x-slot>
             </x-adminlte-modal>
         @endif
-        <button type="submit" class="btn btn-dark">Salvar</button>
+        <button type="submit" class="btn btn-dark" id="btn-submit">Salvar</button>
     </div>
 </div>
 @section('js')
@@ -643,11 +643,14 @@
 
         $('form').submit(function (event) {
             const cpf = document.getElementById('cpf');
+            const btnSubmit = document.getElementById('btn-submit');
+            btnSubmit.disabled = true;
 
             if(!validaCPF(cpf.value)){
                 event.preventDefault();
                 $('#cpf').focus();
                 $('#cpf-error').css({display: "block"});
+                btnSubmit.disabled = false;
             }
         })
 
