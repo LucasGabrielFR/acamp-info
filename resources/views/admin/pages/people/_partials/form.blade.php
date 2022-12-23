@@ -172,6 +172,17 @@
         <div class="row">
             <div class="col-auto">
                 <div class="form-group">
+                    <label>Complemento</label>
+
+                    <input type="complement" name="complement" class="form-control" placeholder="Complemento"
+                        value="{{ $person->complement ?? '' }}" >
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-auto">
+                <div class="form-group">
                     <label>Cidade</label>
                     <input type="text" name="city" class="form-control" placeholder="Cidade"
                         value="{{ $person->city ?? '' }}" >

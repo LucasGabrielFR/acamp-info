@@ -40,7 +40,8 @@ class Person extends Model
         'image',
         'cpf',
         'marital_status',
-        'occupation'
+        'occupation',
+        'complement'
     ];
 
     public function camps()
