@@ -272,6 +272,15 @@
                     <div class="row">
                         <div class="col-auto">
                             <div class="form-group">
+                                <label>Complemento</label>
+                                <br>
+                                <div class="text-danger">{{ $person->complement }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-auto">
+                            <div class="form-group">
                                 <label>Cidade</label>
                                 <br>
                                 <div class="text-danger">{{ $person->city }}</div>
