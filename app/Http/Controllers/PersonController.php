@@ -35,6 +35,13 @@ class PersonController extends Controller
     {
         $people = $this->repository->getAllCampers();
 
+        foreach($people as $key => $person){
+            $serves = $this->repository->getPersonServers($person->id);
+            $camps = $this->repository->getPersonCamps($person->id);
+            $people[$key]->serves = $serves;
+            $people[$key]->camps = $camps;
+        }
+
         return view('admin.pages.people.index', [
             'people' => $people,
             'type' => 'campers'

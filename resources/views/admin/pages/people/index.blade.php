@@ -147,31 +147,31 @@
                                     foreach ($person->camps as $camper) {
                                         switch ($camper->group) {
                                             case 'red':
-                                                echo '<span class="badge badge-red ml-1">' . $camper->camp->name . '</span>';
+                                                echo '<span class="badge badge-red ml-1">' . $camper->camp_name . '</span>';
                                                 break;
                                             case 'blue':
-                                                echo '<span class="badge badge-blue ml-1">' . $camper->camp->name . '</span>';
+                                                echo '<span class="badge badge-blue ml-1">' . $camper->camp_name . '</span>';
                                                 break;
                                             case 'brown':
-                                                echo '<span class="badge badge-brown ml-1">' . $camper->camp->name . '</span>';
+                                                echo '<span class="badge badge-brown ml-1">' . $camper->camp_name . '</span>';
                                                 break;
                                             case 'orange':
-                                                echo '<span class="badge badge-orange ml-1">' . $camper->camp->name . '</span>';
+                                                echo '<span class="badge badge-orange ml-1">' . $camper->camp_name . '</span>';
                                                 break;
                                             case 'yellow':
-                                                echo '<span class="badge badge-yellow ml-1">' . $camper->camp->name . '</span>';
+                                                echo '<span class="badge badge-yellow ml-1">' . $camper->camp_name . '</span>';
                                                 break;
                                             case 'black':
-                                                echo '<span class="badge badge-dark ml-1">' . $camper->camp->name . '</span>';
+                                                echo '<span class="badge badge-dark ml-1">' . $camper->camp_name . '</span>';
                                                 break;
                                             case 'purple':
-                                                echo '<span class="badge badge-purple ml-1">' . $camper->camp->name . '</span>';
+                                                echo '<span class="badge badge-purple ml-1">' . $camper->camp_name . '</span>';
                                                 break;
                                             case 'green':
-                                                echo '<span class="badge badge-green ml-1">' . $camper->camp->name . '</span>';
+                                                echo '<span class="badge badge-green ml-1">' . $camper->camp_name . '</span>';
                                                 break;
                                             default:
-                                                echo '<span class="badge badge-light ml-1">' . $camper->camp->name . '</span>';
+                                                echo '<span class="badge badge-light ml-1">' . $camper->camp_name . '</span>';
                                                 break;
                                         }
                                     }
@@ -259,7 +259,7 @@
                                                 break;
                                         }
 
-                                        echo '<span class="badge badge-' . $cardColor . ' ml-1">' . "{$serve->camp->name} - {$sector} - {$hierarchy} </span>";
+                                        echo '<span class="badge badge-' . $cardColor . ' ml-1">' . "{$serve->camp_name} - {$sector} - {$hierarchy} </span>";
                                     }
                                 }
 
