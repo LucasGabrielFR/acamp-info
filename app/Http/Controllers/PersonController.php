@@ -254,17 +254,22 @@ class PersonController extends Controller
         $data = $request->all();
 
         if (!$this->repository->verifyCpf($data['cpf'])) {
-            //if($data['ip'] == '172.20.0.1'){
-            $result = $this->repository->storePerson($data);
+            if ($data['ip'] == '189.4.78.61') {
+                $result = $this->repository->storePerson($data);
 
-            return response(
-                [
-                    'status' => 200,
-                    'message' => 'Pré Ficha enviada com sucesso'
-                ],
-                200
-            );
-            //}
+                return response(
+                    [
+                        'status' => 200,
+                        'message' => 'Pré Ficha enviada com sucesso'
+                    ],
+                    200
+                );
+            }else{
+                return response([
+                    'status' => 401,
+                    'message' => 'Ocorreu um problema e a pré-ficha não pôde ser enviada, tente novamente mais tarde ou entre em contato com os responsáveis.'
+                ], 401);
+            }
         } else {
             return response([
                 'status' => 203,
