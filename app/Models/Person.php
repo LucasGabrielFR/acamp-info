@@ -41,7 +41,18 @@ class Person extends Model
         'cpf',
         'marital_status',
         'occupation',
-        'complement'
+        'complement',
+        'instagram,',
+        'facebook',
+        'gender',
+        'is_addicted',
+        'addiction',
+        'familiar',
+        'is_retreatant',
+        'retreats',
+        'how_find_camp',
+        'why_camp',
+        'modality'
     ];
 
     public function camps()

@@ -35,7 +35,7 @@ class PersonController extends Controller
     {
         $people = $this->repository->getAllCampers();
 
-        foreach($people as $key => $person){
+        foreach ($people as $key => $person) {
             $serves = $this->repository->getPersonServers($person->id);
             $camps = $this->repository->getPersonCamps($person->id);
             $people[$key]->serves = $serves;
@@ -247,5 +247,29 @@ class PersonController extends Controller
         toastr()->error('Este CPF já esta cadastrado!');
 
         return back();
+    }
+
+    public function register(Request $request)
+    {
+        $data = $request->all();
+
+        if (!$this->repository->verifyCpf($data['cpf'])) {
+            //if($data['ip'] == '172.20.0.1'){
+            $result = $this->repository->storePerson($data);
+
+            return response(
+                [
+                    'status' => 200,
+                    'message' => 'Pré Ficha enviada com sucesso'
+                ],
+                200
+            );
+            //}
+        } else {
+            return response([
+                'status' => 203,
+                'message' => 'Este CPF já foi cadastrado!'
+            ], 203);
+        }
     }
 }

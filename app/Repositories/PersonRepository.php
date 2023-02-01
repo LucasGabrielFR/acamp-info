@@ -116,7 +116,7 @@ class PersonRepository
         return Observation::where('person_id', $id)->get();
     }
 
-    private function verifyCpf($cpf)
+    public function verifyCpf($cpf)
     {
        $verify = $this->entity->where('cpf', $cpf)->get();
        if(count($verify)>0){
