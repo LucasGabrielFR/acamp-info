@@ -52,7 +52,8 @@ class Person extends Model
         'retreats',
         'how_find_camp',
         'why_camp',
-        'modality'
+        'modality',
+        'is_waiting'
     ];
 
     public function camps()

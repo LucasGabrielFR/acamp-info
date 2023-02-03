@@ -26,6 +26,7 @@ class PersonRepository
         $people = $this->entity
             ->whereNotIn('id', DB::table('campers')->select('person_id'))
             ->whereNotIn('id', DB::table('servants')->select('person_id'))
+            ->orWhere('is_waiting', '=', '1')
             ->get();
         return $people;
     }

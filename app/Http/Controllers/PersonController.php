@@ -252,6 +252,7 @@ class PersonController extends Controller
     public function register(Request $request)
     {
         $data = $request->all();
+        $data['is_waiting'] = 1;
 
         if (!$this->repository->verifyCpf($data['cpf'])) {
             if ($data['ip'] == '189.4.78.61') {
