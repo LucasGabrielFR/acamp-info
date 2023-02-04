@@ -255,7 +255,7 @@ class PersonController extends Controller
         $data['is_waiting'] = 1;
 
         if (!$this->repository->verifyCpf($data['cpf'])) {
-            if ($data['ip'] == '189.4.78.61') {
+            // if ($data['ip'] == '189.4.78.61') {
                 $result = $this->repository->storePerson($data);
 
                 return response(
@@ -265,12 +265,12 @@ class PersonController extends Controller
                     ],
                     200
                 );
-            }else{
-                return response([
-                    'status' => 401,
-                    'message' => 'Ocorreu um problema e a pré-ficha não pôde ser enviada, tente novamente mais tarde ou entre em contato com os responsáveis.'
-                ], 401);
-            }
+            // }else{
+            //     return response([
+            //         'status' => 401,
+            //         'message' => 'Ocorreu um problema e a pré-ficha não pôde ser enviada, tente novamente mais tarde ou entre em contato com os responsáveis.'
+            //     ], 401);
+            // }
         } else {
             return response([
                 'status' => 203,
