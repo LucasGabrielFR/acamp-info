@@ -24,8 +24,8 @@ class PersonRepository
     public function getNoCampers()
     {
         $people = $this->entity
-            ->whereNotIn('id', DB::table('campers')->select('person_id'))
-            ->whereNotIn('id', DB::table('servants')->select('person_id'))
+            ->whereDoesntHave('camps')
+            ->whereDoesntHave('serves')
             ->orWhere('is_waiting', '=', '1')
             ->get();
         return $people;
@@ -41,7 +41,7 @@ class PersonRepository
 
     public function storePerson($data)
     {
-        if(!$this->verifyCpf($data["cpf"])){
+        if (!$this->verifyCpf($data["cpf"])) {
             $person = $this->entity->create($data);
             return [true, $person];
         }
@@ -61,14 +61,14 @@ class PersonRepository
 
     public function updatePerson($person, $data)
     {
-        if(!isset($data["medical_attention"])){
+        if (!isset($data["medical_attention"])) {
             $data["medical_attention"] = null;
         }
-        if($person->cpf === $data["cpf"]){
+        if ($person->cpf === $data["cpf"]) {
             $person->update($data);
             return [true, $person];
         }
-        if(!$this->verifyCpf($data["cpf"])){
+        if (!$this->verifyCpf($data["cpf"])) {
             $person->update($data);
             return [true, $person];
         }
@@ -119,11 +119,10 @@ class PersonRepository
 
     public function verifyCpf($cpf)
     {
-       $verify = $this->entity->where('cpf', $cpf)->get();
-       if(count($verify)>0){
-        return true;
-       }
-
-       return false;
+        $verify = $this->entity->where('cpf', $cpf)->first();
+        if ($verify) {
+            return true;
+        }
+        return false;
     }
 }

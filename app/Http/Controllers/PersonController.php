@@ -62,6 +62,12 @@ class PersonController extends Controller
     {
         $data = $request->all();
 
+        $familiares = $this->prepareFamilyData($data);
+
+        $data['familiar'] = json_encode($familiares);
+
+        $data['is_waiting'] = $this->getWaitingStatus($data['modality']);
+
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('people', ['disk' => 'custom_uploads']);
 
@@ -145,6 +151,13 @@ class PersonController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
+
+        $familiares = $this->prepareFamilyData($data);
+
+        $data['familiar'] = json_encode($familiares);
+
+        $data['is_waiting'] = $this->getWaitingStatus($data['modality']);
+
         $person = $this->repository->getPerson($id);
         if (!$person)
             return redirect()->back();
@@ -256,15 +269,15 @@ class PersonController extends Controller
 
         if (!$this->repository->verifyCpf($data['cpf'])) {
             // if ($data['ip'] == '189.4.78.61') {
-                $result = $this->repository->storePerson($data);
+            $result = $this->repository->storePerson($data);
 
-                return response(
-                    [
-                        'status' => 200,
-                        'message' => 'Pré Ficha enviada com sucesso'
-                    ],
-                    200
-                );
+            return response(
+                [
+                    'status' => 200,
+                    'message' => 'Pré Ficha enviada com sucesso'
+                ],
+                200
+            );
             // }else{
             //     return response([
             //         'status' => 401,
@@ -277,5 +290,28 @@ class PersonController extends Controller
                 'message' => 'Este CPF já foi cadastrado!'
             ], 203);
         }
+    }
+
+    private function prepareFamilyData(array $data)
+    {
+        $familiares = array();
+
+        for ($i = 1; $i <= 3; $i++) {
+            if (!empty($data["familiar_$i"]) || !empty($data["relationship_$i"])) {
+                $familiares[$i] = [
+                    "familiar" => $data["familiar_$i"],
+                    "relationship" => $data["relationship_$i"]
+                ];
+            }
+        }
+
+        return $familiares;
+    }
+
+    private function getWaitingStatus(int $modality)
+    {
+        $valid_modalities = [0, 1, 2, 3, 4];
+
+        return in_array($modality, $valid_modalities) ? 1 : 0;
     }
 }
