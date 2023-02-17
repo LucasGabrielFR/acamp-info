@@ -364,27 +364,30 @@
         <hr>
             <h2>Familiares</h2>
             @php
-            $familiares = json_decode($person->familiar, true);
+            if(isset($person->familiar)){
+                $familiares = json_decode($person->familiar, true);
+            }
+            $i = 1;
             @endphp
-            @foreach ($familiares as $key => $familiar)
+            @for ($i; $i <= 3; $i++)
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Nome</label>
-                            <input type="text" name="familiar_{{$key}}" class="form-control" placeholder="Familiar"
-                                value="{{ $familiar['familiar'] ?? '' }}" >
+                            <input type="text" name="familiar_{{$i}}" class="form-control" placeholder="Familiar"
+                            value="{{ $familiares[$i]['familiar'] ?? '' }}" >
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Grau de Parentesco</label>
-                            <input type="text" name="relationship_{{$key}}" class="form-control" placeholder="Grau de parentesco"
-                                value="{{ $familiar['relationship'] ?? '' }}" >
+                            <input type="text" name="relationship_{{$i}}" class="form-control" placeholder="Grau de parentesco"
+                            value="{{ $familiares[$i]['relationship'] ?? '' }}" >
                         </div>
                     </div>
                 </div>
                 <hr>
-            @endforeach
+            @endfor
         <hr>
         <div class="row">
             <div class="col-md-4">
