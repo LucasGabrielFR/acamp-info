@@ -495,42 +495,42 @@
                     <label>Está aguardando por qual acampamento?</label>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" id="modality_mirim" name="modality"
-                            value="0" onchange="handleChange(this)">
+                            value="0" onchange="handleChange(this)" required>
                         <label class="form-check-label" for="modality_mirim">
                             Mirim
                         </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" id="modality_fac" name="modality"
-                            value="1" onchange="handleChange(this)">
+                            value="1" onchange="handleChange(this)" required>
                         <label class="form-check-label" for="modality_fac">
                             FAC
                         </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" id="modality_juvenil" name="modality"
-                            value="2" onchange="handleChange(this)">
+                            value="2" onchange="handleChange(this)" required>
                         <label class="form-check-label" for="modality_juvenil">
                             Juvenil
                         </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" id="modality_senior" name="modality"
-                            value="3" onchange="handleChange(this)">
+                            value="3" onchange="handleChange(this)" required>
                         <label class="form-check-label" for="modality_senior">
                             Sênior
                         </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" id="modality_casais" name="modality"
-                            value="4" onchange="handleChange(this)">
+                            value="4" onchange="handleChange(this)" required>
                         <label class="form-check-label" for="modality_casais">
                             Casais
                         </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" id="modality_none" name="modality"
-                            value="9" onchange="handleChange(this)">
+                            value="9" onchange="handleChange(this)" required>
                         <label class="form-check-label" for="modality_none">
                             Nenhum
                         </label>
