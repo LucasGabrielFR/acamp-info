@@ -114,9 +114,9 @@
 @section('content')
     @php
         if ($type == 'noCampers') {
-            $heads = ['Data da pré-ficha', 'Nome', 'Contato', 'Idade', 'Paróquia', 'Aguardando Acampamento', 'Ações'];
+            $heads = ['Data da pré-ficha', 'Nome', 'Contato', 'Idade', 'Paróquia', 'Cidade' ,'Aguardando Acampamento', 'Ações'];
         } else {
-            $heads = [['label' => 'Foto', 'width' => 15], 'Nome', 'Contato', 'Idade', 'Paróquia', 'Marcadores', 'Ações'];
+            $heads = [['label' => 'Foto', 'width' => 15], 'Nome', 'Contato', 'Idade', 'Paróquia', 'Cidade', 'Marcadores', 'Ações'];
         }
 
         $config = [
@@ -148,6 +148,7 @@
                         <td class="align-middle">{{ $person->contact }}</td>
                         <td class="align-middle">{{ $resultado->format('%Y anos') }}</td>
                         <td class="align-middle">{{ $person->parish }}</td>
+                        <td class="align-middle">{{ $person->city }}</td>
                         <td class="align-middle">
                             @if ($type == 'campers')
                                 @php
