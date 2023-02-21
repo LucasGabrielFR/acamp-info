@@ -621,12 +621,15 @@ switch ($camper->group) {
                     id,
                     name,
                     date_birthday,
-                    imageUrl
+                    image
                 } = person;
+
                 const checkIcon = addServants.includes(id) ? 'check' : 'plus';
                 newHtml += `
                             <div class="row mt-1">
-                                <div class="col-12 col-sm-3"><img src="${imageUrl}" alt="${name}" width="100"></div>
+                                <div class="col-12 col-sm-3">
+                                    <img src="${image}" alt="${name}" width="100">
+                                </div>
                                 <div class="col-12 col-sm-9">${name}</div>
                                 <div class="col-12 col-sm-6">${calculaIdade(new Date(date_birthday), new Date())}</div>
                                 <div class="col-12 col-sm-3 text-right">
