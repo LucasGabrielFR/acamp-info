@@ -628,7 +628,7 @@ switch ($camper->group) {
                 newHtml += `
                             <div class="row mt-1">
                                 <div class="col-12 col-sm-3">
-                                    <img src="${image}" alt="${name}" width="100">
+                                    <img src="http://admin.movimentocampista.com.br/${image}" alt="${name}" width="100">
                                 </div>
                                 <div class="col-12 col-sm-9">${name}</div>
                                 <div class="col-12 col-sm-6">${calculaIdade(new Date(date_birthday), new Date())}</div>
