@@ -162,8 +162,12 @@ class PersonController extends Controller
 
         $person = $this->repository->getPerson($id);
 
-        if ($person->modality != $data['modality']) {
+        if ($person->modality != $data['modality'] && $data['modality']!= 9) {
             $data['waiting_date'] = date('Y-m-d H:i:s');
+        }
+
+        if($data['modality']!= 9){
+            $data['waiting_date'] = null;
         }
 
         if (!$person)
@@ -253,8 +257,12 @@ class PersonController extends Controller
 
         $person = $this->repository->getPerson($id);
 
-        if ($person->modality != $data['modality']) {
+        if ($person->modality != $data['modality'] && $data['modality']!= 9) {
             $data['waiting_date'] = date('Y-m-d H:i:s');
+        }
+
+        if($data['modality']!= 9){
+            $data['waiting_date'] = null;
         }
 
         if (!$person)
