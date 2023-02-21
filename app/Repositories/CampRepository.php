@@ -90,7 +90,9 @@ class CampRepository
             ->whereNotIn('p.id', DB::table('campers')
                 ->select('person_id')->where('camp_id', '=', $id))
             ->whereNotIn('p.id', DB::table('servants')
-                ->select('person_id')->where('camp_id', '=', $id))->get();
+                ->select('person_id')->where('camp_id', '=', $id))
+            ->orderBy('p.name')
+            ->get();
         return $campers;
     }
 
@@ -110,7 +112,9 @@ class CampRepository
             ->join('acamp_types as act', 'act.id', '=', 'c.type_id')
             ->where('act.order', '>=', $order)
             ->whereNotIn('p.id', DB::table('campers')->select('person_id')->where('camp_id', '=', $id))
-            ->whereNotIn('p.id', DB::table('servants')->select('person_id')->where('camp_id', '=', $id))->get();
+            ->whereNotIn('p.id', DB::table('servants')->select('person_id')->where('camp_id', '=', $id))
+            ->orderBy('p.name')
+            ->get();
         return $servants;
     }
 
@@ -131,7 +135,9 @@ class CampRepository
             ->where('act.order', '>=', $order)
             ->where('p.name', 'LIKE', '%' . $request->search . '%')
             ->whereNotIn('p.id', DB::table('campers')->select('person_id')->where('camp_id', '=', $id))
-            ->whereNotIn('p.id', DB::table('servants')->select('person_id')->where('camp_id', '=', $id))->get();
+            ->whereNotIn('p.id', DB::table('servants')->select('person_id')->where('camp_id', '=', $id))
+            ->orderBy('p.name')
+            ->get();
         return $servants;
     }
 
@@ -141,7 +147,8 @@ class CampRepository
             ->where('p.name', 'LIKE', '%' . $request->search . '%')
             ->whereNotIn('p.id', DB::table('campers')->select('person_id')->where('camp_id', '=', $id))
             ->whereNotIn('p.id', DB::table('servants')
-                ->select('person_id')->where('camp_id', '=', $id))->get();
+                ->select('person_id')->where('camp_id', '=', $id))
+            ->orderBy('p.name')->get();
         return $campers;
     }
 
@@ -159,14 +166,14 @@ class CampRepository
     {
         $camper = new Camper;
         $camper = $camper->where('person_id', $request->person_id)->where('camp_id', $request->camp_id)->first();
-        if(!$camper){
+        if (!$camper) {
             $camper = new Camper;
             $camper->person_id = $request->person_id;
             $camper->camp_id = $request->camp_id;
             $camper->group = $request->tribo;
             $camper->save();
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -223,7 +230,7 @@ class CampRepository
         $serve = new Servant;
         $serve = $serve->where('person_id', $request->person_id)->where('camp_id', $request->camp_id)->first();
 
-        if(!$serve){
+        if (!$serve) {
             $serve = new Servant;
             $serve->person_id = $request->person_id;
             $serve->camp_id = $request->camp_id;
@@ -231,7 +238,7 @@ class CampRepository
             $serve->hierarchy = $request->hierarchy;
             $serve->save();
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -240,10 +247,10 @@ class CampRepository
     {
         $serve = Servant::where('person_id', $request->person_id)->where('camp_id', $request->old_camp_id)->first();
 
-        if($serve){
-            if($request->old_camp_id !== $request->camp_id){
+        if ($serve) {
+            if ($request->old_camp_id !== $request->camp_id) {
                 $serveNew = Servant::where('person_id', $request->person_id)->where('camp_id', $request->camp_id)->first();
-                if($serveNew){
+                if ($serveNew) {
                     return false;
                 }
             }
@@ -259,10 +266,10 @@ class CampRepository
     {
         $camper = Camper::where('person_id', $request->person_id)->where('camp_id', $request->old_camp_id)->first();
 
-        if($camper){
-            if($request->old_camp_id !== $request->camp_id){
+        if ($camper) {
+            if ($request->old_camp_id !== $request->camp_id) {
                 $camperNew = Camper::where('person_id', $request->person_id)->where('camp_id', $request->camp_id)->first();
-                if($camperNew){
+                if ($camperNew) {
                     return false;
                 }
             }
