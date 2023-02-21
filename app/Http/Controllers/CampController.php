@@ -45,7 +45,7 @@ class CampController extends Controller
         $camp = $this->repository->getCamp($id);
         $campers = $this->repository->getCampers($id);
         $servants = $this->repository->getServants($id);
-        if(!$camp)
+        if (!$camp)
             return redirect()->back();
 
         return view('admin.pages.camp.view', [
@@ -60,7 +60,7 @@ class CampController extends Controller
         $camp = $this->repository->getCamp($id);
         $types = $this->repository->getAllTypes();
 
-        if(!$camp)
+        if (!$camp)
             return redirect()->back();
 
         return view('admin.pages.camp.edit', [
@@ -72,7 +72,7 @@ class CampController extends Controller
     public function update(Request $request, $id)
     {
         $camp = $this->repository->getCamp($id);
-        if(!$camp)
+        if (!$camp)
             return redirect()->back();
 
         $this->repository->updateCamp($camp, $request->all());
@@ -83,7 +83,7 @@ class CampController extends Controller
     public function delete($id)
     {
         $type = $this->repository->getCamp($id);
-        if(!$type)
+        if (!$type)
             return redirect()->back();
 
         $this->repository->deleteCamp($type);
@@ -100,7 +100,7 @@ class CampController extends Controller
 
     public function noCampersSearch(Request $request, $id)
     {
-        $noCampers = $this->repository->getNoCampersSearch($request,$id);
+        $noCampers = $this->repository->getNoCampersSearch($request, $id);
 
         return response()->json($noCampers);
     }
@@ -112,10 +112,10 @@ class CampController extends Controller
 
     public function addCamper(Request $request)
     {
-        if($this->repository->addCamper($request)){
+        if ($this->repository->addCamper($request)) {
             return response('Inscrição feita!', 200);
         }
-        return response('Campista já está inscrito neste acampamento!',400);
+        return response('Campista já está inscrito neste acampamento!', 400);
     }
 
     public function deleteCamper($id)
@@ -136,11 +136,9 @@ class CampController extends Controller
     public function noServants($id)
     {
         $camp = $this->repository->getCamp($id);
-        // if($camp->type->order == 3){
-            $noServants = $this->repository->getNoServantsForSenior($id, $camp->type->order);
-        // }else{
-        //     $noServants = $this->repository->getNoServantsForFac($id);
-        // }
+
+        $noServants = $this->repository->getNoServants($id, $camp->type->order);
+
 
         return response()->json($noServants);
     }
@@ -148,11 +146,9 @@ class CampController extends Controller
     public function noServantsSearch(Request $request, $id)
     {
         $camp = $this->repository->getCamp($id);
-        if($camp->type->order == 3){
-            $noServants = $this->repository->getNoServantsForSeniorSearch($request, $id);
-        }else{
-            $noServants = $this->repository->getNoServantsForFacSearch($request, $id);
-        }
+
+        $noServants = $this->repository->getNoServantsSearch($request, $id, $camp->type->order);
+
 
         return response()->json($noServants);
     }
@@ -164,18 +160,18 @@ class CampController extends Controller
 
     public function addServe(Request $request)
     {
-        if($this->repository->addServe($request)){
+        if ($this->repository->addServe($request)) {
             return response('Inscrição feita!', 200);
         }
-        return response('Servo já está inscrito neste acampamento!',400);
+        return response('Servo já está inscrito neste acampamento!', 400);
     }
 
     public function updateServe(Request $request)
     {
-        if($this->repository->updateServe($request)){
+        if ($this->repository->updateServe($request)) {
             return response('Inscrição Atualizada!', 200);
         }
-        return response('Servo já está inscrito neste acampamento!',400);
+        return response('Servo já está inscrito neste acampamento!', 400);
     }
 
     public function deleteServant($id)
@@ -214,9 +210,9 @@ class CampController extends Controller
 
     public function updateCamper(Request $request)
     {
-        if($this->repository->updateCamper($request)){
+        if ($this->repository->updateCamper($request)) {
             return response('Inscrição Atualizada!', 200);
         }
-        return response('Servo já está inscrito neste acampamento!',400);
+        return response('Servo já está inscrito neste acampamento!', 400);
     }
 }

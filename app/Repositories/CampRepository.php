@@ -94,44 +94,7 @@ class CampRepository
         return $campers;
     }
 
-    public function getNoServantsForFac($id)
-    {
-        $servants = DB::table('people as p')
-            ->select(
-                'p.name',
-                'p.date_birthday',
-                'p.contact',
-                'p.parish',
-                'p.id',
-                'p.image'
-            )
-            ->join('campers as ca', 'p.id', '=', 'ca.person_id')
-            ->join('camps as c', 'c.id', '=', 'ca.camp_id')
-            ->whereNotIn('p.id', DB::table('campers')->select('person_id')->where('camp_id', '=', $id))
-            ->whereNotIn('p.id', DB::table('servants')->select('person_id')->where('camp_id', '=', $id))->get();
-        return $servants;
-    }
-
-    public function getNoServantsForFacSearch(Request $request, $id)
-    {
-        $servants = DB::table('people as p')
-            ->select(
-                'p.name',
-                'p.date_birthday',
-                'p.contact',
-                'p.parish',
-                'p.id',
-                'p.image'
-            )
-            ->join('campers as ca', 'p.id', '=', 'ca.person_id')
-            ->join('camps as c', 'c.id', '=', 'ca.camp_id')
-            ->where('p.name', 'LIKE', '%' . $request->search . '%')
-            ->whereNotIn('p.id', DB::table('campers')->select('person_id')->where('camp_id', '=', $id))
-            ->whereNotIn('p.id', DB::table('servants')->select('person_id')->where('camp_id', '=', $id))->get();
-        return $servants;
-    }
-
-    public function getNoServantsForSenior($id, $order)
+    public function getNoServants($id, $order)
     {
         $servants = DB::table('people as p')
             ->select(
@@ -151,7 +114,7 @@ class CampRepository
         return $servants;
     }
 
-    public function getNoServantsForSeniorSearch(Request $request, $id)
+    public function getNoServantsSearch(Request $request, $id, $order)
     {
         $servants = DB::table('people as p')
             ->select(
@@ -165,7 +128,7 @@ class CampRepository
             ->join('campers as ca', 'p.id', '=', 'ca.person_id')
             ->join('camps as c', 'c.id', '=', 'ca.camp_id')
             ->join('acamp_types as act', 'act.id', '=', 'c.type_id')
-            ->where('act.order', '=', '3')
+            ->where('act.order', '>=', $order)
             ->where('p.name', 'LIKE', '%' . $request->search . '%')
             ->whereNotIn('p.id', DB::table('campers')->select('person_id')->where('camp_id', '=', $id))
             ->whereNotIn('p.id', DB::table('servants')->select('person_id')->where('camp_id', '=', $id))->get();
