@@ -620,7 +620,8 @@ switch ($camper->group) {
                 const {
                     id,
                     name,
-                    date_birthday
+                    date_birthday,
+                    imageUrl
                 } = person;
                 const checkIcon = addServants.includes(id) ? 'check' : 'plus';
                 newHtml += `
