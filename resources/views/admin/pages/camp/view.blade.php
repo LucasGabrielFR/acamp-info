@@ -464,152 +464,46 @@ switch ($camper->group) {
         }
 
         function loadNoCampers(search = 0) {
-            let waitingHtml = '<b>Carregando...</b>'
+            const waitingHtml = '<b>Carregando...</b>';
             campersContent.innerHTML = waitingHtml;
-            if (search == 0) {
-                $.get("@php echo route('camp.no-campers', $camp->id) @endphp", function(resultado) {
-                    let newHtml = '';
-                    if (resultado.length < 1) {
-                        newHtml = 'Nenhum Resultado encontrado';
-                    }
-                    resultado.forEach(person => {
-                        newHtml += '<div class="row mt-1">'
-                        newHtml += '<div class="col-6">'
-                        newHtml += person.name
-                        newHtml += '</div>'
-                        newHtml += '<div class="col-4">'
-                        newHtml += calculaIdade(new Date(person.date_birthday), new Date())
-                        newHtml += '</div>'
-                        newHtml += '<div class="col-2 text-right">'
-                        newHtml += '<a onclick="adicionarCampista(' + "'" + person.id + "'" +
-                            ')" style="cursor: pointer;">'
-                        if (addCampers.includes(person.id)) {
-                            newHtml += '<i class="fas fa-lg fa-fw fa-check text-success" id="camper' +
-                                person
-                                .id + '"></i>'
-                        } else {
-                            newHtml += '<i class="fas fa-lg fa-fw fa-plus text-success" id="camper' + person
-                                .id + '"></i>'
-                        }
-                        newHtml += '</a>'
-                        newHtml += '</div>'
-                        newHtml += '</div>'
-                        newHtml += '<hr>'
-                    });
 
-                    campersContent.innerHTML = newHtml;
-                })
-            } else {
-                $.post("@php echo route('camp.no-campers-search', $camp->id) @endphp", {
-                    _token: csrf,
-                    search: search.value,
-                }, function(resultado) {
-                    let newHtml = '';
-                    if (resultado.length < 1) {
-                        newHtml = 'Nenhum Resultado encontrado';
-                    }
-                    resultado.forEach(person => {
-                        newHtml += '<div class="row mt-1">'
-                        newHtml += '<div class="col-6">'
-                        newHtml += person.name
-                        newHtml += '</div>'
-                        newHtml += '<div class="col-4">'
-                        newHtml += calculaIdade(new Date(person.date_birthday), new Date())
-                        newHtml += '</div>'
-                        newHtml += '<div class="col-2 text-right">'
-                        newHtml += '<a onclick="adicionarCampista(' + "'" + person.id + "'" +
-                            ')" style="cursor: pointer;">'
-                        if (addCampers.includes(person.id)) {
-                            newHtml += '<i class="fas fa-lg fa-fw fa-check text-success" id="camper' +
-                                person
-                                .id + '"></i>'
-                        } else {
-                            newHtml += '<i class="fas fa-lg fa-fw fa-plus text-success" id="camper' + person
-                                .id + '"></i>'
-                        }
-                        newHtml += '</a>'
-                        newHtml += '</div>'
-                        newHtml += '</div>'
-                        newHtml += '<hr>'
-                    });
+            const endpoint = search == 0 ? `@php echo route('camp.no-campers', $camp->id) @endphp` : `@php echo route('camp.no-campers-search', $camp->id) @endphp`;
+            const data = search == 0 ? {} : {
+                _token: csrf,
+                search: search.value
+            };
 
-                    campersContent.innerHTML = newHtml;
-                })
-            }
+            $.get(endpoint, data, async function(resultado) {
+                let newHtml = '';
+
+                if (resultado.length < 1) {
+                    newHtml = 'Nenhum Resultado encontrado';
+                }
+
+                for (const person of resultado) {
+                    const personHtml = await buildPersonHtml(person);
+                    newHtml += personHtml;
+                }
+
+                campersContent.innerHTML = newHtml;
+            });
         }
 
-        // function loadNoServants(search = 0) {
-        //     let waitingHtml = '<b>Carregando...</b>'
-        //     servantsContent.innerHTML = waitingHtml;
-        //     if (search == 0) {
-        //         $.get("@php echo route('camp.no-servants', $camp->id) @endphp", function(resultado) {
-        //             let newHtml = '';
-        //             if (resultado.length < 1) {
-        //                 newHtml = 'Nenhum Resultado encontrado';
-        //             }
-        //             resultado.forEach(person => {
-        //                 newHtml += '<div class="row mt-1">'
-        //                 newHtml += '<div class="col-6">'
-        //                 newHtml += person.name
-        //                 newHtml += '</div>'
-        //                 newHtml += '<div class="col-4">'
-        //                 newHtml += calculaIdade(new Date(person.date_birthday), new Date())
-        //                 newHtml += '</div>'
-        //                 newHtml += '<div class="col-2 text-right">'
-        //                 newHtml += '<a onclick="adicionarServo(' + "'" + person.id + "'" +
-        //                     ')" style="cursor: pointer;">'
-        //                 if (addServants.includes(person.id)) {
-        //                     newHtml += '<i class="fas fa-lg fa-fw fa-check text-success" id="servant' +
-        //                         person.id + '"></i>'
-        //                 } else {
-        //                     newHtml += '<i class="fas fa-lg fa-fw fa-plus text-success" id="servant' +
-        //                         person.id + '"></i>'
-        //                 }
-        //                 newHtml += '</a>'
-        //                 newHtml += '</div>'
-        //                 newHtml += '</div>'
-        //                 newHtml += '<hr>'
-        //             });
+        async function buildPersonHtml(person) {
+            const addIconClass = addCampers.includes(person.id) ? 'fa-check' : 'fa-plus';
+            const addIconHtml = `<i class="fas fa-lg fa-fw ${addIconClass} text-success" id="camper${person.id}"></i>`;
 
-        //             servantsContent.innerHTML = newHtml;
-        //         })
-        //     } else {
-        //         $.post("@php echo route('camp.no-servants-search', $camp->id) @endphp", {
-        //             _token: csrf,
-        //             search: search.value,
-        //         }, function(resultado) {
-        //             let newHtml = '';
-        //             if (resultado.length < 1) {
-        //                 newHtml = 'Nenhum Resultado encontrado';
-        //             }
-        //             resultado.forEach(person => {
-        //                 newHtml += '<div class="row mt-1">'
-        //                 newHtml += '<div class="col-6">'
-        //                 newHtml += person.name
-        //                 newHtml += '</div>'
-        //                 newHtml += '<div class="col-4">'
-        //                 newHtml += calculaIdade(new Date(person.date_birthday), new Date())
-        //                 newHtml += '</div>'
-        //                 newHtml += '<div class="col-2 text-right">'
-        //                 newHtml += '<a onclick="adicionarServo(' + "'" + person.id + "'" +
-        //                     ')" style="cursor: pointer;">'
-        //                 if (addServants.includes(person.id)) {
-        //                     newHtml += '<i class="fas fa-lg fa-fw fa-check text-success" id="servant' +
-        //                         person.id + '"></i>'
-        //                 } else {
-        //                     newHtml += '<i class="fas fa-lg fa-fw fa-plus text-success" id="servant' +
-        //                         person.id + '"></i>'
-        //                 }
-        //                 newHtml += '</a>'
-        //                 newHtml += '</div>'
-        //                 newHtml += '</div>'
-        //                 newHtml += '<hr>'
-        //             });
-
-        //             servantsContent.innerHTML = newHtml;
-        //         })
-        //     }
-        // }
+            return `
+                    <div class="row mt-1">
+                    <div class="col-6">${person.name}</div>
+                    <div class="col-4">${calculaIdade(new Date(person.date_birthday), new Date())}</div>
+                    <div class="col-2 text-right">
+                        <a onclick="adicionarCampista('${person.id}')" style="cursor: pointer;">${addIconHtml}</a>
+                    </div>
+                    </div>
+                    <hr>
+                `;
+        }
 
         function renderServants(resultado) {
             let newHtml = '';
@@ -628,7 +522,7 @@ switch ($camper->group) {
                 newHtml += `
                             <div class="row mt-1">
                                 <div class="col-md-3">
-                                    <img src="http://admin.movimentocampista.com.br/${image}" alt="${name}" class="card-img-top" width="100" height="100">
+                                    <img src="http://admin.movimentocampista.com.br/${image}" alt="${name}" class="card-img-top" width="100%" height="100%">
                                 </div>
                                 <div class="col-md-5 align-self-center">${name}</div>
                                 <div class="col-md-2 align-self-center">${calculaIdade(new Date(date_birthday), new Date())}</div>
