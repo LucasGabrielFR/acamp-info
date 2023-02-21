@@ -102,7 +102,8 @@ class CampRepository
                 'p.date_birthday',
                 'p.contact',
                 'p.parish',
-                'p.id'
+                'p.id',
+                'p.image'
             )
             ->join('campers as ca', 'p.id', '=', 'ca.person_id')
             ->join('camps as c', 'c.id', '=', 'ca.camp_id')
@@ -130,7 +131,7 @@ class CampRepository
         return $servants;
     }
 
-    public function getNoServantsForSenior($id)
+    public function getNoServantsForSenior($id, $order)
     {
         $servants = DB::table('people as p')
             ->select(
@@ -144,7 +145,7 @@ class CampRepository
             ->join('campers as ca', 'p.id', '=', 'ca.person_id')
             ->join('camps as c', 'c.id', '=', 'ca.camp_id')
             ->join('acamp_types as act', 'act.id', '=', 'c.type_id')
-            ->where('act.order', '=', '3')
+            ->where('act.order', '>=', $order)
             ->whereNotIn('p.id', DB::table('campers')->select('person_id')->where('camp_id', '=', $id))
             ->whereNotIn('p.id', DB::table('servants')->select('person_id')->where('camp_id', '=', $id))->get();
         return $servants;
@@ -158,7 +159,8 @@ class CampRepository
                 'p.date_birthday',
                 'p.contact',
                 'p.parish',
-                'p.id'
+                'p.id',
+                'p.image'
             )
             ->join('campers as ca', 'p.id', '=', 'ca.person_id')
             ->join('camps as c', 'c.id', '=', 'ca.camp_id')
