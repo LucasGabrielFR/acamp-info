@@ -630,9 +630,9 @@ switch ($camper->group) {
                                 <div class="col-md-3">
                                     <img src="http://admin.movimentocampista.com.br/${image}" alt="${name}" class="card-img-top" width="50" height="50">
                                 </div>
-                                <div class="col-md-5">${name}</div>
-                                <div class="col-md-2">${calculaIdade(new Date(date_birthday), new Date())}</div>
-                                <div class="col-md-2 text-right">
+                                <div class="col-md-5 align-self-center">${name}</div>
+                                <div class="col-md-2 align-self-center">${calculaIdade(new Date(date_birthday), new Date())}</div>
+                                <div class="col-md-2 text-right align-self-center">
                                     <a onclick="adicionarServo('${id}')" style="cursor: pointer;">
                                         <i class="fas fa-lg fa-fw fa-${checkIcon} text-success" id="servant${id}"></i>
                                     </a>
