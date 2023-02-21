@@ -493,56 +493,52 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Está aguardando por qual acampamento?</label>
-                    @if($person->max == 0)
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" id="modality_mirim" name="modality"
-                            value="0" onchange="handleChange(this)" required>
-                        <label class="form-check-label" for="modality_mirim">
-                            Mirim
-                        </label>
-                    </div>
-                    @endif
-                    @if($person->max < 1)
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" id="modality_fac" name="modality"
-                            value="1" onchange="handleChange(this)" required>
-                        <label class="form-check-label" for="modality_fac">
-                            FAC
-                        </label>
-                    </div>
-                    @endif
-                    @if($person->max < 2)
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" id="modality_juvenil" name="modality"
-                            value="2" onchange="handleChange(this)" required>
-                        <label class="form-check-label" for="modality_juvenil">
-                            Juvenil
-                        </label>
-                    </div>
-                    @endif
-                    @if($person->max < 3)
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" id="modality_senior" name="modality"
-                            value="3" onchange="handleChange(this)" required>
-                        <label class="form-check-label" for="modality_senior">
-                            Sênior
-                        </label>
-                    </div>
-                    @endif
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" id="modality_casais" name="modality"
-                            value="4" onchange="handleChange(this)" required>
-                        <label class="form-check-label" for="modality_casais">
-                            Casais
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" id="modality_none" name="modality"
-                            value="9" onchange="handleChange(this)" required>
-                        <label class="form-check-label" for="modality_none">
-                            Nenhum
-                        </label>
-                    </div>
+                    @php
+                        $modalities = [
+                            [
+                                'id' => 'modality_mirim',
+                                'label' => 'Mirim',
+                                'value' => '0',
+                            ],
+                            [
+                                'id' => 'modality_fac',
+                                'label' => 'FAC',
+                                'value' => '1',
+                            ],
+                            [
+                                'id' => 'modality_juvenil',
+                                'label' => 'Juvenil',
+                                'value' => '2',
+                            ],
+                            [
+                                'id' => 'modality_senior',
+                                'label' => 'Sênior',
+                                'value' => '3',
+                            ],
+                            [
+                                'id' => 'modality_casais',
+                                'label' => 'Casais',
+                                'value' => '4',
+                            ],
+                            [
+                                'id' => 'modality_none',
+                                'label' => 'Nenhum',
+                                'value' => '9',
+                            ],
+                        ];
+                    @endphp
+
+                    @foreach ($modalities as $modality)
+                        @if (!isset($person) || $person->max < $modality['value'])
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="{{ $modality['id'] }}" name="modality"
+                                    value="{{ $modality['value'] }}" onchange="handleChange(this)" required>
+                                <label class="form-check-label" for="{{ $modality['id'] }}">
+                                    {{ $modality['label'] }}
+                                </label>
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
             </div>
         </div>
