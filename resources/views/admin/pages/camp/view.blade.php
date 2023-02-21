@@ -492,18 +492,19 @@ switch ($camper->group) {
         async function buildPersonHtml(person) {
             const addIconClass = addCampers.includes(person.id) ? 'fa-check' : 'fa-plus';
             const addIconHtml = `<i class="fas fa-lg fa-fw ${addIconClass} text-success" id="camper${person.id}"></i>`;
+            const parishHtml = person.parish ? `<div class="col-md-3">${person.parish}</div>` : '<div class="col-md-3"></div>';
 
             return `
-                    <div class="row mt-1">
-                    <div class="col-md-4">${person.name}</div>
-                    <div class="col-md-3">${person.parish}</div>
-                    <div class="col-md-3">${calculaIdade(new Date(person.date_birthday), new Date())}</div>
-                    <div class="col-md-2 text-right">
-                        <a onclick="adicionarCampista('${person.id}')" style="cursor: pointer;">${addIconHtml}</a>
-                    </div>
-                    </div>
-                    <hr>
-                `;
+                <div class="row mt-1">
+                <div class="col-md-5">${person.name}</div>
+                ${parishHtml}
+                <div class="col-md-2">${calculaIdade(new Date(person.date_birthday), new Date())}</div>
+                <div class="col-md-2 text-right">
+                    <a onclick="adicionarCampista('${person.id}')" style="cursor: pointer;">${addIconHtml}</a>
+                </div>
+                </div>
+                <hr>
+            `;
         }
 
         function renderServants(resultado) {
