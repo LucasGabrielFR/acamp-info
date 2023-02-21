@@ -80,7 +80,7 @@
                                                 onchange="alteraTribo(this, 0)" onclick="adicionaOptions(this, 0)"
                                                 onblur="removeOptions(this, 0)"
                                                 @php
-                                                    switch ($camper->group) {
+switch ($camper->group) {
                                                         case 'red':
                                                             echo 'style="background: red; color: white"';
                                                             break;
@@ -263,14 +263,15 @@
                                         </td>
                                         <td>
                                             @php
-                                                if(!isset($servant->hierarchy)){
+                                                if (!isset($servant->hierarchy)) {
                                                     $servant->hierarchy = '';
                                                 }
                                             @endphp
                                             <select id="hierarchy{{ $servant->id }}" class="custom-select"
                                                 onchange="alteraHierarquia(this)">
                                                 <option>Selecione</option>
-                                                <option value="coordenacao" @selected($servant->hierarchy === 'coordenacao')>Coordenação</option>
+                                                <option value="coordenacao" @selected($servant->hierarchy === 'coordenacao')>Coordenação
+                                                </option>
                                                 <option value="aux" @selected($servant->hierarchy === 'aux')>Auxiliar</option>
                                                 <option value="servo" @selected($servant->hierarchy === 'servo')>Servo</option>
                                             </select>
@@ -294,8 +295,8 @@
         @csrf
         <div class="row">
             <div class="col-4">
-                <input class="form-control" type="search" name="searchNoCampers" id="searchNoCampers"
-                    placeholder="Buscar" onkeyup="loadNoCampers(this)">
+                <input class="form-control" type="search" name="searchNoCampers" id="searchNoCampers" placeholder="Buscar"
+                    onkeyup="loadNoCampers(this)">
             </div>
         </div>
         <hr>
@@ -336,8 +337,7 @@
         var campersContent = document.querySelector('#campersContent');
         var servantsContent = document.querySelector('#servantsContent');
         var csrf = document.getElementsByName('_token')[0].value;
-        var groups = [
-            {
+        var groups = [{
                 cor: "",
                 traducao: "Selecione"
             },
@@ -375,8 +375,7 @@
             }
         ];
 
-        var sectors = [
-            {
+        var sectors = [{
                 sector: "",
                 label: "Selecione"
             },
@@ -539,76 +538,124 @@
             }
         }
 
+        // function loadNoServants(search = 0) {
+        //     let waitingHtml = '<b>Carregando...</b>'
+        //     servantsContent.innerHTML = waitingHtml;
+        //     if (search == 0) {
+        //         $.get("@php echo route('camp.no-servants', $camp->id) @endphp", function(resultado) {
+        //             let newHtml = '';
+        //             if (resultado.length < 1) {
+        //                 newHtml = 'Nenhum Resultado encontrado';
+        //             }
+        //             resultado.forEach(person => {
+        //                 newHtml += '<div class="row mt-1">'
+        //                 newHtml += '<div class="col-6">'
+        //                 newHtml += person.name
+        //                 newHtml += '</div>'
+        //                 newHtml += '<div class="col-4">'
+        //                 newHtml += calculaIdade(new Date(person.date_birthday), new Date())
+        //                 newHtml += '</div>'
+        //                 newHtml += '<div class="col-2 text-right">'
+        //                 newHtml += '<a onclick="adicionarServo(' + "'" + person.id + "'" +
+        //                     ')" style="cursor: pointer;">'
+        //                 if (addServants.includes(person.id)) {
+        //                     newHtml += '<i class="fas fa-lg fa-fw fa-check text-success" id="servant' +
+        //                         person.id + '"></i>'
+        //                 } else {
+        //                     newHtml += '<i class="fas fa-lg fa-fw fa-plus text-success" id="servant' +
+        //                         person.id + '"></i>'
+        //                 }
+        //                 newHtml += '</a>'
+        //                 newHtml += '</div>'
+        //                 newHtml += '</div>'
+        //                 newHtml += '<hr>'
+        //             });
+
+        //             servantsContent.innerHTML = newHtml;
+        //         })
+        //     } else {
+        //         $.post("@php echo route('camp.no-servants-search', $camp->id) @endphp", {
+        //             _token: csrf,
+        //             search: search.value,
+        //         }, function(resultado) {
+        //             let newHtml = '';
+        //             if (resultado.length < 1) {
+        //                 newHtml = 'Nenhum Resultado encontrado';
+        //             }
+        //             resultado.forEach(person => {
+        //                 newHtml += '<div class="row mt-1">'
+        //                 newHtml += '<div class="col-6">'
+        //                 newHtml += person.name
+        //                 newHtml += '</div>'
+        //                 newHtml += '<div class="col-4">'
+        //                 newHtml += calculaIdade(new Date(person.date_birthday), new Date())
+        //                 newHtml += '</div>'
+        //                 newHtml += '<div class="col-2 text-right">'
+        //                 newHtml += '<a onclick="adicionarServo(' + "'" + person.id + "'" +
+        //                     ')" style="cursor: pointer;">'
+        //                 if (addServants.includes(person.id)) {
+        //                     newHtml += '<i class="fas fa-lg fa-fw fa-check text-success" id="servant' +
+        //                         person.id + '"></i>'
+        //                 } else {
+        //                     newHtml += '<i class="fas fa-lg fa-fw fa-plus text-success" id="servant' +
+        //                         person.id + '"></i>'
+        //                 }
+        //                 newHtml += '</a>'
+        //                 newHtml += '</div>'
+        //                 newHtml += '</div>'
+        //                 newHtml += '<hr>'
+        //             });
+
+        //             servantsContent.innerHTML = newHtml;
+        //         })
+        //     }
+        // }
+
+        function renderServants(resultado) {
+            let newHtml = '';
+            if (resultado.length < 1) {
+                newHtml = 'Nenhum Resultado encontrado';
+            }
+            resultado.forEach(person => {
+                const {
+                    id,
+                    name,
+                    date_birthday
+                } = person;
+                const checkIcon = addServants.includes(id) ? 'check' : 'plus';
+                newHtml += `
+                    <div class="row mt-1">
+                        <div class="col-6">${name}</div>
+                        <div class="col-4">${calculaIdade(new Date(date_birthday), new Date())}</div>
+                        <div class="col-2 text-right">
+                        <a onclick="adicionarServo('${id}')" style="cursor: pointer;">
+                            <i class="fas fa-lg fa-fw fa-${checkIcon} text-success" id="servant${id}"></i>
+                        </a>
+                        </div>
+                    </div>
+                    <hr>
+                    `;
+                });
+
+            const servantsContainer = document.getElementById('servantsContent');
+            while (servantsContainer.firstChild) {
+                servantsContainer.removeChild(servantsContainer.firstChild);
+            }
+            const fragment = document.createRange().createContextualFragment(newHtml);
+            servantsContainer.appendChild(fragment);
+        }
+
         function loadNoServants(search = 0) {
-            let waitingHtml = '<b>Carregando...</b>'
+            const waitingHtml = '<b>Carregando...</b>';
+            const servantsContent = document.getElementById('servantsContent');
             servantsContent.innerHTML = waitingHtml;
             if (search == 0) {
-                $.get("@php echo route('camp.no-servants', $camp->id) @endphp", function(resultado) {
-                    let newHtml = '';
-                    if (resultado.length < 1) {
-                        newHtml = 'Nenhum Resultado encontrado';
-                    }
-                    resultado.forEach(person => {
-                        newHtml += '<div class="row mt-1">'
-                        newHtml += '<div class="col-6">'
-                        newHtml += person.name
-                        newHtml += '</div>'
-                        newHtml += '<div class="col-4">'
-                        newHtml += calculaIdade(new Date(person.date_birthday), new Date())
-                        newHtml += '</div>'
-                        newHtml += '<div class="col-2 text-right">'
-                        newHtml += '<a onclick="adicionarServo(' + "'" + person.id + "'" +
-                            ')" style="cursor: pointer;">'
-                        if (addServants.includes(person.id)) {
-                            newHtml += '<i class="fas fa-lg fa-fw fa-check text-success" id="servant' +
-                                person.id + '"></i>'
-                        } else {
-                            newHtml += '<i class="fas fa-lg fa-fw fa-plus text-success" id="servant' +
-                                person.id + '"></i>'
-                        }
-                        newHtml += '</a>'
-                        newHtml += '</div>'
-                        newHtml += '</div>'
-                        newHtml += '<hr>'
-                    });
-
-                    servantsContent.innerHTML = newHtml;
-                })
+                $.get(`@php echo route('camp.no-servants', $camp->id) @endphp`, renderServants);
             } else {
-                $.post("@php echo route('camp.no-servants-search', $camp->id) @endphp", {
+                $.post(`@php echo route('camp.no-servants-search', $camp->id) @endphp`, {
                     _token: csrf,
                     search: search.value,
-                }, function(resultado) {
-                    let newHtml = '';
-                    if (resultado.length < 1) {
-                        newHtml = 'Nenhum Resultado encontrado';
-                    }
-                    resultado.forEach(person => {
-                        newHtml += '<div class="row mt-1">'
-                        newHtml += '<div class="col-6">'
-                        newHtml += person.name
-                        newHtml += '</div>'
-                        newHtml += '<div class="col-4">'
-                        newHtml += calculaIdade(new Date(person.date_birthday), new Date())
-                        newHtml += '</div>'
-                        newHtml += '<div class="col-2 text-right">'
-                        newHtml += '<a onclick="adicionarServo(' + "'" + person.id + "'" +
-                            ')" style="cursor: pointer;">'
-                        if (addServants.includes(person.id)) {
-                            newHtml += '<i class="fas fa-lg fa-fw fa-check text-success" id="servant' +
-                                person.id + '"></i>'
-                        } else {
-                            newHtml += '<i class="fas fa-lg fa-fw fa-plus text-success" id="servant' +
-                                person.id + '"></i>'
-                        }
-                        newHtml += '</a>'
-                        newHtml += '</div>'
-                        newHtml += '</div>'
-                        newHtml += '<hr>'
-                    });
-
-                    servantsContent.innerHTML = newHtml;
-                })
+                }, renderServants);
             }
         }
 
@@ -682,14 +729,14 @@
             const selectedOption = src.value;
             removeOptions(src, type);
             const arrayOptions = Array.apply(src.options);
-            if(type === 0){
+            if (type === 0) {
                 groups.forEach(cor => {
                     if (selectedOption !== cor.cor) {
                         let newOption = new Option(cor.traducao, cor.cor)
                         src.add(newOption);
                     }
                 });
-            }else{
+            } else {
                 sectors.forEach(sector => {
                     if (selectedOption !== sector.sector) {
                         let newOption = new Option(sector.label, sector.sector);
@@ -705,14 +752,14 @@
             while (src.options.length > 0) {
                 src.remove(0);
             }
-            if(type === 0){
+            if (type === 0) {
                 groups.forEach(cor => {
                     if (selectedOption === cor.cor) {
                         let newOption = new Option(cor.traducao, cor.cor)
                         src.add(newOption);
                     }
                 });
-            }else{
+            } else {
                 sectors.forEach(sector => {
                     if (selectedOption === sector.sector) {
                         let newOption = new Option(sector.label, sector.sector);
@@ -739,7 +786,31 @@
 
             $('#table2').DataTable().destroy();
             let table2 = $('#table2').DataTable({
-                "autoWidth": true
+                "columnDefs": [{
+                        "width": "100px",
+                        "targets": 0
+                    },
+                    {
+                        "width": "100px",
+                        "targets": 1
+                    },
+                    {
+                        "width": "100px",
+                        "targets": 2
+                    },
+                    {
+                        "width": "100px",
+                        "targets": 3
+                    },
+                    {
+                        "width": "150px",
+                        "targets": 4
+                    },
+                    {
+                        "width": "100px",
+                        "targets": 5
+                    },
+                ]
             });
             table2.search(search.value).draw();
 

@@ -119,7 +119,8 @@ class CampRepository
                 'p.date_birthday',
                 'p.contact',
                 'p.parish',
-                'p.id'
+                'p.id',
+                'p.image'
             )
             ->join('campers as ca', 'p.id', '=', 'ca.person_id')
             ->join('camps as c', 'c.id', '=', 'ca.camp_id')
@@ -137,7 +138,8 @@ class CampRepository
                 'p.date_birthday',
                 'p.contact',
                 'p.parish',
-                'p.id'
+                'p.id',
+                'p.image'
             )
             ->join('campers as ca', 'p.id', '=', 'ca.person_id')
             ->join('camps as c', 'c.id', '=', 'ca.camp_id')

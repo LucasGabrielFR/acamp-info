@@ -53,7 +53,8 @@ class Person extends Model
         'how_find_camp',
         'why_camp',
         'modality',
-        'is_waiting'
+        'is_waiting',
+        'waiting_date'
     ];
 
     public function camps()

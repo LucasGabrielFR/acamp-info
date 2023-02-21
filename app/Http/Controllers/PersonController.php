@@ -140,6 +140,8 @@ class PersonController extends Controller
     public function edit($id)
     {
         $person = $this->repository->getPerson($id);
+        $max = $this->repository->getMaxCamp($id);
+        $person->max = $max->max;
         if (!$person)
             return redirect()->back();
 
@@ -159,6 +161,11 @@ class PersonController extends Controller
         $data['is_waiting'] = $this->getWaitingStatus($data['modality']);
 
         $person = $this->repository->getPerson($id);
+
+        if ($person->modality != $data['modality']) {
+            $data['waiting_date'] = date('Y-m-d H:i:s');
+        }
+
         if (!$person)
             return redirect()->back();
 
@@ -226,6 +233,8 @@ class PersonController extends Controller
         $user = Auth::user();
         $id = $user->person_id;
         $person = $this->repository->getPerson($id);
+        $max = $this->repository->getMaxCamp($id);
+        $person->max = $max->max;
 
         return view('admin.pages.person.edit', [
             'person' => $person,
@@ -235,9 +244,22 @@ class PersonController extends Controller
     public function personalUpdate(Request $request, $id)
     {
         $data = $request->all();
+
+        $familiares = $this->prepareFamilyData($data);
+
+        $data['familiar'] = json_encode($familiares);
+
+        $data['is_waiting'] = $this->getWaitingStatus($data['modality']);
+
         $person = $this->repository->getPerson($id);
+
+        if ($person->modality != $data['modality']) {
+            $data['waiting_date'] = date('Y-m-d H:i:s');
+        }
+
         if (!$person)
             return redirect()->back();
+
 
         if ($request->hasFile('image')) {
 

@@ -493,6 +493,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Está aguardando por qual acampamento?</label>
+                    @if($person->max == 0)
                     <div class="form-check">
                         <input class="form-check-input" type="radio" id="modality_mirim" name="modality"
                             value="0" onchange="handleChange(this)" required>
@@ -500,6 +501,8 @@
                             Mirim
                         </label>
                     </div>
+                    @endif
+                    @if($person->max < 1)
                     <div class="form-check">
                         <input class="form-check-input" type="radio" id="modality_fac" name="modality"
                             value="1" onchange="handleChange(this)" required>
@@ -507,6 +510,8 @@
                             FAC
                         </label>
                     </div>
+                    @endif
+                    @if($person->max < 2)
                     <div class="form-check">
                         <input class="form-check-input" type="radio" id="modality_juvenil" name="modality"
                             value="2" onchange="handleChange(this)" required>
@@ -514,6 +519,8 @@
                             Juvenil
                         </label>
                     </div>
+                    @endif
+                    @if($person->max < 3)
                     <div class="form-check">
                         <input class="form-check-input" type="radio" id="modality_senior" name="modality"
                             value="3" onchange="handleChange(this)" required>
@@ -521,6 +528,7 @@
                             Sênior
                         </label>
                     </div>
+                    @endif
                     <div class="form-check">
                         <input class="form-check-input" type="radio" id="modality_casais" name="modality"
                             value="4" onchange="handleChange(this)" required>

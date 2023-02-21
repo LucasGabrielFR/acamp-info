@@ -93,6 +93,19 @@ class PersonRepository
             ->get();
     }
 
+    public function getMaxCamp($id)
+    {
+        return $this->entity->select(
+            DB::raw('MAX(t.order) as max')
+        )
+            ->join('campers as ca', 'ca.person_id', '=', 'people.id')
+            ->join('camps as c', 'c.id', '=', 'ca.camp_id')
+            ->join('acamp_types as t', 't.id', '=', 'c.type_id')
+            ->where('people.id', $id)
+            ->orderBy('c.date_end', 'desc')
+            ->first();
+    }
+
     public function getPersonServers($id)
     {
         return $this->entity->select(

@@ -132,7 +132,13 @@
                         $data = new DateTime($dataNascimento);
                         $resultado = $data->diff(new DateTime(date('Y-m-d')));
 
-                        $dataEnvio = $person->created_at;
+                        $dataEnvio = '';
+
+                        if(isset($person->waiting_date)){
+                            $dataEnvio = $person->waiting_date;
+                        }else{
+                            $dataEnvio = $person->created_at;
+                        }
                     @endphp
                     <tr>
                         <td class="align-middle">
