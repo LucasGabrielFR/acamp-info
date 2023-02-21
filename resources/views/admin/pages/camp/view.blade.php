@@ -495,9 +495,10 @@ switch ($camper->group) {
 
             return `
                     <div class="row mt-1">
-                    <div class="col-6">${person.name}</div>
-                    <div class="col-4">${calculaIdade(new Date(person.date_birthday), new Date())}</div>
-                    <div class="col-2 text-right">
+                    <div class="col-md-4">${person.name}</div>
+                    <div class="col-md-3">${person.parish}</div>
+                    <div class="col-md-3">${calculaIdade(new Date(person.date_birthday), new Date())}</div>
+                    <div class="col-md-2 text-right">
                         <a onclick="adicionarCampista('${person.id}')" style="cursor: pointer;">${addIconHtml}</a>
                     </div>
                     </div>
