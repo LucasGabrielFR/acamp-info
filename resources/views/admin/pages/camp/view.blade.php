@@ -624,18 +624,19 @@ switch ($camper->group) {
                 } = person;
                 const checkIcon = addServants.includes(id) ? 'check' : 'plus';
                 newHtml += `
-                    <div class="row mt-1">
-                        <div class="col-6">${name}</div>
-                        <div class="col-4">${calculaIdade(new Date(date_birthday), new Date())}</div>
-                        <div class="col-2 text-right">
-                        <a onclick="adicionarServo('${id}')" style="cursor: pointer;">
-                            <i class="fas fa-lg fa-fw fa-${checkIcon} text-success" id="servant${id}"></i>
-                        </a>
-                        </div>
-                    </div>
-                    <hr>
-                    `;
-                });
+                            <div class="row mt-1">
+                                <div class="col-12 col-sm-3"><img src="${imageUrl}" alt="${name}" width="100"></div>
+                                <div class="col-12 col-sm-9">${name}</div>
+                                <div class="col-12 col-sm-6">${calculaIdade(new Date(date_birthday), new Date())}</div>
+                                <div class="col-12 col-sm-3 text-right">
+                                    <a onclick="adicionarServo('${id}')" style="cursor: pointer;">
+                                        <i class="fas fa-lg fa-fw fa-${checkIcon} text-success" id="servant${id}"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <hr>
+                        `;
+            });
 
             const servantsContainer = document.getElementById('servantsContent');
             while (servantsContainer.firstChild) {
