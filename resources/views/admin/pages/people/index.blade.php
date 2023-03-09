@@ -6,7 +6,7 @@
     @if ($type == 'noCampers')
         <h1>Fichas disponíveis</h1>
         <a href="{{ route('person.create') }}" class="btn btn-success">Novo Cadastro</a>
-        <button class="btn btn-success" onclick="downloadXLSX(this)"><i class="fas fa-lg fa-fw fa-table"></i> Baixar
+        <button class="btn btn-success" onclick="downloadXLSX(this)" id="planilha"><i class="fas fa-lg fa-fw fa-table"></i> Baixar
             Planilha</button>
     @endif
     @if ($type == 'campers')
@@ -332,6 +332,7 @@
         });
 
         async function downloadXLSX(btn) {
+            $('#planilha').attr("disabled", true);
             const wb = XLSX.utils.book_new();
 
             const resultado = await $.get(`@php echo route('person.waiting-list') @endphp`);
@@ -368,7 +369,6 @@
                 const dataNascimento = moment(date_birthday);
                 const idade = hoje.diff(dataNascimento, 'years');
 
-                console.log(waiting_date);
                 const dataEnvioFicha = waiting_date != null ? waiting_date : created_at;
 
                 const sexo = gender === 1 ? 'masculino' : 'feminino';
@@ -433,6 +433,7 @@
                 bookType: 'xlsx',
                 type: 'binary'
             });
+            $('#planilha').attr("disabled", false);
         }
     </script>
 @stop
