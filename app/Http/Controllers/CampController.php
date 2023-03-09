@@ -139,7 +139,6 @@ class CampController extends Controller
 
         $noServants = $this->repository->getNoServants($id, $camp->type->order);
 
-
         return response()->json($noServants);
     }
 
@@ -148,7 +147,6 @@ class CampController extends Controller
         $camp = $this->repository->getCamp($id);
 
         $noServants = $this->repository->getNoServantsSearch($request, $id, $camp->type->order);
-
 
         return response()->json($noServants);
     }

@@ -29,7 +29,7 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::get('person', [PersonController::class, 'personal'])->name('personal');
     Route::get('person/edit', [PersonController::class, 'personalEdit'])->name('personal.edit');
     Route::put('person/edit/{id}', [PersonController::class, 'personalUpdate'])->name('personal.update');
-
+    Route::get('admin/people/waiting-list', [PersonController::class, 'waitingList'])->name('person.waiting-list')->middleware('isAdmin');
 
     //Camp Routes
     Route::get('admin/camp', [CampController::class, 'index'])->name('camp.index')->middleware('isAdmin');

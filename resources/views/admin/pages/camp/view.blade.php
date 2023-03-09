@@ -80,7 +80,7 @@
                                                 onchange="alteraTribo(this, 0)" onclick="adicionaOptions(this, 0)"
                                                 onblur="removeOptions(this, 0)"
                                                 @php
-switch ($camper->group) {
+                                                    switch ($camper->group) {
                                                         case 'red':
                                                             echo 'style="background: red; color: white"';
                                                             break;

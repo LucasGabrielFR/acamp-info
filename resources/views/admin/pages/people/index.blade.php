@@ -2,29 +2,16 @@
 
 @section('title', 'Pessoas')
 
-@section('js')
-    <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.13.2/sorting/date-euro.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.13.2/i18n/pt-BR.json"></script>
-    <script>
-        $(document).ready(function() {
-            var table = $('#table1').DataTable();
-
-            table.order([0, 'asc']).draw();
-        });
-    </script>
-@stop
-
 @section('content_header')
     @if ($type == 'noCampers')
         <h1>Fichas disponíveis</h1>
         <a href="{{ route('person.create') }}" class="btn btn-success">Novo Cadastro</a>
+        <button class="btn btn-success" onclick="downloadXLSX(this)"><i class="fas fa-lg fa-fw fa-table"></i> Baixar
+            Planilha</button>
     @endif
     @if ($type == 'campers')
         <h1>Campistas</h1>
     @endif
-
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.1/css/buttons.dataTables.min.css">
-
     <style>
         .badge-brown {
             background: #8B4513;
@@ -114,7 +101,7 @@
 @section('content')
     @php
         if ($type == 'noCampers') {
-            $heads = ['Data da pré-ficha', 'Nome', 'Contato', 'Idade', 'Paróquia', 'Cidade' ,'Aguardando Acampamento', 'Ações'];
+            $heads = ['Data da pré-ficha', 'Nome', 'Contato', 'Idade', 'Paróquia', 'Cidade', 'Aguardando Acampamento', 'Ações'];
         } else {
             $heads = [['label' => 'Foto', 'width' => 15], 'Nome', 'Contato', 'Idade', 'Paróquia', 'Cidade', 'Marcadores', 'Ações'];
         }
@@ -134,16 +121,16 @@
 
                         $dataEnvio = '';
 
-                        if(isset($person->waiting_date)){
+                        if (isset($person->waiting_date)) {
                             $dataEnvio = $person->waiting_date;
-                        }else{
+                        } else {
                             $dataEnvio = $person->created_at;
                         }
                     @endphp
                     <tr>
                         <td class="align-middle">
                             @if ($type == 'noCampers')
-                                <span style="display:none;">{{strtotime($dataEnvio)}}</span>
+                                <span style="display:none;">{{ strtotime($dataEnvio) }}</span>
                                 {{ date('d/m/Y H:i:s', strtotime($dataEnvio)) }}
                             @endif
                             @if (isset($person->image) && $type == 'campers')
@@ -329,4 +316,123 @@
         </div>
     </div>
     <x-footer />
+@stop
+@section('js')
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.13.2/sorting/date-euro.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.13.2/i18n/pt-BR.json"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"
+        integrity="sha512-CryKbMe7sjSCDPl18jtJI5DR5jtkUWxPXWaLCst6QjH8wxDexfRJic2WRmRXmstr2Y8SxDDWuBO6CQC6IE4KTA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $(document).ready(function() {
+            var table = $('#table1').DataTable();
+
+            table.order([0, 'asc']).draw();
+        });
+
+        async function downloadXLSX(btn) {
+            const wb = XLSX.utils.book_new();
+
+            const resultado = await $.get(`@php echo route('person.waiting-list') @endphp`);
+            const hoje = moment();
+            const pessoas = resultado.map((person) => {
+                const {
+                    name,
+                    contact,
+                    cpf,
+                    email,
+                    instagram,
+                    facebook,
+                    gender,
+                    street,
+                    district,
+                    number,
+                    complement,
+                    city,
+                    state,
+                    date_birthday,
+                    parish,
+                    religion,
+                    is_baptized,
+                    is_confirmed,
+                    is_eucharist,
+                    is_pastoral,
+                    pastoral,
+                    marital_status,
+                    modality,
+                    waiting_date,
+                    created_at
+                } = person;
+
+                const dataNascimento = moment(date_birthday);
+                const idade = hoje.diff(dataNascimento, 'years');
+
+                console.log(waiting_date);
+                const dataEnvioFicha = waiting_date != null ? waiting_date : created_at;
+
+                const sexo = gender === 1 ? 'masculino' : 'feminino';
+                const batizado = is_baptized === 1 ? 'sim' : 'não';
+                const crismado = is_confirmed === 1 ? 'sim' : 'não';
+                const primeiraEucaristia = is_eucharist === 1 ? 'sim' : 'não';
+                const participaPastoral = is_pastoral === 1 ? 'sim' : 'não';
+                const estadoCivil = [
+                    'solteiro',
+                    'casado',
+                    'separado',
+                    'divorciado',
+                    'viúvo',
+                    'amasiado',
+                    'padre',
+                    'freira'
+                ][marital_status];
+                const aguardandoAcampamento = [
+                    'mirim',
+                    'FAC',
+                    'Juvenil',
+                    'Sênior',
+                    'Casais'
+                ][modality];
+
+                return {
+                    nome: name,
+                    contato: contact,
+                    cpf: cpf,
+                    email: email,
+                    instagram: instagram,
+                    facebook: facebook,
+                    sexo: sexo,
+                    rua: street,
+                    bairro: district,
+                    numero: number,
+                    complemento: complement,
+                    cidade: city,
+                    estado: state,
+                    dataNascimento: dataNascimento.format('DD/MM/YYYY'),
+                    idade: idade,
+                    paroquia: parish,
+                    religiao: religion,
+                    batizado: batizado,
+                    primeiraEucaristia: primeiraEucaristia,
+                    crismado: crismado,
+                    participaPastoral: participaPastoral,
+                    pastoral: pastoral,
+                    estadoCivil: estadoCivil,
+                    dataEnvioFicha: moment(dataEnvioFicha).format('DD/MM/YYYY'),
+                    aguardandoAcampamento: aguardandoAcampamento
+                };
+            });
+
+            const dados = pessoas;
+
+            const ws = XLSX.utils.json_to_sheet(dados);
+            wb.SheetNames.push('Lista de pré-fichas');
+            wb.Sheets['Lista de pré-fichas'] = ws;
+
+            XLSX.writeFile(wb, 'Lista de pré-fichas.xlsx', {
+                bookType: 'xlsx',
+                type: 'binary'
+            });
+        }
+    </script>
 @stop

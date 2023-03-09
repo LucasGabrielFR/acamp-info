@@ -292,6 +292,14 @@ class PersonController extends Controller
         return back();
     }
 
+    public function waitingList()
+    {
+        $waitingList = $this->repository->getNoCampers();
+
+        return response()->json($waitingList);
+    }
+
+    //API ROUTES
     public function register(Request $request)
     {
         $data = $request->all();
