@@ -59,7 +59,7 @@
                     <div class="card">
                         <div class="card-header">
                             <b>Campistas</b>
-                            <x-adminlte-button onclick="loadNoCampers(0)" label="Adicionar Campistas" data-toggle="modal"
+                            <x-adminlte-button onclick="loadNoCampers()" label="Adicionar Campistas" data-toggle="modal"
                                 data-target="#campersModal" class="bg-teal" />
                             <x-adminlte-button onclick="downloadCampistasXlsx()" label="Planilha de campistas"
                                 class="bg-success float-right" icon="fas fa-lg fa-table" id="planilhaCampistas" />
@@ -298,7 +298,7 @@ switch ($camper->group) {
         <div class="row">
             <div class="col-4">
                 <input class="form-control" type="search" name="searchNoCampers" id="searchNoCampers"
-                    placeholder="Buscar" onkeyup="loadNoCampers(1)">
+                    placeholder="Buscar" onkeyup="loadNoCampers(this)">
             </div>
         </div>
         <hr>
@@ -467,7 +467,7 @@ switch ($camper->group) {
             }
         }
 
-        function loadNoCampers(search) {
+        function loadNoCampers(search = 0) {
             const waitingHtml = '<b>Carregando...</b>';
             campersContent.innerHTML = waitingHtml;
 
