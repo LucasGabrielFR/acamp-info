@@ -314,7 +314,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Estado Civil</label>
-                    <select name="marital_status" id="marital_status" class="custom-select" onchange="handleChange(this)" >
+                    <select name="marital_status" id="marital_status" class="custom-select" onchange="handleChange(this)" required>
                         <option>Selecione</option>
                         <option value="0">Solteiro</option>
                         <option value="1">Casado</option>
