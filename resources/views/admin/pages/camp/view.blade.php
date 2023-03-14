@@ -879,7 +879,6 @@ switch ($camper->group) {
             const wb = XLSX.utils.book_new();
 
             const nomeArquivo = '{{ $camp->name }}';
-            console.log(nomeArquivo);
             const resultado = await $.get(`@php echo route('camp.servants', $camp->id) @endphp`);
 
             const hoje = moment();
@@ -927,7 +926,7 @@ switch ($camper->group) {
                 ][marital_status];
 
                 let setor = '';
-                switch (setor) {
+                switch (sector) {
                     case ('animacao'):
                         setor = 'Animação';
                         break;
