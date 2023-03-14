@@ -879,6 +879,7 @@ switch ($camper->group) {
             const wb = XLSX.utils.book_new();
 
             const nomeArquivo = '{{ $camp->name }}';
+            console.log(nomeArquivo);
             const resultado = await $.get(`@php echo route('camp.servants', $camp->id) @endphp`);
 
             const hoje = moment();
@@ -1023,7 +1024,7 @@ switch ($camper->group) {
             wb.SheetNames.push(nomeArquivo);
             wb.Sheets[nomeArquivo] = ws;
 
-            XLSX.writeFile(wb, `${nomeArquivo }.xlsx`, {
+            XLSX.writeFile(wb, `${nomeArquivo}.xlsx`, {
                 bookType: 'xlsx',
                 type: 'binary'
             });
