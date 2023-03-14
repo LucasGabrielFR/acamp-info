@@ -477,20 +477,39 @@ switch ($camper->group) {
                 search: search.value
             };
 
-            $.get(endpoint, data, async function(resultado) {
-                let newHtml = '';
 
-                if (resultado.length < 1) {
-                    newHtml = 'Nenhum Resultado encontrado';
-                }
+            if (search == 0) {
+                $.get(endpoint, data, async function(resultado) {
+                    let newHtml = '';
 
-                for (const person of resultado) {
-                    const personHtml = await buildPersonHtml(person);
-                    newHtml += personHtml;
-                }
+                    if (resultado.length < 1) {
+                        newHtml = 'Nenhum Resultado encontrado';
+                    }
 
-                campersContent.innerHTML = newHtml;
-            });
+                    for (const person of resultado) {
+                        const personHtml = await buildPersonHtml(person);
+                        newHtml += personHtml;
+                    }
+
+                    campersContent.innerHTML = newHtml;
+                });
+            } else {
+                $.post(endpoint, data, async function(resultado) {
+                    let newHtml = '';
+
+                    if (resultado.length < 1) {
+                        newHtml = 'Nenhum Resultado encontrado';
+                    }
+
+                    for (const person of resultado) {
+                        const personHtml = await buildPersonHtml(person);
+                        newHtml += personHtml;
+                    }
+
+                    campersContent.innerHTML = newHtml;
+                });
+            }
+
         }
 
         async function buildPersonHtml(person) {
@@ -787,29 +806,29 @@ switch ($camper->group) {
                 ][marital_status];
 
                 let tribo = '';
-                switch(group){
-                    case('red'):
+                switch (group) {
+                    case ('red'):
                         tribo = 'vermelha';
                         break;
-                    case('blue'):
+                    case ('blue'):
                         tribo = 'azul';
                         break;
-                    case('orange'):
+                    case ('orange'):
                         tribo = 'laranja';
                         break;
-                    case('yellow'):
+                    case ('yellow'):
                         tribo = 'amarelo';
                         break;
-                    case('green'):
+                    case ('green'):
                         tribo = 'verde';
                         break;
-                    case('brown'):
+                    case ('brown'):
                         tribo = 'marrom';
                         break;
-                    case('black'):
+                    case ('black'):
                         tribo = 'preto';
                         break;
-                    case('purple'):
+                    case ('purple'):
                         tribo = 'roxo';
                         break;
                 }
