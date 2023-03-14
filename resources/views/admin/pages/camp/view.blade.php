@@ -878,7 +878,7 @@ switch ($camper->group) {
             $('#planilhaServos').attr("disabled", true);
             const wb = XLSX.utils.book_new();
 
-            const nomeArquivo = 'Servos-{{ $camp->name }}';
+            const nomeArquivo = '{{ $camp->name }}';
             const resultado = await $.get(`@php echo route('camp.servants', $camp->id) @endphp`);
 
             const hoje = moment();
