@@ -59,7 +59,7 @@
                     <div class="card">
                         <div class="card-header">
                             <b>Campistas</b>
-                            <x-adminlte-button onclick="loadNoCampers()" label="Adicionar Campistas" data-toggle="modal"
+                            <x-adminlte-button onclick="loadNoCampers(0)" label="Adicionar Campistas" data-toggle="modal"
                                 data-target="#campersModal" class="bg-teal" />
                             <x-adminlte-button onclick="downloadCampistasXlsx()" label="Planilha de campistas"
                                 class="bg-success float-right" icon="fas fa-lg fa-table" id="planilhaCampistas" />
@@ -467,7 +467,7 @@ switch ($camper->group) {
             }
         }
 
-        function loadNoCampers(search = 0) {
+        function loadNoCampers(search) {
             const waitingHtml = '<b>Carregando...</b>';
             campersContent.innerHTML = waitingHtml;
 
