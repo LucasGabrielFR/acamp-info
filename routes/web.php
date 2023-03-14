@@ -30,6 +30,7 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::get('person/edit', [PersonController::class, 'personalEdit'])->name('personal.edit');
     Route::put('person/edit/{id}', [PersonController::class, 'personalUpdate'])->name('personal.update');
     Route::get('admin/people/waiting-list', [PersonController::class, 'waitingList'])->name('person.waiting-list')->middleware('isAdmin');
+    Route::get('admin/people/campers-list', [PersonController::class, 'campersList'])->name('person.campers-list')->middleware('isAdmin');
 
     //Camp Routes
     Route::get('admin/camp', [CampController::class, 'index'])->name('camp.index')->middleware('isAdmin');
@@ -45,6 +46,7 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::post('admin/servant/sector', [CampController::class, 'changeSector'])->name('servant.change-sector')->middleware('isAdmin');
     Route::post('admin/servant/hierarchy', [CampController::class, 'changeHierarchy'])->name('servant.change-hierarchy')->middleware('isAdmin');
     Route::get('admin/camp/{id}/noCampers', [CampController::class, 'noCampers'])->name('camp.no-campers')->middleware('isAdmin');
+    Route::get('admin/camp/{id}/campers', [CampController::class, 'campers'])->name('camp.campers')->middleware('isAdmin');
     Route::get('admin/camp/{id}/noServants', [CampController::class, 'noServants'])->name('camp.no-servants');
     Route::post('admin/camp/{id}/noCampers', [CampController::class, 'noCampersSearch'])->name('camp.no-campers-search')->middleware('isAdmin');
     Route::post('admin/camp/{id}/noServants', [CampController::class, 'noServantsSearch'])->name('camp.no-servants-search')->middleware('isAdmin');

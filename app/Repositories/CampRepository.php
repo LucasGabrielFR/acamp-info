@@ -66,6 +66,19 @@ class CampRepository
         return $campers;
     }
 
+    public function getCampersAllData($id)
+    {
+        $campers = DB::table('campers as c')->select(
+            'c.person_id',
+            'c.id',
+            'c.group',
+            'p.*',
+        )
+            ->join('people as p', 'p.id', '=', 'c.person_id')
+            ->where('camp_id', $id)->get();
+        return $campers;
+    }
+
     public function getServants($id)
     {
         $servants = DB::table('servants as s')->select(

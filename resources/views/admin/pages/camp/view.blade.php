@@ -61,6 +61,8 @@
                             <b>Campistas</b>
                             <x-adminlte-button onclick="loadNoCampers()" label="Adicionar Campistas" data-toggle="modal"
                                 data-target="#campersModal" class="bg-teal" />
+                            <x-adminlte-button onclick="downloadCampistasXlsx()" label="Planilha de campistas"
+                                class="bg-success float-right" icon="fas fa-lg fa-table" id="planilhaCampistas" />
                         </div>
                         <div class="card-body">
                             <x-adminlte-datatable id="table1" :heads="$heads" class="">
@@ -80,7 +82,7 @@
                                                 onchange="alteraTribo(this, 0)" onclick="adicionaOptions(this, 0)"
                                                 onblur="removeOptions(this, 0)"
                                                 @php
-                                                    switch ($camper->group) {
+switch ($camper->group) {
                                                         case 'red':
                                                             echo 'style="background: red; color: white"';
                                                             break;
@@ -295,8 +297,8 @@
         @csrf
         <div class="row">
             <div class="col-4">
-                <input class="form-control" type="search" name="searchNoCampers" id="searchNoCampers" placeholder="Buscar"
-                    onkeyup="loadNoCampers(this)">
+                <input class="form-control" type="search" name="searchNoCampers" id="searchNoCampers"
+                    placeholder="Buscar" onkeyup="loadNoCampers(1)">
             </div>
         </div>
         <hr>
@@ -328,9 +330,11 @@
         </x-slot>
     </x-adminlte-modal>
     <x-footer />
-    <script src="https://code.jquery.com/jquery-3.6.1.slim.js"
-        integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
-
+@stop
+@section('js')
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
     <script>
         var addCampers = [];
         var addServants = [];
@@ -492,8 +496,10 @@
         async function buildPersonHtml(person) {
             const addIconClass = addCampers.includes(person.id) ? 'fa-check' : 'fa-plus';
             const addIconHtml = `<i class="fas fa-lg fa-fw ${addIconClass} text-success" id="camper${person.id}"></i>`;
-            const parishHtml = person.parish ? `<div class="col-md-3">${person.parish}</div>` : '<div class="col-md-3"></div>';
-            const cityHtml = person.city ? `<div class="col-md-3">${person.city}</div>` : '<div class="col-md-3"></div>';
+            const parishHtml = person.parish ? `<div class="col-md-3">${person.parish}</div>` :
+                '<div class="col-md-3"></div>';
+            const cityHtml = person.city ? `<div class="col-md-3">${person.city}</div>` :
+                '<div class="col-md-3"></div>';
 
             return `
                 <div class="row mt-1">
@@ -728,6 +734,123 @@
                 hierarchy: src.value,
                 servant_id: servant_id[1]
             });
+        }
+
+        async function downloadCampistasXlsx() {
+            $('#planilhaCampistas').attr("disabled", true);
+            const wb = XLSX.utils.book_new();
+
+            const nomeArquivo = 'Lista de campistas - {{ $camp->name }}';
+            const resultado = await $.get(`@php echo route('camp.campers', $camp->id) @endphp`);
+
+            const hoje = moment();
+            const pessoas = resultado.map((person) => {
+                const {
+                    name,
+                    contact,
+                    cpf,
+                    email,
+                    instagram,
+                    facebook,
+                    gender,
+                    street,
+                    district,
+                    number,
+                    complement,
+                    city,
+                    state,
+                    date_birthday,
+                    parish,
+                    religion,
+                    is_baptized,
+                    is_confirmed,
+                    is_eucharist,
+                    marital_status,
+                    group
+                } = person;
+
+                const dataNascimento = moment(date_birthday);
+                const idade = hoje.diff(dataNascimento, 'years');
+                const sexo = gender === 1 ? 'masculino' : 'feminino';
+                const batizado = is_baptized === 1 ? 'sim' : 'não';
+                const crismado = is_confirmed === 1 ? 'sim' : 'não';
+                const primeiraEucaristia = is_eucharist === 1 ? 'sim' : 'não';
+                const estadoCivil = [
+                    'solteiro',
+                    'casado',
+                    'separado',
+                    'divorciado',
+                    'viúvo',
+                    'amasiado',
+                    'padre',
+                    'freira'
+                ][marital_status];
+
+                let tribo = '';
+                switch(group){
+                    case('red'):
+                        tribo = 'vermelha';
+                        break;
+                    case('blue'):
+                        tribo = 'azul';
+                        break;
+                    case('orange'):
+                        tribo = 'laranja';
+                        break;
+                    case('yellow'):
+                        tribo = 'amarelo';
+                        break;
+                    case('green'):
+                        tribo = 'verde';
+                        break;
+                    case('brown'):
+                        tribo = 'marrom';
+                        break;
+                    case('black'):
+                        tribo = 'preto';
+                        break;
+                    case('purple'):
+                        tribo = 'roxo';
+                        break;
+                }
+
+                return {
+                    nome: name,
+                    contato: contact,
+                    cpf: cpf,
+                    email: email,
+                    instagram: instagram,
+                    facebook: facebook,
+                    sexo: sexo,
+                    rua: street,
+                    bairro: district,
+                    numero: number,
+                    complemento: complement,
+                    cidade: city,
+                    estado: state,
+                    dataNascimento: dataNascimento.format('DD/MM/YYYY'),
+                    idade: idade,
+                    paroquia: parish,
+                    religiao: religion,
+                    batizado: batizado,
+                    primeiraEucaristia: primeiraEucaristia,
+                    crismado: crismado,
+                    estadoCivil: estadoCivil,
+                    tribo: tribo
+                };
+            });
+
+            const dados = pessoas;
+
+            const ws = XLSX.utils.json_to_sheet(dados);
+            wb.SheetNames.push(nomeArquivo);
+            wb.Sheets[nomeArquivo] = ws;
+
+            XLSX.writeFile(wb, `${nomeArquivo }.xlsx`, {
+                bookType: 'xlsx',
+                type: 'binary'
+            });
+            $('#planilhaCampistas').attr("disabled", false);
         }
     </script>
 @stop

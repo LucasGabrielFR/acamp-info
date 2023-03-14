@@ -98,6 +98,13 @@ class CampController extends Controller
         return response()->json($noCampers);
     }
 
+    public function campers($id)
+    {
+        $campers = $this->repository->getCampersAllData($id);
+
+        return response()->json($campers);
+    }
+
     public function noCampersSearch(Request $request, $id)
     {
         $noCampers = $this->repository->getNoCampersSearch($request, $id);

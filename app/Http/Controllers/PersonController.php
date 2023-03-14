@@ -299,6 +299,20 @@ class PersonController extends Controller
         return response()->json($waitingList);
     }
 
+    public function campersList()
+    {
+        $campersList = $this->repository->getAllCampers();
+
+        foreach ($campersList as $key => $person) {
+            $serves = $this->repository->getPersonServers($person->id);
+            $camps = $this->repository->getPersonCamps($person->id);
+            $campersList[$key]->serves = $serves;
+            $campersList[$key]->camps = $camps;
+        }
+
+        return response()->json($campersList);
+    }
+
     //API ROUTES
     public function register(Request $request)
     {

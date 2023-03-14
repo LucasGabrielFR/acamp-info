@@ -6,11 +6,15 @@
     @if ($type == 'noCampers')
         <h1>Fichas disponíveis</h1>
         <a href="{{ route('person.create') }}" class="btn btn-success">Novo Cadastro</a>
-        <button class="btn btn-success" onclick="downloadXLSX(this)" id="planilha"><i class="fas fa-lg fa-fw fa-table"></i> Baixar
+        <button class="btn btn-success" onclick="downloadXLSX(this)" id="planilha"><i class="fas fa-lg fa-fw fa-table"></i>
+            Baixar
             Planilha</button>
     @endif
     @if ($type == 'campers')
         <h1>Campistas</h1>
+        <button class="btn btn-success" onclick="downloadXLSX(this)" id="planilha"><i class="fas fa-lg fa-fw fa-table"></i>
+            Baixar
+            Planilha</button>
     @endif
     <style>
         .badge-brown {
@@ -322,7 +326,6 @@
     <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.13.2/sorting/date-euro.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.13.2/i18n/pt-BR.json"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"
-        integrity="sha512-CryKbMe7sjSCDPl18jtJI5DR5jtkUWxPXWaLCst6QjH8wxDexfRJic2WRmRXmstr2Y8SxDDWuBO6CQC6IE4KTA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $(document).ready(function() {
@@ -335,7 +338,17 @@
             $('#planilha').attr("disabled", true);
             const wb = XLSX.utils.book_new();
 
-            const resultado = await $.get(`@php echo route('person.waiting-list') @endphp`);
+            @if ($type == 'noCampers')
+                const nomeArquivo = 'Lista de pré-fichas';
+                const resultado = await $.get(`@php echo route('person.waiting-list') @endphp`);
+            @endif
+
+            @if ($type == 'campers')
+                const nomeArquivo = 'Lista de campistas';
+                const resultado = await $.get(`@php echo route('person.campers-list') @endphp`);
+            @endif
+
+
             const hoje = moment();
             const pessoas = resultado.map((person) => {
                 const {
@@ -426,14 +439,15 @@
             const dados = pessoas;
 
             const ws = XLSX.utils.json_to_sheet(dados);
-            wb.SheetNames.push('Lista de pré-fichas');
-            wb.Sheets['Lista de pré-fichas'] = ws;
+            wb.SheetNames.push(nomeArquivo);
+            wb.Sheets[nomeArquivo] = ws;
 
-            XLSX.writeFile(wb, 'Lista de pré-fichas.xlsx', {
+            XLSX.writeFile(wb, `${nomeArquivo }.xlsx`, {
                 bookType: 'xlsx',
                 type: 'binary'
             });
             $('#planilha').attr("disabled", false);
         }
+
     </script>
 @stop
