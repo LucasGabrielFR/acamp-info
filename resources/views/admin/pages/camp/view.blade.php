@@ -173,6 +173,8 @@ switch ($camper->group) {
                             <b>Servos</b>
                             <x-adminlte-button onclick="loadNoServants()" label="Adicionar Servos" data-toggle="modal"
                                 data-target="#servantsModal" class="bg-teal" />
+                            <x-adminlte-button onclick="downloadServosXlsx()" label="Planilha de Servos"
+                                class="bg-success float-right" icon="fas fa-lg fa-table" id="planilhaServos" />
                         </div>
                         <div class="card-body">
                             <x-adminlte-datatable id="table2" :heads="$heads" class="">
@@ -870,6 +872,162 @@ switch ($camper->group) {
                 type: 'binary'
             });
             $('#planilhaCampistas').attr("disabled", false);
+        }
+
+        async function downloadServosXlsx() {
+            $('#planilhaServos').attr("disabled", true);
+            const wb = XLSX.utils.book_new();
+
+            const nomeArquivo = 'Servos-{{ $camp->name }}';
+            const resultado = await $.get(`@php echo route('camp.servants', $camp->id) @endphp`);
+
+            const hoje = moment();
+            const pessoas = resultado.map((person) => {
+                const {
+                    name,
+                    contact,
+                    cpf,
+                    email,
+                    instagram,
+                    facebook,
+                    gender,
+                    street,
+                    district,
+                    number,
+                    complement,
+                    city,
+                    state,
+                    date_birthday,
+                    parish,
+                    religion,
+                    is_baptized,
+                    is_confirmed,
+                    is_eucharist,
+                    marital_status,
+                    sector,
+                    hierarchy
+                } = person;
+
+                const dataNascimento = moment(date_birthday);
+                const idade = hoje.diff(dataNascimento, 'years');
+                const sexo = gender === 1 ? 'masculino' : 'feminino';
+                const batizado = is_baptized === 1 ? 'sim' : 'não';
+                const crismado = is_confirmed === 1 ? 'sim' : 'não';
+                const primeiraEucaristia = is_eucharist === 1 ? 'sim' : 'não';
+                const estadoCivil = [
+                    'solteiro',
+                    'casado',
+                    'separado',
+                    'divorciado',
+                    'viúvo',
+                    'amasiado',
+                    'padre',
+                    'freira'
+                ][marital_status];
+
+                let setor = '';
+                switch (setor) {
+                    case ('animacao'):
+                        setor = 'Animação';
+                        break;
+                    case ('anjo'):
+                        setor = 'Anjo/Líder/Padrinho';
+                        break;
+                    case ('cantinho-mariano'):
+                        setor = 'Cantinho Mariano';
+                        break;
+                    case ('capela'):
+                        setor = 'Capela';
+                        break;
+                    case ('coordenacao'):
+                        setor = 'Coordenação';
+                        break;
+                    case ('cozinha'):
+                        setor = 'Cozinha';
+                        break;
+                    case ('diretor-espiritual'):
+                        setor = 'Diretor Espiritual';
+                        break;
+                    case ('evangelizacao'):
+                        setor = 'Evangelização';
+                        break;
+                    case ('farmacia'):
+                        setor = 'Farmácia';
+                        break;
+                    case ('ligacao'):
+                        setor = 'Ligação';
+                        break;
+                    case ('manutencao'):
+                        setor = 'Manutenção';
+                        break;
+                    case ('musica'):
+                        setor = 'Música';
+                        break;
+                    case ('pregacao'):
+                        setor = 'Pregação';
+                        break;
+                    case ('secretaria'):
+                        setor = 'Secretaria';
+                        break;
+                    case ('teatro'):
+                        setor = 'Teatro';
+                        break;
+                    case ('tropa-de-elite'):
+                        setor = 'Tropa de Elite';
+                        break;
+                }
+
+                let hierarquia = '';
+                switch (hierarchy) {
+                    case ('coordenacao'):
+                        hierarquia = 'Coordenação';
+                        break;
+                    case ('aux'):
+                        hierarquia = 'Auxiliar';
+                        break;
+                    case ('servo'):
+                        hierarquia = 'Servo';
+                        break;
+                }
+
+                return {
+                    nome: name,
+                    contato: contact,
+                    cpf: cpf,
+                    email: email,
+                    instagram: instagram,
+                    facebook: facebook,
+                    sexo: sexo,
+                    rua: street,
+                    bairro: district,
+                    numero: number,
+                    complemento: complement,
+                    cidade: city,
+                    estado: state,
+                    dataNascimento: dataNascimento.format('DD/MM/YYYY'),
+                    idade: idade,
+                    paroquia: parish,
+                    religiao: religion,
+                    batizado: batizado,
+                    primeiraEucaristia: primeiraEucaristia,
+                    crismado: crismado,
+                    estadoCivil: estadoCivil,
+                    setor: setor,
+                    função: hierarquia,
+                };
+            });
+
+            const dados = pessoas;
+
+            const ws = XLSX.utils.json_to_sheet(dados);
+            wb.SheetNames.push(nomeArquivo);
+            wb.Sheets[nomeArquivo] = ws;
+
+            XLSX.writeFile(wb, `${nomeArquivo }.xlsx`, {
+                bookType: 'xlsx',
+                type: 'binary'
+            });
+            $('#planilhaServos').attr("disabled", false);
         }
     </script>
 @stop

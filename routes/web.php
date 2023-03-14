@@ -48,6 +48,7 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::get('admin/camp/{id}/noCampers', [CampController::class, 'noCampers'])->name('camp.no-campers')->middleware('isAdmin');
     Route::get('admin/camp/{id}/campers', [CampController::class, 'campers'])->name('camp.campers')->middleware('isAdmin');
     Route::get('admin/camp/{id}/noServants', [CampController::class, 'noServants'])->name('camp.no-servants');
+    Route::get('admin/camp/{id}/servants', [CampController::class, 'servants'])->name('camp.servants');
     Route::post('admin/camp/{id}/noCampers', [CampController::class, 'noCampersSearch'])->name('camp.no-campers-search')->middleware('isAdmin');
     Route::post('admin/camp/{id}/noServants', [CampController::class, 'noServantsSearch'])->name('camp.no-servants-search')->middleware('isAdmin');
     Route::post('admin/camp/{id}/addCampers', [CampController::class, 'addCampers'])->name('camp.add-campers')->middleware('isAdmin');

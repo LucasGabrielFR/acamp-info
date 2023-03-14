@@ -97,6 +97,21 @@ class CampRepository
         return $servants;
     }
 
+    public function getServantsAllData($id)
+    {
+        $servants = DB::table('servants as s')->select(
+            's.person_id',
+            's.id',
+            's.group',
+            's.sector',
+            's.hierarchy',
+            'p.*',
+        )
+            ->join('people as p', 'p.id', '=', 's.person_id')
+            ->where('camp_id', $id)->get();
+        return $servants;
+    }
+
     public function getNoCampers($id)
     {
         $campers = DB::table('people as p')

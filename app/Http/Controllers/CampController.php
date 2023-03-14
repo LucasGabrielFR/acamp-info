@@ -149,6 +149,13 @@ class CampController extends Controller
         return response()->json($noServants);
     }
 
+    public function servants($id)
+    {
+        $servants = $this->repository->getServantsAllData($id);
+
+        return response()->json($servants);
+    }
+
     public function noServantsSearch(Request $request, $id)
     {
         $camp = $this->repository->getCamp($id);
