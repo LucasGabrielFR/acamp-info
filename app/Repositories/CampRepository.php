@@ -192,7 +192,7 @@ class CampRepository
             $person = Person::where('id', $new)->first();
             $data['is_waiting'] = 0;
             $data['waiting_date'] = null;
-            $person->update();
+            $person->update($data);
         }
     }
 
@@ -210,7 +210,7 @@ class CampRepository
             $person = Person::where('id', $request->person_id)->first();
             $data['is_waiting'] = 0;
             $data['waiting_date'] = null;
-            $person->update();
+            $person->update($data);
             return true;
         } else {
             return false;
