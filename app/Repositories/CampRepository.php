@@ -189,11 +189,10 @@ class CampRepository
             $camper->camp_id = $id;
             $camper->save();
 
-            $person = new Person;
-            $person->id = $new;
-            $person->is_waiting = 0;
-            $person->waiting_date = null;
-            $person->save();
+            $person = Person::where('id', $new)->first();
+            $data['is_waiting'] = 0;
+            $data['waiting_date'] = null;
+            $person->update();
         }
     }
 
@@ -208,11 +207,10 @@ class CampRepository
             $camper->group = $request->tribo;
             $camper->save();
 
-            $person = new Person;
-            $person->id = $request->person_id;
-            $person->is_waiting = 0;
-            $person->waiting_date = null;
-            $person->save();
+            $person = Person::where('id', $request->person_id)->first();
+            $data['is_waiting'] = 0;
+            $data['waiting_date'] = null;
+            $person->update();
             return true;
         } else {
             return false;
