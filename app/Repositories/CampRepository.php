@@ -183,6 +183,7 @@ class CampRepository
 
     public function addCampers(Request $request, $id)
     {
+        $camp = $this->getCamp($id);
         foreach ($request->campers as $new) {
             $camper = new Camper;
             $camper->person_id = $new;
@@ -190,10 +191,12 @@ class CampRepository
             $camper->save();
 
             $person = Person::where('id', $new)->first();
-            $data['is_waiting'] = 0;
-            $data['waiting_date'] = null;
-            $data['modality'] = null;
-            $person->update($data);
+            if ($camp->type->order === $person->modality) {
+                $data['is_waiting'] = 0;
+                $data['waiting_date'] = null;
+                $data['modality'] = null;
+                $person->update($data);
+            }
         }
     }
 
