@@ -211,11 +211,15 @@ class CampRepository
             $camper->group = $request->tribo;
             $camper->save();
 
+            $camp = $this->getCamp($request->camp_id);
             $person = Person::where('id', $request->person_id)->first();
-            $data['is_waiting'] = 0;
-            $data['waiting_date'] = null;
-            $data['modality'] = null;
-            $person->update($data);
+
+            if ($camp->type->order === $person->modality) {
+                $data['is_waiting'] = 0;
+                $data['waiting_date'] = null;
+                $data['modality'] = null;
+                $person->update($data);
+            }
             return true;
         } else {
             return false;
