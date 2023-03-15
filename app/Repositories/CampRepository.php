@@ -212,6 +212,7 @@ class CampRepository
             $person->id = $request->person_id;
             $person->is_waiting = 0;
             $person->waiting_date = null;
+            $person->save();
             return true;
         } else {
             return false;
