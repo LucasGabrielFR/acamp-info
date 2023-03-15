@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\AcampType;
 use App\Models\Camp;
 use App\Models\Camper;
+use App\Models\Person;
 use App\Models\Servant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -187,6 +188,12 @@ class CampRepository
             $camper->person_id = $new;
             $camper->camp_id = $id;
             $camper->save();
+
+            $person = new Person;
+            $person->id = $new;
+            $person->is_waiting = 0;
+            $person->waiting_date = null;
+            $person->save();
         }
     }
 
@@ -200,6 +207,11 @@ class CampRepository
             $camper->camp_id = $request->camp_id;
             $camper->group = $request->tribo;
             $camper->save();
+
+            $person = new Person;
+            $person->id = $request->person_id;
+            $person->is_waiting = 0;
+            $person->waiting_date = null;
             return true;
         } else {
             return false;
