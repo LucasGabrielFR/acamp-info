@@ -31,7 +31,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('admin', function(User $user){
-            return $user->acl === 1;
+            return $user->acl === 1 || $user->acl === 9;
         });
     }
 }
