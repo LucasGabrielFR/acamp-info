@@ -108,6 +108,7 @@ class PersonController extends Controller
         $campers = $this->repository->getPersonCamps($id);
         $campRepository = new CampRepository(new Camp());
         $camps = $campRepository->getAllCamps();
+        $user = Auth::user();
 
         if (!$person)
             return redirect()->back();
@@ -117,6 +118,7 @@ class PersonController extends Controller
             'camps' => $camps,
             'serves' => $serves,
             'campers' => $campers,
+            'user' => $user
         ]);
     }
 
@@ -142,11 +144,13 @@ class PersonController extends Controller
         $person = $this->repository->getPerson($id);
         $max = $this->repository->getMaxCamp($id);
         $person->max = $max->max;
+        $user = Auth::user();
         if (!$person)
             return redirect()->back();
 
         return view('admin.pages.people.edit', [
             'person' => $person,
+            'user' => $user
         ]);
     }
 

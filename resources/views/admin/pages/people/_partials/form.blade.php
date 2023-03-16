@@ -542,7 +542,7 @@
                 </div>
             </div>
         </div>
-        @if(isset($person))
+        @if(isset($person) && $user->acl === 9)
             <h2>Observações <x-adminlte-button label="Adicionar Observação" data-toggle="modal"
                 data-target="#observationModal" class="bg-success" /></h2>
             <div class="row">

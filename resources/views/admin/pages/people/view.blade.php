@@ -464,37 +464,39 @@
                         </div>
                     </div>
                     <hr>
-                    <h2>Observações</h2>
-                    <div class="row">
-                        <div class="col-auto">
-                            <div class="timeline">
+                    @if ($user->acl === 9)
+                        <h2>Observações</h2>
+                        <div class="row">
+                            <div class="col-auto">
+                                <div class="timeline">
 
-                                @foreach ($person->observations as $observation)
-                                    @php
-                                        $createdAt = $observation->created_at;
-                                        $createdAt = new DateTime($createdAt);
-                                    @endphp
-                                    <div class="time-label">
-                                        <span class="bg-red">{{ $createdAt->format('d/m/Y') }}</span>
-                                    </div>
+                                    @foreach ($person->observations as $observation)
+                                        @php
+                                            $createdAt = $observation->created_at;
+                                            $createdAt = new DateTime($createdAt);
+                                        @endphp
+                                        <div class="time-label">
+                                            <span class="bg-red">{{ $createdAt->format('d/m/Y') }}</span>
+                                        </div>
 
-                                    <div>
-                                        <i class="fas fa-info bg-blue"></i>
-                                        <div class="timeline-item">
-                                            <span class="time text-white"><i class="fas fa-clock"></i>
-                                                {{ $createdAt->format('H:i') }}</span>
-                                            <h3 class="timeline-header bg-info">
-                                                <b>{{ $observation->camp->name }}</b>
-                                            </h3>
-                                            <div class="timeline-body">
-                                                {{ $observation->observation }}
+                                        <div>
+                                            <i class="fas fa-info bg-blue"></i>
+                                            <div class="timeline-item">
+                                                <span class="time text-white"><i class="fas fa-clock"></i>
+                                                    {{ $createdAt->format('H:i') }}</span>
+                                                <h3 class="timeline-header bg-info">
+                                                    <b>{{ $observation->camp->name }}</b>
+                                                </h3>
+                                                <div class="timeline-body">
+                                                    {{ $observation->observation }}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @endforeach
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>

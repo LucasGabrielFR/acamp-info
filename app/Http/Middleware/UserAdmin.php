@@ -18,7 +18,7 @@ class UserAdmin
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
-        if($user->acl !== 1){
+        if($user->acl !== 1 && $user->acl !== 9){
             return redirect('person');
         }
         return $next($request);
