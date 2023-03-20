@@ -320,11 +320,12 @@ class PersonController extends Controller
 
     public function printRecord()
     {
+        $html = file_get_contents(url('templates/ficha.html'));
         $dompdf = new Dompdf();
-        $dompdf->loadHtmlFile(url('templates/ficha.html'));
+        $dompdf->loadHtml($html);
         $dompdf->setPaper("A4");
         $dompdf->render();
-        $dompdf->stream("file.pdf", ["Attachment" => false]);
+        $dompdf->stream("file.pdf", ["Attachment" => true]);
     }
 
     //API ROUTES
