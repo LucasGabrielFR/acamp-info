@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Dompdf\Dompdf;
 
 class PersonController extends Controller
 {
@@ -166,11 +167,11 @@ class PersonController extends Controller
 
         $person = $this->repository->getPerson($id);
 
-        if ($person->modality != $data['modality'] && $data['modality']!= 9) {
+        if ($person->modality != $data['modality'] && $data['modality'] != 9) {
             $data['waiting_date'] = date('Y-m-d H:i:s');
         }
 
-        if($data['modality']!= 9){
+        if ($data['modality'] != 9) {
             $data['waiting_date'] = null;
         }
 
@@ -261,11 +262,11 @@ class PersonController extends Controller
 
         $person = $this->repository->getPerson($id);
 
-        if ($person->modality != $data['modality'] && $data['modality']!= 9) {
+        if ($person->modality != $data['modality'] && $data['modality'] != 9) {
             $data['waiting_date'] = date('Y-m-d H:i:s');
         }
 
-        if($data['modality']!= 9){
+        if ($data['modality'] != 9) {
             $data['waiting_date'] = null;
         }
 
@@ -315,6 +316,15 @@ class PersonController extends Controller
         }
 
         return response()->json($campersList);
+    }
+
+    public function printRecord()
+    {
+        $dompdf = new Dompdf();
+        $dompdf->loadHtmlFile(url('templates/ficha.html'));
+        $dompdf->setPaper("A4");
+        $dompdf->render();
+        $dompdf->stream("file.pdf", ["Attachment" => false]);
     }
 
     //API ROUTES

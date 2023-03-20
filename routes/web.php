@@ -86,9 +86,11 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
 
     //User Routes
     Route::post('user/authorize', [UserController::class, 'authorizeData'])->name('user.authorize');
+
+    //PDF Routes
+    Route::get('admin/person/{id}/pdf', [PersonController::class, 'printRecord'])->name('person.print-pdf')->middleware('isAdmin');
 });
 
-Route::get('online/form', [PersonController::class, 'online'])->name('people.online');
 Route::get('/', function () {
     return redirect('/login');
 });

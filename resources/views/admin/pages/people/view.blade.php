@@ -140,11 +140,12 @@
         <a class="btn btn-primary mx-1 shadow" href="{{ route('person.edit', $person->id) }}">
             Editar
         </a>
+        <button class="btn btn-primary mx-1 shadow" onclick="downloadFichaPDF()">Baixar PDF</button>
     </div>
 @stop
 
 @section('content')
-    <div class="card">
+    <div class="card" id="ficha">
         @csrf
         <div class="card-body">
             <div class="row">
@@ -1006,6 +1007,10 @@
                 $("#campModal").modal('show');
                 camp_id = retorno.camp_id;
             });
+        }
+
+        async function downloadFichaPDF() {
+            const resultado = await $.get(`@php echo route('person.print-pdf', $person->id) @endphp`);
         }
     </script>
 @stop
