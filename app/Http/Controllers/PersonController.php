@@ -326,8 +326,6 @@ class PersonController extends Controller
         $dompdf->setPaper("A4");
         $dompdf->render();
         $dompdf->stream("file.pdf", ["Attachment" => true]);
-        $pdf = $dompdf->output();
-        file_put_contents('output.pdf', $pdf);
     }
 
     //API ROUTES
