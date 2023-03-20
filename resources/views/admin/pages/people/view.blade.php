@@ -1010,7 +1010,7 @@
         }
 
         async function downloadFichaPDF() {
-            await $.get(`@php echo route('person.print-pdf', $person->id) @endphp`);
+            window.location.href = `@php echo route('person.print-pdf', $person->id) @endphp?_download=1`;
         }
     </script>
 @stop
