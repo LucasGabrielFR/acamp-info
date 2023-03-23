@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CampController;
 use App\Http\Controllers\PersonController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,3 +20,4 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 Route::post('/register', [PersonController::class, 'register'])->name('register');
+Route::get('/getAllCamps', [CampController::class, 'getAllCamps'])->name('getAllCamps');

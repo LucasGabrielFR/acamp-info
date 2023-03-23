@@ -227,4 +227,12 @@ class CampController extends Controller
         }
         return response('Servo já está inscrito neste acampamento!', 400);
     }
+
+    //API ROUTES
+    public function getAllCamps()
+    {
+        $camps = $this->repository->getAllCamps();
+
+        return response()->json($camps);
+    }
 }
