@@ -13,3 +13,5 @@ yarn-error.log
 /.idea
 /.vscode
 /.docker
+/bootstrap/app.php
+/app/Providers/AppServiceProvider.php

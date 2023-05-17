@@ -318,16 +318,6 @@ class PersonController extends Controller
         return response()->json($campersList);
     }
 
-    public function printRecord()
-    {
-        $html = file_get_contents(url('templates/ficha.html'));
-        $dompdf = new Dompdf();
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper("A4");
-        $dompdf->render();
-        $dompdf->stream("file.pdf", ["Attachment" => true]);
-    }
-
     //API ROUTES
     public function register(Request $request)
     {

@@ -140,7 +140,7 @@
         <a class="btn btn-primary mx-1 shadow" href="{{ route('person.edit', $person->id) }}">
             Editar
         </a>
-        <button class="btn btn-primary mx-1 shadow" onclick="downloadFichaPDF()">Baixar PDF</button>
+        {{-- <button class="btn btn-primary mx-1 shadow" onclick="downloadFichaPDF()">Baixar PDF</button> --}}
     </div>
 @stop
 
