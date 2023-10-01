@@ -573,7 +573,7 @@
                                         <x-adminlte-button icon="fas fa-sm fa-fw fa-pen" label="Editar"
                                             class="bg-primary"
                                             onclick="carregaModalCamper('{{ $camper->camper_id }}')" />
-                                        <x-modal url="{{ route('camp.delete-servant', $camper->camper_id) }}"
+                                        <x-modal url="{{ route('camp.delete-camper', $camper->camper_id) }}"
                                             id="{{ $camper->camper_id }}" name="{{ $camper->camp_name }}" />
                                 </x-adminlte-card>
                             </div>
