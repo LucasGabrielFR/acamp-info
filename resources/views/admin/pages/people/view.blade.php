@@ -518,7 +518,6 @@
                     <div class="flex-row">
                         @foreach ($campers as $camper)
                             @php
-                                dd($camper);
                                 $cardColor = $camper->group;
                                 if ($cardColor == 'black') {
                                     $cardColor = 'dark';
