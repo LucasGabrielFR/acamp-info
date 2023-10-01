@@ -540,7 +540,7 @@
                                     <div class="row justify-content-end">
                                         <x-adminlte-button icon="fas fa-sm fa-fw fa-pen" label="Editar"
                                             class="bg-primary" onclick="carregaModalServe('{{ $serve->servant_id }}')" />
-                                        <x-adminlte-button icon="fas fa-sm fa-fw fa-trash" label="Editar"
+                                        <x-adminlte-button icon="fas fa-sm fa-fw fa-trash" label="Excluir"
                                             class="bg-danger" onclick="carregaModalServe('{{ $serve->servant_id }}')" />
                                     </div>
                                 </x-adminlte-card>
@@ -668,7 +668,7 @@
                                     <div class="row justify-content-end">
                                         <x-adminlte-button icon="fas fa-sm fa-fw fa-pen" label="Editar"
                                             class="bg-primary" onclick="carregaModalServe('{{ $serve->servant_id }}')" />
-                                        <x-adminlte-button icon="fas fa-sm fa-fw fa-trash" label="Editar"
+                                        <x-adminlte-button icon="fas fa-sm fa-fw fa-trash" label="Excluir"
                                             class="bg-danger" onclick="carregaModalServe('{{ $serve->servant_id }}')" />
                                     </div>
                                 </x-adminlte-card>
