@@ -342,10 +342,6 @@ class PersonController extends Controller
                     $user->acl = 2;
                     $userRepository->storeUser($user);
                 }
-
-                toastr()->success('Pré-Ficha Criada com sucesso!');
-
-                return redirect()->route('people.index');
             }
 
             return response(
