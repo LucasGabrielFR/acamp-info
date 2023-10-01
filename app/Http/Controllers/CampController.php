@@ -127,8 +127,8 @@ class CampController extends Controller
 
     public function deleteCamper($id)
     {
+        dd($id);
         $camper = $this->repository->getCamper($id);
-        dd($camper);
         $this->repository->deleteCamper($camper);
         return redirect()->back();
     }
