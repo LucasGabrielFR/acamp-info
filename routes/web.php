@@ -40,8 +40,8 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::get('admin/camp/edit/{id}', [CampController::class, 'edit'])->name('camp.edit')->middleware('isAdmin');
     Route::put('admin/camp/edit/{id}', [CampController::class, 'update'])->name('camp.update')->middleware('isAdmin');
     Route::delete('admin/camp/{id}', [CampController::class, 'delete'])->name('camp.delete')->middleware('isAdmin');
-    Route::delete('admin/camper/{id}', [CampController::class, 'deleteCamper'])->name('camp.delete-camper')->middleware('isAdmin');
-    Route::delete('admin/servant/{id}', [CampController::class, 'deleteServant'])->name('camp.delete-servant')->middleware('isAdmin');
+    Route::delete('admin/camper/{id}', [CampController::class, 'deleteCamper'])->name('camp.delete-camper');
+    Route::delete('admin/servant/{id}', [CampController::class, 'deleteServant'])->name('camp.delete-servant');
     Route::post('admin/camper/group', [CampController::class, 'changeGroup'])->name('camper.change-group')->middleware('isAdmin');
     Route::post('admin/servant/sector', [CampController::class, 'changeSector'])->name('servant.change-sector')->middleware('isAdmin');
     Route::post('admin/servant/hierarchy', [CampController::class, 'changeHierarchy'])->name('servant.change-hierarchy')->middleware('isAdmin');
@@ -55,8 +55,8 @@ Route::middleware(['auth', 'auth.session'])->group(function () {
     Route::post('admin/camp/addCamper', [CampController::class, 'addCamper'])->name('camp.add-camper');
     Route::post('admin/camp/addServe', [CampController::class, 'addServe'])->name('camp.add-serve');
     Route::post('admin/camp/updateServe', [CampController::class, 'updateServe'])->name('camp.update-serve')->middleware('isAdmin');
-    Route::post('admin/camp/getServant', [CampController::class, 'getServant'])->name('camp.get-servant')->middleware('isAdmin');
-    Route::post('admin/camp/getCamper', [CampController::class, 'getCamper'])->name('camp.get-camper')->middleware('isAdmin');
+    Route::post('admin/camp/getServant', [CampController::class, 'getServant'])->name('camp.get-servant');
+    Route::post('admin/camp/getCamper', [CampController::class, 'getCamper'])->name('camp.get-camper');
     Route::post('admin/camp/updateCamper', [CampController::class, 'updateCamper'])->name('camp.update-camper')->middleware('isAdmin');
     Route::post('admin/camp/{id}/addServants', [CampController::class, 'addServants'])->name('camp.add-servants')->middleware('isAdmin');
 
