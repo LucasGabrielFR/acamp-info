@@ -475,10 +475,10 @@
                         Acampamentos
                     </div>
                     {{-- TIRAR FUTURAMENTE --}}
-                    {{-- <div class="text-right">
+                    <div class="text-right">
                         <x-adminlte-button label="+" data-toggle="modal" data-target="#campModal"
                             class="bg-success" />
-                    </div> --}}
+                    </div>
                     {{-- TIRAR FUTURAMENTE --}}
                 </div>
                 <div class="card-body">
@@ -548,6 +548,10 @@
                 <div class="card-header">
                     <div class="card-title">
                         Serviços
+                    </div>
+                    <div class="text-right">
+                        <x-adminlte-button label="+" data-toggle="modal" data-target="#serveModal"
+                            class="bg-success" />
                     </div>
                 </div>
                 <div class="card-body">
@@ -705,6 +709,104 @@
                 id="refuseButton" />
         </x-slot>
     </x-adminlte-modal>
+    <x-adminlte-modal id="campModal" title="Campista" size="lg" theme="teal" icon="fas fa-lg fa-campground"
+        v-centered static-backdrop scrollable>
+        <div class="row">
+            <label>Acampamento que foi campista</label>
+            <select class="custom-select" id="acampamento-camper">
+                <option value="">Selecionar</option>
+                @foreach ($camps as $camp)
+                    <option value="{{ $camp->id }}">{{ $camp->name }}</option>
+                @endforeach
+            </select>
+            <div class="alert alert-danger mt-1" role="alert" id="acampamento-camper-error" style="display: none">
+                Selecione uma opção
+            </div>
+        </div>
+        <div class="row">
+            <label>Tribo</label>
+            <select class="custom-select" id="camp-tribo" onchange="paintSelectedGroup(this)">
+                <option value="">Selecionar</option>
+                <option value="red">Vermelho</option>
+                <option value="blue">Azul</option>
+                <option value="brown">Marrom</option>
+                <option value="orange">Laranja</option>
+                <option value="yellow">Amarelo</option>
+                <option value="black">Preto</option>
+                <option value="purple">Roxo</option>
+                <option value="green">Verde</option>
+            </select>
+            <div class="alert alert-danger mt-1" role="alert" id="tribo-error" style="display: none">
+                Selecione uma opção
+            </div>
+        </div>
+        <x-slot name="footerSlot">
+            <x-adminlte-button onclick="signCamper(1)" class="mr-auto" theme="success" label="Adicionar"
+                id="addCamp" />
+            <x-adminlte-button onclick="signCamper(2)" class="mr-auto" theme="success" label="Salvar" id="updateCamper"
+                style="display: none" />
+            <x-adminlte-button theme="danger" label="Cancelar" data-dismiss="modal" id="cancelCamp" />
+        </x-slot>
+    </x-adminlte-modal>
+    <x-adminlte-modal id="serveModal" title="Servir" size="lg" theme="teal" icon="fas fa-lg fa-campground"
+        v-centered static-backdrop scrollable>
+        <div class="row">
+            <label>Acampamento que foi servo</label>
+            <select class="custom-select" id="acampamento-serve">
+                <option value="">Selecionar</option>
+                @foreach ($camps as $camp)
+                    <option value="{{ $camp->id }}">{{ $camp->name }}</option>
+                @endforeach
+            </select>
+            <div class="alert alert-danger mt-1" role="alert" id="acampamento-serve-error" style="display: none">
+                Selecione uma opção
+            </div>
+        </div>
+        <div class="row">
+            <label>Setor</label>
+            <select class="custom-select" id="camp-sector">
+                <option value="">Selecione</option>
+                <option value="animacao">Animação</option>
+                <option value="anjo">Anjo/Líder/Padrinho</option>
+                <option value="cantinho-mariano">Cantinho Mariano</option>
+                <option value="capela">Capela</option>
+                <option value="coordenacao">Coordenação</option>
+                <option value="cozinha">Cozinha</option>
+                <option value="diretor-espiritual">Diretor Espiritual</option>
+                <option value="evangelizacao">Evangelização</option>
+                <option value="farmacia">Farmácia</option>
+                <option value="ligacao">Ligação</option>
+                <option value="manutencao">Manutenção</option>
+                <option value="musica">Música</option>
+                <option value="pregacao">Pregação</option>
+                <option value="secretaria">Secretaria</option>
+                <option value="teatro">Teatro</option>
+                <option value="tropa-de-elite">Tropa de Elite</option>
+            </select>
+            <div class="alert alert-danger mt-1" role="alert" id="sector-error" style="display: none">
+                Selecione uma opção
+            </div>
+        </div>
+        <div class="row">
+            <label>Função</label>
+            <select class="custom-select" id="camp-hierarchy">
+                <option value="">Selecione</option>
+                <option value="coordenacao">Coordenação</option>
+                <option value="aux">Auxiliar</option>
+                <option value="servo">Servo</option>
+            </select>
+            <div class="alert alert-danger mt-1" role="alert" id="hierarchy-error" style="display: none">
+                Selecione uma opção
+            </div>
+        </div>
+        <x-slot name="footerSlot">
+            <x-adminlte-button onclick="signServe(1)" class="mr-auto" theme="success" label="Adicionar"
+                id="addServe" />
+            <x-adminlte-button onclick="signServe(2)" class="mr-auto" theme="success" label="Salvar" id="updateServe"
+                style="display: none" />
+            <x-adminlte-button theme="danger" label="Cancelar" data-dismiss="modal" id="cancelServe" />
+        </x-slot>
+    </x-adminlte-modal>
     <x-footer />
 @stop
 @section('js')
@@ -747,6 +849,35 @@
                     'color': 'black'
                 });
             }
+        }
+
+        function carregaModalServe(servantId) {
+            $.post("@php echo route('camp.get-servant') @endphp", {
+                servant_id: servantId,
+                _token: csrf,
+            }, function(retorno) {
+                $("#acampamento-serve").val(retorno.camp_id);
+                $("#camp-hierarchy").val(retorno.hierarchy);
+                $("#camp-sector").val(retorno.sector);
+                $("#addServe").hide();
+                $("#updateServe").show();
+                $("#serveModal").modal('show');
+                camp_id = retorno.camp_id;
+            });
+        }
+
+        function carregaModalCamper(camperId) {
+            $.post("@php echo route('camp.get-camper') @endphp", {
+                camper_id: camperId,
+                _token: csrf,
+            }, function(retorno) {
+                $("#acampamento-camper").val(retorno.camp_id);
+                $("#camp-tribo").val(retorno.group);
+                $("#addCamp").hide();
+                $("#updateCamper").show();
+                $("#campModal").modal('show');
+                camp_id = retorno.camp_id;
+            });
         }
     </script>
 @stop
