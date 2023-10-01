@@ -702,7 +702,7 @@
                                     <div class="row justify-content-end">
                                         <x-adminlte-button icon="fas fa-sm fa-fw fa-pen" label="Editar"
                                             class="bg-primary" onclick="carregaModalServe('{{ $serve->servant_id }}')" />
-                                        <x-modal url="{{ route('camp.delete-camper', $serve->servant_id) }}"
+                                        <x-modal url="{{ route('camp.delete-servant', $serve->servant_id) }}"
                                             id="{{ $serve->servant_id }}" name="{{ $serve->camp_name }}" />
                                     </div>
                                 </x-adminlte-card>
