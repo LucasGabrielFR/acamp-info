@@ -539,9 +539,10 @@
                                     <br>
                                     <div class="row justify-content-end">
                                         <x-adminlte-button icon="fas fa-sm fa-fw fa-pen" label="Editar"
-                                            class="bg-primary" onclick="carregaModalServe('{{ $camper->camper_id }}')" />
-                                        <x-adminlte-button icon="fas fa-sm fa-fw fa-trash" label="Excluir"
-                                            class="bg-danger" onclick="carregaModalServe('{{ $camper->camper_id }}')" />
+                                            class="bg-primary"
+                                            onclick="carregaModalCamper('{{ $camper->camper_id }}')" />
+                                        <x-modal url="{{ route('camp.delete-camper', $camper->camper_id) }}"
+                                            id="{{ $camper->camper_id }}" name="{{ $camper->camp_name }}" />
                                     </div>
                                 </x-adminlte-card>
                             </div>
@@ -668,8 +669,8 @@
                                     <div class="row justify-content-end">
                                         <x-adminlte-button icon="fas fa-sm fa-fw fa-pen" label="Editar"
                                             class="bg-primary" onclick="carregaModalServe('{{ $serve->servant_id }}')" />
-                                        <x-adminlte-button icon="fas fa-sm fa-fw fa-trash" label="Excluir"
-                                            class="bg-danger" onclick="carregaModalServe('{{ $serve->servant_id }}')" />
+                                        <x-modal url="{{ route('camp.delete-servant', $serve->servant_id) }}"
+                                            id="{{ $serve->servant_id }}" name="{{ $serve->camp_name }}" />
                                     </div>
                                 </x-adminlte-card>
                             </div>
