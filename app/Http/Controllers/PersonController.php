@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Dompdf\Dompdf;
 
 class PersonController extends Controller
 {
@@ -327,6 +326,27 @@ class PersonController extends Controller
         if (!$this->repository->verifyCpf($data['cpf'])) {
             // if ($data['ip'] == '189.4.78.61') {
             $result = $this->repository->storePerson($data);
+
+            if ($result[0]) {
+                $userRepository = new UserRepository(new User());
+                if (count($userRepository->verifyUser($result[1]->id)) < 1) {
+                    $username = $data['cpf'];
+                    $username = str_replace('.', '', $username);
+                    $username = str_replace('-', '', $username);
+
+                    $user = new User();
+                    $user->email = $username;
+                    $user->password = Hash::make($username);
+                    $user->name = $result[1]->name;
+                    $user->person_id = $result[1]->id;
+                    $user->acl = 2;
+                    $userRepository->storeUser($user);
+                }
+
+                toastr()->success('Pré-Ficha Criada com sucesso!');
+
+                return redirect()->route('people.index');
+            }
 
             return response(
                 [
