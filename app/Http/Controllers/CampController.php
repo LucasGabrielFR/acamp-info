@@ -216,6 +216,7 @@ class CampController extends Controller
     public function getCamper(Request $request)
     {
         $camper = $this->repository->getCamper($request->camper_id);
+        dd($camper);
         return $camper;
     }
 
