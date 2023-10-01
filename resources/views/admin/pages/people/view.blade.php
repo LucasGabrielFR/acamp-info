@@ -1008,9 +1008,5 @@
                 camp_id = retorno.camp_id;
             });
         }
-
-        async function downloadFichaPDF() {
-            window.location.href = `@php echo route('person.print-pdf', $person->id) @endphp?_download=1`;
-        }
     </script>
 @stop

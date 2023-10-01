@@ -879,5 +879,155 @@
                 camp_id = retorno.camp_id;
             });
         }
+
+        function signCamper(type) {
+            let valido = true;
+            const acampamentoCamper = document.getElementById('acampamento-camper');
+            const campTribo = document.getElementById('camp-tribo');
+            if (acampamentoCamper.value.length < 3) {
+                $('#acampamento-camper-error').css({
+                    display: "block"
+                });
+                valido = false;
+            } else {
+                $('#acampamento-camper-error').css({
+                    display: "none"
+                });
+            }
+            if (campTribo.value.length < 3) {
+                $('#tribo-error').css({
+                    display: "block"
+                });
+                valido = false;
+            } else {
+                $('#tribo-error').css({
+                    display: "none"
+                });
+            }
+            if (valido) {
+                $('#addCamp').prop('disabled', true);
+                $('#cancelCamp').prop('disabled', true);
+                if (type === 1) {
+                    $.post("@php echo route('camp.add-camper') @endphp", {
+                            _token: csrf,
+                            person_id: '{{ $person->id }}',
+                            camp_id: acampamentoCamper.value,
+                            tribo: campTribo.value,
+                        })
+                        .done(function() {
+                            window.location.reload(true);
+                            $('#addCamp').prop('disabled', false);
+                            $('#cancelCamp').prop('disabled', false);
+                        })
+                        .fail(function() {
+                            $('#addCamp').prop('disabled', false);
+                            $('#cancelCamp').prop('disabled', false);
+                            alert("Esta pessoa já é campista neste acampamento")
+                        })
+                } else {
+                    $.post("@php echo route('camp.update-camper') @endphp", {
+                            _token: csrf,
+                            person_id: '{{ $person->id }}',
+                            camp_id: acampamentoCamper.value,
+                            old_camp_id: camp_id,
+                            tribo: campTribo.value,
+                        })
+                        .done(function() {
+                            window.location.reload(true);
+                            $('#updateCamper').prop('disabled', false);
+                            $('#cancelCamp').prop('disabled', false);
+                        })
+                        .fail(function() {
+                            $('#updateCamper').prop('disabled', false);
+                            $('#cancelCamp').prop('disabled', false);
+                            alert("Esta pessoa já é campista neste acampamento")
+                        })
+                }
+
+            }
+
+        }
+
+        function signServe(type) {
+            let valido = true;
+            const acampamentoServe = document.getElementById('acampamento-serve');
+            const campSector = document.getElementById('camp-sector');
+            const campHierarchy = document.getElementById('camp-hierarchy');
+            if (acampamentoServe.value.length < 3) {
+                $('#acampamento-serve-error').css({
+                    display: "block"
+                });
+                valido = false;
+            } else {
+                $('#acampamento-serve-error').css({
+                    display: "none"
+                });
+            }
+            if (campSector.value.length < 3) {
+                $('#sector-error').css({
+                    display: "block"
+                });
+                valido = false;
+            } else {
+                $('#sector-error').css({
+                    display: "none"
+                });
+            }
+            if (campHierarchy.value.length < 3) {
+                $('#hierarchy-error').css({
+                    display: "block"
+                });
+                valido = false;
+            } else {
+                $('#hierarchy-error').css({
+                    display: "none"
+                });
+            }
+            if (valido) {
+                $('#addServe').prop('disabled', true);
+                $('#updateServe').prop('disabled', true);
+                $('#cancelServe').prop('disabled', true);
+                if (type === 1) {
+                    $.post("@php echo route('camp.add-serve') @endphp", {
+                            _token: csrf,
+                            person_id: '{{ $person->id }}',
+                            camp_id: acampamentoServe.value,
+                            sector: campSector.value,
+                            hierarchy: campHierarchy.value
+                        })
+                        .done(function() {
+                            window.location.reload(true);
+                            $('#addServe').prop('disabled', false);
+                            $('#cancelServe').prop('disabled', false);
+                        })
+                        .fail(function() {
+                            $('#addServe').prop('disabled', false);
+                            $('#cancelServe').prop('disabled', false);
+                            alert("Esta pessoa já é serva neste acampamento")
+                        })
+                } else {
+                    $.post("@php echo route('camp.update-serve') @endphp", {
+                            _token: csrf,
+                            person_id: '{{ $person->id }}',
+                            camp_id: acampamentoServe.value,
+                            old_camp_id: camp_id,
+                            sector: campSector.value,
+                            hierarchy: campHierarchy.value
+                        })
+                        .done(function() {
+                            window.location.reload(true);
+                            $('#updateServe').prop('disabled', false);
+                            $('#cancelServe').prop('disabled', false);
+                        })
+                        .fail(function() {
+                            $('#updateServe').prop('disabled', false);
+                            $('#cancelServe').prop('disabled', false);
+                            alert("Esta pessoa já é serva neste acampamento")
+                        })
+                }
+
+            }
+
+        }
     </script>
 @stop
