@@ -142,14 +142,14 @@
                     <label>Gênero</label>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="gender" id="gender_male"
-                            value="1" required>
+                            value="0" required>
                         <label class="form-check-label" for="gender_male">
                             Masculino
                         </label>
                     </div>
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="gender" id="gender_fem"
-                            value="0" checked required>
+                            value="1" checked required>
                         <label class="form-check-label" for="gender_fem">
                             Feminino
                         </label>
