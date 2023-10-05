@@ -157,6 +157,7 @@ class PersonController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
+        dd($data);
 
         $familiares = $this->prepareFamilyData($data);
 
