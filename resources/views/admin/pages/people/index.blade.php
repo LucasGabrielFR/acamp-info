@@ -384,7 +384,7 @@
 
                 const dataEnvioFicha = waiting_date != null ? waiting_date : created_at;
 
-                const sexo = gender === 1 ? 'masculino' : 'feminino';
+                const sexo = gender === 1 ? 'feminino' : 'masculino';
                 const batizado = is_baptized === 1 ? 'sim' : 'não';
                 const crismado = is_confirmed === 1 ? 'sim' : 'não';
                 const primeiraEucaristia = is_eucharist === 1 ? 'sim' : 'não';
