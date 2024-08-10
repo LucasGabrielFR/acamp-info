@@ -1,0 +1,69 @@
+version: "3.7"
+
+services:
+  app:
+    container_name: laravel_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: acamp-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - redis
+    networks:
+      - laravel_net
+
+  nginx:
+    container_name: nginx_container
+    image: nginx:stable-alpine
+    restart: unless-stopped
+    ports:
+      - "8989:80"
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx/:/etc/nginx/conf.d/
+    networks:
+      - laravel_net
+
+  db:
+    container_name: mysql_db
+    image: mariadb:10
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+    volumes:
+      - ./.docker/mysql/dbdata:/var/lib/mysql
+    ports:
+      - "3388:3306"
+    networks:
+      - laravel_net
+
+  # queue
+  queue:
+    container_name: queue
+    image: acamp-app
+    restart: unless-stopped
+    command: "php artisan queue:work"
+    volumes:
+      - ./:/var/www
+    depends_on:
+      - redis
+      - app
+    networks:
+      - laravel_net
+
+  redis:
+    container_name: redis_service
+    image: redis:alpine
+    networks:
+      - laravel_net
+
+networks:
+  laravel_net:
+    driver: bridge
