@@ -486,7 +486,7 @@
                                                 <span class="time text-white"><i class="fas fa-clock"></i>
                                                     {{ $createdAt->format('H:i') }}</span>
                                                 <h3 class="timeline-header bg-info">
-                                                    <b>{{ $observation->camp->name }}</b>
+                                                    <b>{{ $observation->camp ? $observation->camp->name : 'Sem acampamento' }}</b>
                                                 </h3>
                                                 <div class="timeline-body">
                                                     {{ $observation->observation }}
