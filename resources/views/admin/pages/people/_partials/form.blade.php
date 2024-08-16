@@ -563,7 +563,7 @@
                                 <div class="timeline-item">
                                     <span class="time text-white"><i class="fas fa-clock"></i> {{$createdAt->format('H:i')}}</span>
                                     <h3 class="timeline-header bg-info">
-                                        <b>{{$observation->camp->name}}</b>
+                                        <b>{{ $observation->camp ? $observation->camp->name : 'Sem acampamento' }}</b>
                                     </h3>
                                     <div class="timeline-body">
                                         {{$observation->observation}}
@@ -577,7 +577,7 @@
             <x-adminlte-modal id="observationModal" title="Adicionar Observação" size="lg" theme="teal" icon="fas fa-pen-to-square"
             v-centered static-backdrop scrollable>
                 <div class="row">
-                    <label>Acampamento Referência da observação</label>
+                    <label>Acampamento Referência da observação (ou deixe em branco)</label>
                     <select class="custom-select" id="acampamento-referencia">
                         <option value="">Selecionar</option>
                         @foreach ($person->camps as $camper)
@@ -587,9 +587,6 @@
                             <option value="{{$serve->camp->id}}">{{$serve->camp->name}}</option>
                         @endforeach
                     </select>
-                    <div class="alert alert-danger mt-1" role="alert" id="acampamento-referencia-error" style="display: none">
-                        Selecione uma opção
-                    </div>
                 </div>
                 <div class="row">
                     <label>Observação</label>
@@ -790,19 +787,13 @@
                 }else{
                     $('#observation-error').css({display: "none"});
                 }
-                if(acampamentoReferencia.value.length < 1){
-                    $('#acampamento-referencia-error').css({display: "block"});
-                    valido = false;
-                }else{
-                    $('#acampamento-referencia-error').css({display: "none"});
-                }
                 if(valido){
                     $('#addObs').prop('disabled', true);
                     $('#cancelObs').prop('disabled', true);
                     $.post("@php echo route('observation.store') @endphp", {
                     _token: csrf,
                     observation: observation.value,
-                    camp_id: acampamentoReferencia.value,
+                    camp_id: acampamentoReferencia.value || null,
                     person_id: "@php echo $person->id @endphp",
                     type: 1,
                     }, function(retorno) {
