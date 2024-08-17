@@ -810,7 +810,7 @@
                         newHtml += '<span class="time text-white"><i class="fas fa-clock"></i>'
                         newHtml += "Agora</span>"
                         newHtml += '<h3 class="timeline-header bg-info">'
-                        newHtml += '<b>' + retorno[1].name +'</b>'
+                        newHtml += '<b>' + (retorno[1] ? retorno[1].name : 'Sem acampamento') +'</b>'
                         newHtml += '</h3>'
                         newHtml += '<div class="timeline-body">'
                         newHtml += retorno[0].observation
